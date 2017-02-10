@@ -20,6 +20,7 @@ import com.uaeemployee.Fragments.EventAndSecurityFragment;
 import com.uaeemployee.Fragments.FragmentDrawer;
 import com.uaeemployee.Fragments.IncidentManagmentFragment;
 import com.uaeemployee.Fragments.OrganizationFragment;
+import com.uaeemployee.Fragments.SubOrganizationFragment;
 import com.uaeemployee.Fragments.VacanciesFragment;
 import com.uaeemployee.Interfaces.Communicator;
 import com.uaeemployee.R;
@@ -142,6 +143,11 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
                     .beginTransaction()
                     .replace(R.id.container_body,
                             new EventAndSecurityFragment()).commit();
+        }else if (fragment instanceof SubOrganizationFragment) {
+            fragmentManager
+                    .beginTransaction()
+                    .replace(R.id.container_body,
+                            new SubOrganizationFragment()).commit();
         }
     }
 

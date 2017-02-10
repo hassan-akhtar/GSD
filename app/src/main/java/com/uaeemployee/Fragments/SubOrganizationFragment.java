@@ -6,13 +6,28 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 
+import com.uaeemployee.Adapters.CustomExpandableListAdapter;
+import com.uaeemployee.Models.SubCompaniesDummyData;
+import com.uaeemployee.Models.SubCompanyData;
+import com.uaeemployee.Models.SubSubCompanyData;
 import com.uaeemployee.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class SubOrganizationFragment extends Fragment {
+
+    ExpandableListView expandableListView;
+    ExpandableListAdapter expandableListAdapter;
+    List<SubCompanyData> expandableListTitle;
+    SubCompaniesDummyData subCompaniesDummyData;
+
+    HashMap<SubCompanyData, List<SubSubCompanyData>> expandableListDetail;
+    View rootView;
 
 
     public SubOrganizationFragment() {
@@ -23,8 +38,31 @@ public class SubOrganizationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        rootView = inflater.inflate(R.layout.fragment_sub_organization, container, false);
+        initViews();
+        initObj();
+        initListeners();
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sub_organization, container, false);
+        return rootView;
+    }
+
+    private void initViews() {
+        subCompaniesDummyData = new SubCompaniesDummyData();
+        expandableListView = (ExpandableListView) rootView.findViewById(R.id.expandableListView);
+        expandableListDetail = subCompaniesDummyData.getData();
+
+    }
+
+    private void initObj() {
+        expandableListTitle = new ArrayList<SubCompanyData>(expandableListDetail.keySet());
+        expandableListAdapter = new CustomExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
+        expandableListView.setAdapter(expandableListAdapter);
+    }
+
+    private void initListeners() {
     }
 
 }
