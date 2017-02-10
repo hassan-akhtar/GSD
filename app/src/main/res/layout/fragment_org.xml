@@ -1,105 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/bg"
     android:layout_height="match_parent"
     tools:context="com.uaeemployee.Fragments.OrganizationFragment">
 
 
-    <ScrollView
+    <ListView
+        android:id="@+id/lvOrgs"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:id="@+id/llOrg1"
-            android:orientation="horizontal"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/org_one"
-            android:layout_width="match_parent"
-            android:layout_height="170dp">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-            <TextView
-                android:id="@+id/tvOrgOne"
-                android:layout_marginTop="107dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text="Organization One"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_below="@+id/llOrg1"
-            android:id="@+id/llOrg2"
-            android:orientation="horizontal"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/org_two"
-            android:layout_width="match_parent"
-            android:layout_height="170dp">
-
-            <TextView
-                android:id="@+id/tvOrgtwo"
-                android:layout_marginTop="107dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text="Organization Two"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_below="@+id/llOrg2"
-            android:id="@+id/llOrg3"
-            android:orientation="vertical"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/org_one"
-            android:layout_width="match_parent"
-            android:layout_height="170dp">
-
-            <TextView
-                android:id="@+id/tvOrgThree"
-                android:layout_marginTop="107dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text="Organization Three"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_below="@+id/llOrg3"
-            android:id="@+id/llOrg4"
-            android:orientation="horizontal"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/org_two"
-            android:layout_width="match_parent"
-            android:layout_height="170dp">
-
-            <TextView
-                android:id="@+id/tvOrgFour"
-                android:layout_marginTop="107dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text="Organization Four"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-        </LinearLayout>
-
-    </LinearLayout>
-    </ScrollView>
 </RelativeLayout>

@@ -1,28 +1,32 @@
 package com.uaeemployee.Fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.uaeemployee.Activites.BaseActivity;
-import com.uaeemployee.Activites.GenderActivity;
+import com.uaeemployee.Adapters.OrganizationAdapter;
 import com.uaeemployee.Interfaces.Communicator;
+import com.uaeemployee.Models.Organization;
 import com.uaeemployee.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class OrganizationFragment extends Fragment {
 
     View mView;
-    LinearLayout llOrg1, llOrg2, llOrg3 , llOrg4;
     Communicator myCommunicator;
-    //ListView lvOrganizations;
+    ListView lvOrgs;
+    OrganizationAdapter adapter;
+    public List<Organization> organizationsList = new ArrayList<>();
 
     public OrganizationFragment() {
         // Required empty public constructor
@@ -41,53 +45,52 @@ public class OrganizationFragment extends Fragment {
     }
 
     private void initViews() {
-        // lvOrganizations = (ListView) mView.findViewById(R.id.lvOrganizations);
-        llOrg1 = (LinearLayout) mView.findViewById(R.id.llOrg1);
-        llOrg2 = (LinearLayout) mView.findViewById(R.id.llOrg2);
-        llOrg3 = (LinearLayout) mView.findViewById(R.id.llOrg3);
-        llOrg4 = (LinearLayout) mView.findViewById(R.id.llOrg4);
+        lvOrgs = (ListView) mView.findViewById(R.id.lvOrgs);
+
     }
 
     private void initObj() {
+
         myCommunicator = (Communicator) getActivity();
         BaseActivity.fragment = new OrganizationFragment();
+
+        Organization organization = new Organization("One Company ", "75");
+        organizationsList.add(organization);
+        organization = new Organization("Two Company ", "10");
+        organizationsList.add(organization);
+        organization = new Organization("Three Company ", "17");
+        organizationsList.add(organization);
+        organization = new Organization("Four Company ", "108");
+        organizationsList.add(organization);
+        organization = new Organization("Five Company ", "40");
+        organizationsList.add(organization);
+        organization = new Organization("Six Company ", "17");
+        organizationsList.add(organization);
+        organization = new Organization("Seven Company ", "108");
+        organizationsList.add(organization);
+        organization = new Organization("Eight Company ", "40");
+        organizationsList.add(organization);
+
+
+        adapter = new OrganizationAdapter(organizationsList, getActivity());
+        lvOrgs.setAdapter(adapter);
     }
 
     private void initListeners() {
-       /* lvOrganizations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvOrgs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                Toast.makeText(getActivity(),""+position,Toast.LENGTH_LONG).show();
+                BaseActivity.refreshMainViewByNew(new SubOrganizationFragment());
             }
-        });*/
-        llOrg1.setOnClickListener(mGlobal_OnClickListener);
-        llOrg2.setOnClickListener(mGlobal_OnClickListener);
-        llOrg3.setOnClickListener(mGlobal_OnClickListener);
-        llOrg4.setOnClickListener(mGlobal_OnClickListener);
+        });
+
     }
 
     final View.OnClickListener mGlobal_OnClickListener = new View.OnClickListener() {
         public void onClick(final View v) {
             switch (v.getId()) {
-                case R.id.llOrg1: {
-                    startActivity(new Intent(getActivity(), GenderActivity.class));
-                    break;
-                }
-
-                case R.id.llOrg2: {
-                    startActivity(new Intent(getActivity(), GenderActivity.class));
-                    break;
-                }
-
-                case R.id.llOrg3: {
-                    startActivity(new Intent(getActivity(), GenderActivity.class));
-                    break;
-                }
-
-                case R.id.llOrg4: {
-                    startActivity(new Intent(getActivity(), GenderActivity.class));
-                    break;
-                }
 
             }
         }
