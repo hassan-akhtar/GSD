@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+
+    <LinearLayout
+        android:id="@+id/nav_header_container"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimaryDark">
+
+        <ImageView
+            android:layout_marginLeft="12dp"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:src="@drawable/logo_large"
+            android:layout_marginTop="45dp"/>
+
+        <TextView
+            android:layout_marginLeft="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="Logged in Username"
+            android:textSize="16sp"
+            android:layout_marginTop="80dp"/>
+
+
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/drawerList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nav_header_container"
+        android:layout_marginTop="15dp" />
+
+</RelativeLayout>

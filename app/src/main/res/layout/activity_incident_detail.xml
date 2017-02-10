@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_incident_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.uaeemployee.Activites.IncidentDetailActivity">
+
+
+    <LinearLayout
+        android:id="@+id/container_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/container_toolbar"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="Lorem ipsum dolor sit amet, ius cu soluta ignota verear. Te ius albucius suscipit efficiendi, usu nemore ornatus nonumes ex. In eam tritani detracto. Mel nonumes placerat cu, admodum denique epicurei cum in, affert scaevola ocurreret est ut. Eu scaevola consulatu mea, et vim maiorum vulputate definiebas, te ullum discere ornatus has. Vide duis vis in. Ne putant civibus ponderum sed, modus nonumes dolorem sea eu, laoreet abhorreant vis ei. Lorem ipsum dolor sit amet, ius cu soluta ignota verear. Te ius albucius suscipit efficiendi, usu nemore ornatus nonumes ex. In eam tritani detracto. Mel nonumes placerat cu, admodum denique epicurei cum in, affert scaevola ocurreret est ut. Eu scaevola consulatu mea, et vim maiorum vulputate definiebas, te ullum discere ornatus has. Vide duis vis in. Ne putant civibus ponderum sed, modus nonumes dolorem sea eu, laoreet abhorreant vis ei. Lorem ipsum dolor sit amet, ius cu soluta ignota verear. Te ius albucius suscipit efficiendi, usu nemore ornatus nonumes ex. In eam tritani detracto. Mel nonumes placerat cu, admodum denique epicurei cum in, affert scaevola ocurreret est ut. Eu scaevola consulatu mea, et vim maiorum vulputate definiebas, te ullum discere ornatus has. Vide duis vis in. Ne putant civibus ponderum sed, modus nonumes dolorem sea eu, laoreet abhorreant vis ei." />
+    </RelativeLayout>
+</RelativeLayout>

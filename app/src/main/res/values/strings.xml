@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">GSD</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="employee_doc">Employee Doc</string>
+    <string name="employee_search">Employee\nsearch</string>
+    <string name="events_and_plans">Events &amp; Plans</string>
+    <string name="incident_management">Incident Management</string>
+    <string name="organizations">Organizations</string>
+    <string name="vacancies">Vacancies</string>
+    <string name="logo">logo</string>
+
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>Main Menu</item>
+        <item>Organizations</item>
+        <item>Vacancies</item>
+        <item>Employee&#160;Search</item>
+        <item>Employee&#160;Documents</item>
+        <item>Incident&#160;Management</item>
+        <item>Event&#160;&amp;&#160;Security&#160;Plan</item>
+        <item>Logout</item>
+    </string-array>
+
+    <string-array name="icons">
+        <item>@drawable/menu</item>
+        <item>@drawable/icon_orgs</item>
+        <item>@drawable/vancancy</item>
+        <item>@drawable/icon_search</item>
+        <item>@drawable/documents</item>
+        <item>@drawable/incidentmonitoring</item>
+        <item>@drawable/eventplan</item>
+        <item>@drawable/icon_logout</item>
+    </string-array>
+</resources>

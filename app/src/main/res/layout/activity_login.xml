@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.uaeemployee.Activites.LoginActivity">
+
+    <LinearLayout
+        android:id="@+id/llUpper"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="vertical"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llUpper"
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="113dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo_largee" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llEts"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp">
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity=""
+            android:background="@drawable/custom_button"
+            android:text="Login"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llEts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/llMain"
+        android:layout_centerHorizontal="true">
+
+        <EditText
+            android:id="@+id/etUser"
+            android:layout_width="290dp"
+            android:drawableLeft="@drawable/user_icon"
+            android:drawablePadding="15dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edittext"
+            android:hint="Username"
+            android:padding="7dp" />
+
+        <EditText
+            android:id="@+id/etPass"
+            android:drawableLeft="@drawable/pass_icon"
+            android:drawablePadding="15dp"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_edittext"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="7dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/white"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/tvCopyright"/>
+
+    <TextView
+        android:id="@+id/tvCopyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_marginBottom="5dp"
+        android:text="Copyright ©2016 GSD. All Rights Reserved"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

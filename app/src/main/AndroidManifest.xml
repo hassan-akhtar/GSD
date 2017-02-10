@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.uaeemployee">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/MyMaterialTheme">
+        <activity
+            android:name=".Activites.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activites.Splash"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activites.BaseActivity"
+            android:label="@string/title_activity_base" />
+        <activity android:name=".Activites.GenderActivity" />
+        <activity android:name=".Activites.NationalityActivity" />
+        <activity
+            android:name=".Activites.EmployeeSearchActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".Activites.EmployeeProfileActivity" />
+        <activity android:name=".Activites.VacancyDetailActivity" />
+        <activity android:name=".Activites.IncidentDetailActivity"></activity>
+    </application>
+
+</manifest>
