@@ -81,7 +81,7 @@ public class OrganizationFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(getActivity(),""+position,Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getActivity(),""+position,Toast.LENGTH_LONG).show();
                 BaseActivity.refreshMainViewByNew(new SubOrganizationFragment());
             }
         });

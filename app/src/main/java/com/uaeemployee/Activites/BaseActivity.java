@@ -90,7 +90,7 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
             case 7:
                 startActivity(new Intent(BaseActivity.this, LoginActivity.class));
                 finish();
-                Toast.makeText(getApplicationContext(),"Successfully Logged out!",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Successfully Logged out!", Toast.LENGTH_LONG).show();
 
                 break;
             default:
@@ -143,7 +143,7 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
                     .beginTransaction()
                     .replace(R.id.container_body,
                             new EventAndSecurityFragment()).commit();
-        }else if (fragment instanceof SubOrganizationFragment) {
+        } else if (fragment instanceof SubOrganizationFragment) {
             fragmentManager
                     .beginTransaction()
                     .replace(R.id.container_body,
@@ -164,7 +164,10 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
     @Override
     public void onBackPressed() {
 
-        if (!(BaseActivity.fragment instanceof DashboardFragment)) {
+        if (BaseActivity.fragment instanceof SubOrganizationFragment) {
+            getSupportActionBar().setTitle("Organizations");
+            refreshMainViewByNew(new OrganizationFragment());
+        } else if (!(BaseActivity.fragment instanceof DashboardFragment)) {
             getSupportActionBar().setTitle("Dashboard");
             refreshMainViewByNew(new DashboardFragment());
         } else {
