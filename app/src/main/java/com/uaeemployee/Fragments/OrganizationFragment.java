@@ -1,8 +1,10 @@
 package com.uaeemployee.Fragments;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,41 +14,60 @@ import android.widget.Toast;
 
 import com.uaeemployee.Activites.BaseActivity;
 import com.uaeemployee.Adapters.OrganizationAdapter;
+import com.uaeemployee.Application.MyApplication;
 import com.uaeemployee.Interfaces.Communicator;
-import com.uaeemployee.Models.Organization;
+import com.uaeemployee.Network.ResponseDTOs.OrganizationsDTO;
+import com.uaeemployee.Network.ResponseDTOs.OrganizationsResponseDTO;
+import com.uaeemployee.Network.ResponseDTOs.ResponseDTO;
+import com.uaeemployee.Network.Service.GSDServiceFactory;
+import com.uaeemployee.Network.Service.MyCallBack;
 import com.uaeemployee.R;
+import com.uaeemployee.Utils.CommonActions;
+import com.uaeemployee.Utils.SystemConstants;
 
-import java.util.ArrayList;
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 
-public class OrganizationFragment extends Fragment {
+public class OrganizationFragment extends Fragment implements MyCallBack {
 
     View mView;
     Communicator myCommunicator;
     ListView lvOrgs;
     OrganizationAdapter adapter;
-    public List<Organization> organizationsList = new ArrayList<>();
-
-    public OrganizationFragment() {
-        // Required empty public constructor
-    }
-
+    private List<OrganizationsDTO> organizationsDTO;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         mView = inflater.inflate(R.layout.fragment_org, container, false);
         initViews();
         initObj();
         initListeners();
+        getAllOrganizations();
         return mView;
+    }
+
+    private void getAllOrganizations() {
+        CommonActions.showProgressDialog(getActivity());
+        GSDServiceFactory.getService(getActivity()).getOrganizations(new com.uaeemployee.Network.RequestDTOs.OrganizationsDTO(SystemConstants.RESPONSE_ORGANIZATIONS,1),this);
+    }
+
+    private void initListeners() {
+
+        lvOrgs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                BaseActivity.refreshMainViewByNew(new SubSubOrganizationFragment());
+                EventBus.getDefault().post(organizationsDTO.get(position).getLstSubSubOrganization());
+            }
+        });
     }
 
     private void initViews() {
         lvOrgs = (ListView) mView.findViewById(R.id.lvOrgs);
-
     }
 
     private void initObj() {
@@ -54,47 +75,60 @@ public class OrganizationFragment extends Fragment {
         myCommunicator = (Communicator) getActivity();
         BaseActivity.fragment = new OrganizationFragment();
 
-        Organization organization = new Organization("One Company ", "75");
-        organizationsList.add(organization);
-        organization = new Organization("Two Company ", "10");
-        organizationsList.add(organization);
-        organization = new Organization("Three Company ", "17");
-        organizationsList.add(organization);
-        organization = new Organization("Four Company ", "108");
-        organizationsList.add(organization);
-        organization = new Organization("Five Company ", "40");
-        organizationsList.add(organization);
-        organization = new Organization("Six Company ", "17");
-        organizationsList.add(organization);
-        organization = new Organization("Seven Company ", "108");
-        organizationsList.add(organization);
-        organization = new Organization("Eight Company ", "40");
-        organizationsList.add(organization);
-
-
-        adapter = new OrganizationAdapter(organizationsList, getActivity());
-        lvOrgs.setAdapter(adapter);
-    }
-
-    private void initListeners() {
-        lvOrgs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-              //  Toast.makeText(getActivity(),""+position,Toast.LENGTH_LONG).show();
-                BaseActivity.refreshMainViewByNew(new SubOrganizationFragment());
-            }
-        });
 
     }
 
-    final View.OnClickListener mGlobal_OnClickListener = new View.OnClickListener() {
-        public void onClick(final View v) {
-            switch (v.getId()) {
 
-            }
+    @Override
+    public void onSuccess(ResponseDTO responseDTO) {
+        switch (responseDTO.getCallBackId()) {
+
+            case SystemConstants.RESPONSE_ORGANIZATIONS:
+                OrganizationsResponseDTO organizationsResponseDTO = (OrganizationsResponseDTO) responseDTO;
+                if (responseDTO != null) {
+                    if (null==responseDTO.getMessage()) {
+                        CommonActions.DismissesDialog();
+                        organizationsDTO =organizationsResponseDTO.getOrganizationsDTO();
+                        adapter = new OrganizationAdapter(organizationsDTO, getActivity());
+                        lvOrgs.setAdapter(adapter);
+                    } else {
+                        CommonActions.DismissesDialog();
+                        new AlertDialog.Builder(getActivity())
+                                .setTitle("Organizations")
+                                .setMessage(responseDTO.getMessage())
+                                .setNegativeButton("CLOSE", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                })
+                                .show();
+                    }
+                }
+                break;
+
+            default:
+                break;
         }
+    }
 
-    };
+    @Override
+    public void onFailure(ResponseDTO errorDTO) {
+        CommonActions.DismissesDialog();
+        if (404 == MyApplication.getInstance().getStatusCode())
+            Toast.makeText(getActivity(), "Service is not Available please try again Later!", Toast.LENGTH_LONG).show();
+        else if (1 == MyApplication.getInstance().getStatusCode())
+            Toast.makeText(getActivity(), "Poor or no Internet Connection!", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(getActivity(), "Connection Timeout!", Toast.LENGTH_LONG).show();
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 }

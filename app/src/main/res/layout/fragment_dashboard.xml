@@ -1,124 +1,236 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="1dp"
-    android:background="@color/colorPrimaryDark"
-    tools:context="com.uaeemployee.Fragments.DashboardFragment">
+    tools:context="com.uaeemployee.Fragments.OrganizationFragment">
 
 
-    <ImageView
-        android:id="@+id/ivLogo"
-        android:layout_marginTop="60dp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/logo_largee_resized"
-        tools:ignore="ContentDescription" />
-
-    <LinearLayout
-        android:layout_above="@+id/llSecond"
-        android:id="@+id/llFirst"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
-        <Button
-            android:id="@+id/btnOrg"
-            android:paddingTop="25dp"
-            android:drawableTop="@drawable/icon_orgs"
-            android:layout_marginRight="3dp"
-            android:layout_width="0dp"
-            android:textSize="12sp"
-            android:layout_weight="1"
-            android:layout_height="120dp"
-            android:background="@color/white"
-            android:text="@string/organizations"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="normal|bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <Button
-            android:drawableTop="@drawable/vancancyy"
-            android:id="@+id/btnVacancies"
-            android:paddingTop="25dp"
-            android:layout_marginRight="3dp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:textSize="12sp"
-            android:layout_height="120dp"
-            android:background="@color/white"
-            android:text="@string/vacancies"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="normal|bold" />
+            <LinearLayout
+                android:id="@+id/llOrganization"
+                android:layout_width="match_parent"
+                android:layout_height="172dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/img_org"
+                android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnEmployeeSearch"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:textSize="12sp"
-            android:layout_marginTop="-8dp"
-            android:paddingTop="25dp"
-            android:drawableTop="@drawable/icon_search"
-            android:layout_height="120dp"
-            android:background="@color/white"
-            android:text="@string/employee_search"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="normal|bold" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/ivOrg"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/white_organization" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ivOrg"
+                        android:layout_centerHorizontal="true"
+                        android:text="Organizations"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
 
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/llSecond"
+            <LinearLayout
+                android:id="@+id/llVacancies"
+                android:layout_width="match_parent"
+                android:layout_height="173dp"
+                android:layout_below="@+id/llOrganization"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/img_vacancy"
+                android:orientation="horizontal">
 
-        android:layout_marginTop="3dp"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btnEmployeeDocs"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/documents"
-            android:paddingTop="25dp"
-            android:layout_height="120dp"
-            android:layout_marginRight="3dp"
-            android:textSize="12sp"
-            android:background="@color/white"
-            android:text="@string/employee_doc"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="normal|bold" />
+                    <ImageView
+                        android:id="@+id/ivOrg2"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/white_vancancy" />
 
-        <Button
-            android:id="@+id/btnEventsPlans"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="120dp"
-            android:paddingTop="25dp"
-            android:textSize="12sp"
-            android:drawableTop="@drawable/eventplan"
-            android:background="@color/white"
-            android:layout_marginRight="3dp"
-            android:text="@string/events_and_plans"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="normal|bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ivOrg2"
+                        android:layout_centerHorizontal="true"
+                        android:text="Vacancies"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnIncidentManagement"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="-8dp"
-            android:drawableTop="@drawable/incidentmonitoring"
-            android:layout_height="120dp"
-            android:paddingTop="25dp"
-            android:textSize="12sp"
-            android:background="@color/white"
-            android:text="Incident management"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="normal|bold" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llEmployeeSearch"
+                android:layout_width="match_parent"
+                android:layout_height="185dp"
+                android:layout_below="@+id/llVacancies"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/img_employee_search"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/ivOrg3"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/white_employeesearch" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ivOrg3"
+                        android:layout_centerHorizontal="true"
+                        android:text="Employee Search"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llEmployeeDocuments"
+                android:layout_width="match_parent"
+                android:layout_height="185dp"
+                android:layout_below="@+id/llEmployeeSearch"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/img_employee_doc"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
 
-    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/ivOrg4"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/white_documents" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Employee Documents"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_below="@+id/ivOrg4"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/textView" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llIncidentManagement"
+                android:layout_width="match_parent"
+                android:layout_height="185dp"
+                android:layout_below="@+id/llEmployeeDocuments"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/img_incident"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <ImageView
+                        android:id="@+id/ivOrg42"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/white_incident_mang_trans" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Incident Management"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_below="@+id/ivOrg42"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/textVie2w" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llPlan"
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                android:layout_below="@+id/llIncidentManagement"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/img_plan"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <ImageView
+                        android:id="@+id/ivOrg424"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/white_eventplan" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Event And Security Plan"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_below="@+id/ivOrg424"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/tv" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
 </RelativeLayout>

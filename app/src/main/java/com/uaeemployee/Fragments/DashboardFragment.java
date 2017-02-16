@@ -18,7 +18,7 @@ import com.uaeemployee.R;
 
 public class DashboardFragment extends Fragment {
 
-    Button btnOrganization, btnVacancies, btnEmployeeSearch, btnEmployeeDocuments, btnIncidentManagement, btnPlan;
+    LinearLayout llOrganization, llVacancies, llEmployeeSearch, llEmployeeDocuments, llIncidentManagement, llPlan;
     View mView;
     Communicator myCommunicator;
 
@@ -31,7 +31,7 @@ public class DashboardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mView =  inflater.inflate(R.layout.fragment_dashboard, container, false);
+        mView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         initViews();
         initObj();
         initListeners();
@@ -40,28 +40,15 @@ public class DashboardFragment extends Fragment {
     }
 
     private void initViews() {
-        btnOrganization = (Button) mView.findViewById(R.id.btnOrg);
-        btnVacancies = (Button) mView.findViewById(R.id.btnVacancies);
-        btnEmployeeSearch = (Button) mView.findViewById(R.id.btnEmployeeSearch);
-        btnEmployeeDocuments = (Button) mView.findViewById(R.id.btnEmployeeDocs);
-        btnIncidentManagement = (Button) mView.findViewById(R.id.btnIncidentManagement);
-        btnPlan = (Button) mView.findViewById(R.id.btnEventsPlans);
-        
-        Drawable dOrg = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(((BitmapDrawable) getResources().getDrawable(R.drawable.icon_orgs)).getBitmap(), 130, 130, true));
-        Drawable dVacancy = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(((BitmapDrawable) getResources().getDrawable(R.drawable.vancancyy)).getBitmap(), 130, 130, true));
-        Drawable dEmployeeSearch = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(((BitmapDrawable) getResources().getDrawable(R.drawable.icon_search)).getBitmap(), 130, 130, true));
-        Drawable dEmployeeDoc = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(((BitmapDrawable) getResources().getDrawable(R.drawable.documents)).getBitmap(), 130, 130, true));
-        Drawable dEventsAndPlans = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(((BitmapDrawable) getResources().getDrawable(R.drawable.eventplan)).getBitmap(), 130, 130, true));
-        Drawable dIncidentManagement = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(((BitmapDrawable) getResources().getDrawable(R.drawable.vancancyy)).getBitmap(), 130, 130, true));
-        //setCompoundDrawablesWithIntrinsicBounds (image to left, top, right, bottom)
-        btnOrganization.setCompoundDrawablesWithIntrinsicBounds(null,dOrg,null,null);
-        btnVacancies.setCompoundDrawablesWithIntrinsicBounds(null,dVacancy,null,null);
-        btnEmployeeSearch.setCompoundDrawablesWithIntrinsicBounds(null,dEmployeeSearch,null,null);
-        btnEmployeeDocuments.setCompoundDrawablesWithIntrinsicBounds(null,dEmployeeDoc,null,null);
-        btnIncidentManagement.setCompoundDrawablesWithIntrinsicBounds(null,dEventsAndPlans,null,null);
-        btnPlan.setCompoundDrawablesWithIntrinsicBounds(null,dIncidentManagement,null,null);
-
+        //lvOrgs = (ListView) mView.findViewById(R.id.lvOrgs);
+        llOrganization = (LinearLayout) mView.findViewById(R.id.llOrganization);
+        llVacancies = (LinearLayout) mView.findViewById(R.id.llVacancies);
+        llEmployeeSearch = (LinearLayout) mView.findViewById(R.id.llEmployeeSearch);
+        llEmployeeDocuments = (LinearLayout) mView.findViewById(R.id.llEmployeeDocuments);
+        llIncidentManagement = (LinearLayout) mView.findViewById(R.id.llIncidentManagement);
+        llPlan = (LinearLayout) mView.findViewById(R.id.llPlan);
     }
+
 
     private void initObj() {
         myCommunicator = (Communicator) getActivity();
@@ -70,52 +57,52 @@ public class DashboardFragment extends Fragment {
 
     private void initListeners() {
 
-        btnOrganization.setOnClickListener(mGlobal_OnClickListener);
-        btnVacancies.setOnClickListener(mGlobal_OnClickListener);
-        btnEmployeeSearch.setOnClickListener(mGlobal_OnClickListener);
-        btnEmployeeDocuments.setOnClickListener(mGlobal_OnClickListener);
-        btnIncidentManagement.setOnClickListener(mGlobal_OnClickListener);
-        btnPlan.setOnClickListener(mGlobal_OnClickListener);
+        llOrganization.setOnClickListener(mGlobal_OnClickListener);
+        llVacancies.setOnClickListener(mGlobal_OnClickListener);
+        llEmployeeSearch.setOnClickListener(mGlobal_OnClickListener);
+        llEmployeeDocuments.setOnClickListener(mGlobal_OnClickListener);
+        llIncidentManagement.setOnClickListener(mGlobal_OnClickListener);
+        llPlan.setOnClickListener(mGlobal_OnClickListener);
+
+
     }
 
     final View.OnClickListener mGlobal_OnClickListener = new View.OnClickListener() {
         public void onClick(final View v) {
             switch (v.getId()) {
-                case R.id.btnOrg: {
-                    myCommunicator.setTitle("Organizations");
+                case R.id.llOrganization: {
                     BaseActivity.refreshMainViewByNew(new OrganizationFragment());
-                    break;
                 }
+                break;
 
-                case R.id.btnVacancies: {
-                    myCommunicator.setTitle("Vacancies");
+
+                case R.id.llVacancies: {
                     BaseActivity.refreshMainViewByNew(new VacanciesFragment());
-                    break;
                 }
+                break;
 
-                case R.id.btnEmployeeSearch: {
-                    myCommunicator.setTitle("Employee Search");
+
+                case R.id.llEmployeeSearch: {
                     BaseActivity.refreshMainViewByNew(new EmployeeSearchFragment());
-                    break;
                 }
+                break;
 
-                case R.id.btnEmployeeDocs: {
-                    myCommunicator.setTitle("Employee Documents");
+
+                case R.id.llEmployeeDocuments: {
                     BaseActivity.refreshMainViewByNew(new EmployeeDocumentFragment());
-                    break;
                 }
+                break;
 
-                case R.id.btnIncidentManagement: {
-                    myCommunicator.setTitle("Incident Management");
+
+                case R.id.llIncidentManagement: {
                     BaseActivity.refreshMainViewByNew(new IncidentManagmentFragment());
-                    break;
                 }
+                break;
 
-                case R.id.btnEventsPlans: {
-                    myCommunicator.setTitle("Event And Security Plan");
+                case R.id.llPlan: {
                     BaseActivity.refreshMainViewByNew(new EventAndSecurityFragment());
-                    break;
                 }
+                break;
 
             }
         }

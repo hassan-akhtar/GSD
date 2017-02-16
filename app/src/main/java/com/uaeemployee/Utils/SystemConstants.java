@@ -7,12 +7,13 @@ public class SystemConstants {
 
     // Base URLs
     public static final String BASE_URL_PROD = "";
-    public static final String BASE_URL_STAGE = "http://132.148.26.141/IsExistuserNamePassword/";
+    public static final String BASE_URL_STAGE = "http://132.148.26.141";
 
     public static final String URL_BASE = BASE_URL_STAGE;
 
-    // Procamps Callback Keys
+    // GSD Callback Keys
     public static final int RESPONSE_LOGIN = 0;
+    public static final int RESPONSE_ORGANIZATIONS = 1;
 
 
 }

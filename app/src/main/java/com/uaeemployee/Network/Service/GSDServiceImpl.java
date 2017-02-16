@@ -1,14 +1,18 @@
 package com.uaeemployee.Network.Service;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.uaeemployee.Application.MyApplication;
 import com.uaeemployee.Network.RequestDTOs.LoginDTO;
 import com.uaeemployee.Network.ResponseDTOs.LoginResponseDTO;
+import com.uaeemployee.Network.ResponseDTOs.OrganizationsDTO;
+import com.uaeemployee.Network.ResponseDTOs.OrganizationsResponseDTO;
 import com.uaeemployee.Network.ResponseDTOs.ResponseDTO;
 import com.uaeemployee.Utils.SystemConstants;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import retrofit.Callback;
@@ -70,15 +74,15 @@ public class GSDServiceImpl implements GSDService {
     }
 
     @Override
-    public void loginRequasdasdest(final LoginDTO loginFteDTO, final MyCallBack callback) {
-        adapter.loginRequest(loginFteDTO.getUsername(), loginFteDTO.getPassword(), new Callback<LoginResponseDTO>() {
+    public void getOrganizations(final com.uaeemployee.Network.RequestDTOs.OrganizationsDTO organizationsDTO, final MyCallBack callback) {
+        adapter.getOrganizations(organizationsDTO.getUserID(), new Callback<List<OrganizationsDTO>>() {
             @Override
-            public void success(LoginResponseDTO loginResponseDTO, Response response) {
-                loginResponseDTO.setCallBackId(loginFteDTO.getCallBackId());
-/*                editor = sharedpreferences.edit();
-                editor.putString("AuthToken", loginResponseDTO.getAuth_token());
-                editor.commit();*/
-                callback.onSuccess(loginResponseDTO);
+            public void success(List<OrganizationsDTO> organizationsResponseDTO, Response response) {
+                Log.e( "success: ", ""+organizationsResponseDTO );
+                OrganizationsResponseDTO res = new OrganizationsResponseDTO();
+                res.setOrganizationsDTO(organizationsResponseDTO);
+                res.setCallBackId(organizationsDTO.getCallBackId());
+               callback.onSuccess(res);
             }
 
             @Override
@@ -93,4 +97,6 @@ public class GSDServiceImpl implements GSDService {
             }
         });
     }
+
+
 }

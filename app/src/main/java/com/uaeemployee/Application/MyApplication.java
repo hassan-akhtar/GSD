@@ -5,6 +5,7 @@ import android.app.Application;
 public class MyApplication extends Application{
 
     private int statusCode;
+
     private static MyApplication myApplication;
 
     public static MyApplication getInstance(){

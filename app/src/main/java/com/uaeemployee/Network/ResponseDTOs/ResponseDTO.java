@@ -10,7 +10,7 @@ public class ResponseDTO extends BaseDTO {
 
     public static final String SUCCESS = "000";
     private String status;
-    private String message;
+    private String Message;
     private String code;
 
 
@@ -26,7 +26,7 @@ public class ResponseDTO extends BaseDTO {
     }
 
     public ResponseDTO(String message) {
-        this.message = message;
+        this.Message = message;
     }
 
     public String getStatus() {
@@ -38,11 +38,11 @@ public class ResponseDTO extends BaseDTO {
     }
 
     public String getMessage() {
-        return message;
+        return Message;
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        this.Message = message;
     }
 
     public boolean isSuccess() {
