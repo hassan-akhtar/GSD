@@ -73,6 +73,7 @@ public class OrganizationFragment extends Fragment implements MyCallBack {
 
     private void initViews() {
         lvOrgs = (ListView) mView.findViewById(R.id.lvOrgs);
+        ((BaseActivity) getActivity()).mToolbar.setTitle(getString(R.string.organizations));
     }
 
     private void initObj() {

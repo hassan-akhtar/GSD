@@ -28,7 +28,7 @@ import com.uaeemployee.R;
 public class BaseActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener, Communicator {
 
 
-    private Toolbar mToolbar;
+    public Toolbar mToolbar;
     private FragmentDrawer drawerFragment;
     private static FragmentManager fragmentManager;
     String title;
@@ -77,15 +77,15 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 title = "Employee Document";
                 break;
 
-            case 5:
-                fragment = new IncidentManagmentFragment();
-                title = "Incident Management";
-                break;
-
-            case 6:
-                fragment = new EventAndSecurityFragment();
-                title = "Event & Security Plan";
-                break;
+//            case 5:
+//                fragment = new IncidentManagmentFragment();
+//                title = "Incident Management";
+//                break;
+//
+//            case 6:
+//                fragment = new EventAndSecurityFragment();
+//                title = "Event & Security Plan";
+//                break;
 
             case 7:
                 startActivity(new Intent(BaseActivity.this, LoginActivity.class));
@@ -113,6 +113,7 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
             fragmentManager.beginTransaction()
                     .replace(R.id.container_body, new DashboardFragment())
                     .commit();
+
         } else if (fragment instanceof VacanciesFragment) {
             fragmentManager
                     .beginTransaction()
@@ -168,7 +169,7 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
             getSupportActionBar().setTitle("Organizations");
             refreshMainViewByNew(new OrganizationFragment());
         } else if (!(BaseActivity.fragment instanceof DashboardFragment)) {
-            getSupportActionBar().setTitle("Dashboard");
+            getSupportActionBar().setTitle("Main Menu");
             refreshMainViewByNew(new DashboardFragment());
         } else {
             new AlertDialog.Builder(BaseActivity.this)

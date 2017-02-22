@@ -84,6 +84,7 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
         tvNoTextFound = (TextView) mView.findViewById(R.id.tvNoTextFound);
         toolbar = (Toolbar) mView.findViewById(R.id.toolbar);
         toolbar.setVisibility(View.GONE);
+        ((BaseActivity) getActivity()).mToolbar.setTitle(getString(R.string.employeeSearch));
     }
 
     private void initObj() {
@@ -202,25 +203,4 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
         else
             Toast.makeText(getActivity(), "Connection Timeout!", Toast.LENGTH_LONG).show();
     }
-
-    
-
-//    private void populateListEmployee() {
-//        Employee employee = new Employee("Hassan Akhtar", "Male", "Pakistan");
-//        lEmployees.add(employee);
-//        employee = new Employee("Neil Patel", "Male", "India");
-//        lEmployees.add(employee);
-//        employee = new Employee("Siri Devi", "Female", "Malaysia");
-//        lEmployees.add(employee);
-//        employee = new Employee("Fahad Sheikh", "Male", "UAE");
-//        lEmployees.add(employee);
-//        employee = new Employee("Mohsin Qureshi", "Male", "Pakistan");
-//        lEmployees.add(employee);
-//        employee = new Employee("Kashan Ali", "Male", "India");
-//        lEmployees.add(employee);
-//        employee = new Employee("Sharjeel Khan", "Male", "UAE");
-//        lEmployees.add(employee);
-//        employee = new Employee("Html Css Developer", "Male", "Pakistan");
-//        lEmployees.add(employee);
-//    }
 }

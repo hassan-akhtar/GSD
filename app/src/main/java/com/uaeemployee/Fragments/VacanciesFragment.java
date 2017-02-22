@@ -41,7 +41,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VacanciesFragment extends Fragment implements MyCallBack{
+public class VacanciesFragment extends Fragment implements MyCallBack {
 
     View mView;
     List<VacanciesDTO> lVacancies = new ArrayList<VacanciesDTO>();
@@ -76,18 +76,20 @@ public class VacanciesFragment extends Fragment implements MyCallBack{
 
     private void getAllVacancies() {
         CommonActions.showProgressDialog(getActivity());
-        GSDServiceFactory.getService(getActivity()).getVacancies(new com.uaeemployee.Network.RequestDTOs.OrganizationsDTO(SystemConstants.RESPONSE_VACANCIES,1),this);
+        GSDServiceFactory.getService(getActivity()).getVacancies(new com.uaeemployee.Network.RequestDTOs.OrganizationsDTO(SystemConstants.RESPONSE_VACANCIES, 1), this);
     }
+
     private void initViews() {
         etSearch = (EditText) mView.findViewById(R.id.etSearch);
         lvList = (ListView) mView.findViewById(R.id.lvList);
         tvNoTextFound = (TextView) mView.findViewById(R.id.tvNoTextFound);
+        ((BaseActivity) getActivity()).mToolbar.setTitle(getString(R.string.vacancies));
     }
 
     private void initObj() {
         BaseActivity.fragment = new VacanciesFragment();
         sharedPreferencesManager = new SharedPreferencesManager(getActivity());
-        sharedPreferencesManager.setBoolean(SharedPreferencesManager.IS_VACANCY,true,getActivity());
+        sharedPreferencesManager.setBoolean(SharedPreferencesManager.IS_VACANCY, true, getActivity());
     }
 
     private void initListeners() {
@@ -124,7 +126,7 @@ public class VacanciesFragment extends Fragment implements MyCallBack{
             }
 
             @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,int arg3) {
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
             }
 
             @Override
@@ -138,11 +140,11 @@ public class VacanciesFragment extends Fragment implements MyCallBack{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 getActivity().getSupportFragmentManager().executePendingTransactions();
                 Intent in = new Intent(getActivity(), VacancyDetailActivity.class);
-                if("".equals(etSearch.getText().toString().trim())){
+                if ("".equals(etSearch.getText().toString().trim())) {
                     VacanciesDTO vacanciesDTO = new VacanciesDTO(lVacancies.get(position).getVacancyID(), lVacancies.get(position).getJobType(), lVacancies.get(position).getTitle()
                             , lVacancies.get(position).getJobLevel(), lVacancies.get(position).getDescription(), lVacancies.get(position).getSubSubOrganizationID());
                     in.putExtra("vacancies_DTO_Obj", vacanciesDTO);
-                }else{
+                } else {
                     VacanciesDTO vacanciesDTO = new VacanciesDTO(filteredList.get(position).getVacancyID(), filteredList.get(position).getJobType(), filteredList.get(position).getTitle()
                             , filteredList.get(position).getJobLevel(), filteredList.get(position).getDescription(), filteredList.get(position).getSubSubOrganizationID());
                     in.putExtra("vacancies_DTO_Obj", vacanciesDTO);
@@ -162,7 +164,7 @@ public class VacanciesFragment extends Fragment implements MyCallBack{
             case SystemConstants.RESPONSE_VACANCIES:
                 VacanciesResponseDTO vacanciesResponseDTO = (VacanciesResponseDTO) responseDTO;
                 if (responseDTO != null) {
-                    if (null==responseDTO.getMessage()) {
+                    if (null == responseDTO.getMessage()) {
                         CommonActions.DismissesDialog();
                         lVacancies = vacanciesResponseDTO.getVacanciesDTO();
                         mAdapter = new ListAdapter(lVacancies, getActivity());

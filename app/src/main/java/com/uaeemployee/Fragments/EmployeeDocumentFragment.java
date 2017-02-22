@@ -33,6 +33,8 @@ public class EmployeeDocumentFragment extends Fragment {
     }
 
     private void initViews() {
+
+        ((BaseActivity) getActivity()).mToolbar.setTitle(getString(R.string.employee_document));
     }
 
     private void initObj() {  BaseActivity.fragment = new EmployeeDocumentFragment();

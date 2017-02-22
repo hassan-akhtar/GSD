@@ -45,8 +45,8 @@ public class DashboardFragment extends Fragment {
         llVacancies = (LinearLayout) mView.findViewById(R.id.llVacancies);
         llEmployeeSearch = (LinearLayout) mView.findViewById(R.id.llEmployeeSearch);
         llEmployeeDocuments = (LinearLayout) mView.findViewById(R.id.llEmployeeDocuments);
-        llIncidentManagement = (LinearLayout) mView.findViewById(R.id.llIncidentManagement);
-        llPlan = (LinearLayout) mView.findViewById(R.id.llPlan);
+      //  llIncidentManagement = (LinearLayout) mView.findViewById(R.id.llIncidentManagement);
+      //  llPlan = (LinearLayout) mView.findViewById(R.id.llPlan);
     }
 
 
@@ -61,8 +61,8 @@ public class DashboardFragment extends Fragment {
         llVacancies.setOnClickListener(mGlobal_OnClickListener);
         llEmployeeSearch.setOnClickListener(mGlobal_OnClickListener);
         llEmployeeDocuments.setOnClickListener(mGlobal_OnClickListener);
-        llIncidentManagement.setOnClickListener(mGlobal_OnClickListener);
-        llPlan.setOnClickListener(mGlobal_OnClickListener);
+       // llIncidentManagement.setOnClickListener(mGlobal_OnClickListener);
+       // llPlan.setOnClickListener(mGlobal_OnClickListener);
 
 
     }
@@ -93,16 +93,16 @@ public class DashboardFragment extends Fragment {
                 }
                 break;
 
-
-                case R.id.llIncidentManagement: {
-                    BaseActivity.refreshMainViewByNew(new IncidentManagmentFragment());
-                }
-                break;
-
-                case R.id.llPlan: {
-                    BaseActivity.refreshMainViewByNew(new EventAndSecurityFragment());
-                }
-                break;
+//
+//                case R.id.llIncidentManagement: {
+//                    BaseActivity.refreshMainViewByNew(new IncidentManagmentFragment());
+//                }
+//                break;
+//
+//                case R.id.llPlan: {
+//                    BaseActivity.refreshMainViewByNew(new EventAndSecurityFragment());
+//                }
+//                break;
 
             }
         }
