@@ -65,7 +65,7 @@
                     android:id="@+id/emptytext01"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".7" />
+                    android:layout_weight=".5" />
 
                 <TextView
                     android:id="@+id/tvLevel"
@@ -81,7 +81,7 @@
                     android:id="@+id/tvGenderValue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.7"
+                    android:layout_weight="1.9"
                     android:text="Male"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18dp" />
@@ -113,7 +113,7 @@
                     android:id="@+id/emptytext011"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".7" />
+                    android:layout_weight=".5" />
 
                 <TextView
                     android:id="@+id/tvNationality"
@@ -129,7 +129,7 @@
                     android:id="@+id/tvNationalityValue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.7"
+                    android:layout_weight="1.9"
                     android:text="Pakistani"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18dp" />
@@ -159,7 +159,7 @@
                     android:id="@+id/emptytext0111"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".7" />
+                    android:layout_weight=".5" />
 
                 <TextView
                     android:id="@+id/tvOrg"
@@ -175,7 +175,7 @@
                     android:id="@+id/tvOrgValue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.7"
+                    android:layout_weight="1.9"
                     android:text="Tech Vista"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18dp" />
@@ -204,7 +204,7 @@
                     android:id="@+id/emptytext0311"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".7" />
+                    android:layout_weight=".5" />
 
                 <TextView
                     android:id="@+id/tvEmail"
@@ -220,7 +220,7 @@
                     android:id="@+id/tvEmailValue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.7"
+                    android:layout_weight="1.9"
                     android:text="abc@gmail.com"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18dp" />
@@ -249,7 +249,7 @@
                     android:id="@+id/emptytext0211"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".7" />
+                    android:layout_weight=".5" />
 
                 <TextView
                     android:id="@+id/tvContact"
@@ -265,7 +265,7 @@
                     android:id="@+id/tvContactValue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.7"
+                    android:layout_weight="1.9"
                     android:text="+973335786669"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18dp" />

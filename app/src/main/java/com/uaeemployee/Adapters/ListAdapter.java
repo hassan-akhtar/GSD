@@ -3,6 +3,7 @@ package com.uaeemployee.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.uaeemployee.Activites.EmployeeProfileActivity;
 import com.uaeemployee.Activites.VacancyDetailActivity;
+import com.uaeemployee.Network.ResponseDTOs.EmployeeDTO;
 import com.uaeemployee.Network.ResponseDTOs.VacanciesDTO;
 import com.uaeemployee.R;
 import com.uaeemployee.Utils.SharedPreferencesManager;
@@ -23,6 +25,7 @@ public class ListAdapter extends BaseAdapter {
 
     Context mContext;
     List<VacanciesDTO> mlist;
+    List<EmployeeDTO> mlistEmployee;
     private LayoutInflater inflater = null;
     SharedPreferencesManager sharedPreferencesManager;
 
@@ -34,9 +37,26 @@ public class ListAdapter extends BaseAdapter {
         sharedPreferencesManager = new SharedPreferencesManager(context);
     }
 
+    public ListAdapter(List<EmployeeDTO> list, Context context, String str) {
+        mlistEmployee = list;
+        mContext = context;
+        inflater = (LayoutInflater) context.
+                getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        sharedPreferencesManager = new SharedPreferencesManager(context);
+    }
+
+
     @Override
     public int getCount() {
-        return mlist.size();
+        if (null!=mlist) {
+          return mlist.size();
+        } else if (null!=mlistEmployee){
+            return mlistEmployee.size();
+        }else {
+            Log.e( " ListAdapter getView: ", "Something went wrong");
+            return 0;
+
+        }
     }
 
     @Override
@@ -58,9 +78,21 @@ public class ListAdapter extends BaseAdapter {
         holder.tvFirst = (TextView) rowView.findViewById(R.id.tvName);
         holder.tvSecond = (TextView) rowView.findViewById(R.id.tvLevel);
         holder.tvThird = (TextView) rowView.findViewById(R.id.tvJobType);
-        holder.tvFirst.setText(mlist.get(position).getTitle());
-        holder.tvSecond.setText(mlist.get(position).getJobLevel());
-        holder.tvThird.setText(mlist.get(position).getJobType());
+
+
+        if (null!=mlist) {
+            holder.tvFirst.setText(mlist.get(position).getTitle());
+            holder.tvSecond.setText(mlist.get(position).getJobLevel());
+            holder.tvThird.setText(mlist.get(position).getJobType());
+        } else if (null!=mlistEmployee){
+            holder.tvFirst.setText(mlistEmployee.get(position).getFirstName()+" "+ mlistEmployee.get(position).getLastName());
+            holder.tvSecond.setText(mlistEmployee.get(position).getGender());
+            holder.tvThird.setText(mlistEmployee.get(position).getCountryName());
+        }else {
+            Log.e( " ListAdapter getView: ", "Something went wrong");
+        }
+
+
         return rowView;
     }
 

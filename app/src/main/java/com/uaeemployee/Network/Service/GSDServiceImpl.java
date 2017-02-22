@@ -6,6 +6,8 @@ import android.util.Log;
 import com.squareup.okhttp.OkHttpClient;
 import com.uaeemployee.Application.MyApplication;
 import com.uaeemployee.Network.RequestDTOs.LoginDTO;
+import com.uaeemployee.Network.ResponseDTOs.EmployeeDTO;
+import com.uaeemployee.Network.ResponseDTOs.EmployeeResponseDTO;
 import com.uaeemployee.Network.ResponseDTOs.LoginResponseDTO;
 import com.uaeemployee.Network.ResponseDTOs.OrganizationsDTO;
 import com.uaeemployee.Network.ResponseDTOs.OrganizationsResponseDTO;
@@ -80,7 +82,6 @@ public class GSDServiceImpl implements GSDService {
         adapter.getOrganizations(organizationsDTO.getUserID(), new Callback<List<OrganizationsDTO>>() {
             @Override
             public void success(List<OrganizationsDTO> organizationsResponseDTO, Response response) {
-                Log.e( "success: ", ""+organizationsResponseDTO );
                 OrganizationsResponseDTO res = new OrganizationsResponseDTO();
                 res.setOrganizationsDTO(organizationsResponseDTO);
                 res.setCallBackId(organizationsDTO.getCallBackId());
@@ -105,9 +106,33 @@ public class GSDServiceImpl implements GSDService {
         adapter.getVacancies(organizationsDTO.getUserID(), new Callback<List<VacanciesDTO>>() {
             @Override
             public void success(List<VacanciesDTO> vacanciesDTO, Response response) {
-                Log.e( "success: ", ""+vacanciesDTO );
                 VacanciesResponseDTO res = new VacanciesResponseDTO();
                 res.setVacanciesDTO(vacanciesDTO);
+                res.setCallBackId(organizationsDTO.getCallBackId());
+                callback.onSuccess(res);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (error != null && error.getResponse() != null && error.getResponse().getStatus() != 0) {
+                    MyApplication.getInstance().setStatusCode(error.getResponse().getStatus());
+                    callback.onFailure(new ResponseDTO(error.getMessage()));
+                } else {
+                    MyApplication.getInstance().setStatusCode(1);
+                    callback.onFailure(new ResponseDTO(error.getMessage()));
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getEmployees(final com.uaeemployee.Network.RequestDTOs.OrganizationsDTO organizationsDTO, final MyCallBack callback) {
+        adapter.getAllEmployees(organizationsDTO.getUserID(), new Callback<List<EmployeeDTO>>() {
+            @Override
+            public void success(List<EmployeeDTO> employeeDTO, Response response) {
+
+                EmployeeResponseDTO res = new EmployeeResponseDTO();
+                res.setEmployeeDTO(employeeDTO);
                 res.setCallBackId(organizationsDTO.getCallBackId());
                 callback.onSuccess(res);
             }

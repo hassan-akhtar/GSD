@@ -1,6 +1,7 @@
 package com.uaeemployee.Network.Service;
 
 
+import com.uaeemployee.Network.ResponseDTOs.EmployeeDTO;
 import com.uaeemployee.Network.ResponseDTOs.LoginResponseDTO;
 import com.uaeemployee.Network.ResponseDTOs.OrganizationsDTO;
 import com.uaeemployee.Network.ResponseDTOs.VacanciesDTO;
@@ -29,6 +30,12 @@ public interface GSDRESTService {
     @GET("/GetAllVacancies/null/{id}")
     void getVacancies(@Path("id")  int user,
                           Callback<List<VacanciesDTO>> vacanciesResponseDTO);
+
+
+    // get Vacancies Request
+    @GET("/GetAllEmployees/null/{id}")
+    void getAllEmployees(@Path("id")  int user,
+                      Callback<List<EmployeeDTO>> employeeResponseDTO);
 
 }
 
