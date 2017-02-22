@@ -56,7 +56,7 @@
             android:layout_alignBottom="@+id/tvCountry_name2"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="29dp"
-            android:text="50%"
+            android:text="50"
             android:textSize="20sp" />
 
     </RelativeLayout>
@@ -103,7 +103,7 @@
             android:id="@+id/tvPercentage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="30%"
+            android:text="30"
             android:textSize="20sp"
             android:layout_marginStart="22dp"
             android:layout_alignBaseline="@+id/tvCountry_name"
@@ -156,7 +156,7 @@
             android:layout_alignBottom="@+id/tvCountry_name3"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="29dp"
-            android:text="20%"
+            android:text="20"
             android:textSize="20sp" />
 
     </RelativeLayout>

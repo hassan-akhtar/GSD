@@ -11,20 +11,22 @@ import android.widget.TextView;
 
 import com.uaeemployee.Activites.EmployeeProfileActivity;
 import com.uaeemployee.Activites.VacancyDetailActivity;
-import com.uaeemployee.Models.Employee;
+import com.uaeemployee.Network.ResponseDTOs.VacanciesDTO;
 import com.uaeemployee.R;
 import com.uaeemployee.Utils.SharedPreferencesManager;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
 public class ListAdapter extends BaseAdapter {
 
     Context mContext;
-    List<Employee> mlist;
+    List<VacanciesDTO> mlist;
     private LayoutInflater inflater = null;
     SharedPreferencesManager sharedPreferencesManager;
 
-    public ListAdapter(List<Employee> list, Context context) {
+    public ListAdapter(List<VacanciesDTO> list, Context context) {
         mlist = list;
         mContext = context;
         inflater = (LayoutInflater) context.
@@ -54,25 +56,11 @@ public class ListAdapter extends BaseAdapter {
         View rowView;
         rowView = inflater.inflate(R.layout.common_list_item, null);
         holder.tvFirst = (TextView) rowView.findViewById(R.id.tvName);
-        holder.tvSecond= (TextView) rowView.findViewById(R.id.tvGender);
-        holder.tvThird= (TextView) rowView.findViewById(R.id.tvCountry);
-        holder.tvFirst.setText(mlist.get(position).getName());
-        holder.tvSecond.setText(mlist.get(position).getGender());
-        holder.tvThird.setText(mlist.get(position).getCountry());
-        rowView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                sharedPreferencesManager.setString(SharedPreferencesManager.CURRENT_FIRST,mlist.get(position).getName(),mContext);
-                sharedPreferencesManager.setString(SharedPreferencesManager.CURRENT_SECOND,mlist.get(position).getGender(),mContext);
-                sharedPreferencesManager.setString(SharedPreferencesManager.CURRENT_THIRD,mlist.get(position).getCountry(),mContext);
-                if (!sharedPreferencesManager.getBoolean(SharedPreferencesManager.IS_VACANCY,mContext)) {
-                    mContext.startActivity(new Intent(mContext , EmployeeProfileActivity.class));
-                } else {
-                    mContext.startActivity(new Intent(mContext , VacancyDetailActivity.class));
-                }
-            }
-        });
+        holder.tvSecond = (TextView) rowView.findViewById(R.id.tvLevel);
+        holder.tvThird = (TextView) rowView.findViewById(R.id.tvJobType);
+        holder.tvFirst.setText(mlist.get(position).getTitle());
+        holder.tvSecond.setText(mlist.get(position).getJobLevel());
+        holder.tvThird.setText(mlist.get(position).getJobType());
         return rowView;
     }
 

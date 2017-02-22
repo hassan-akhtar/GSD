@@ -1,19 +1,11 @@
 package com.uaeemployee.Activites;
 
 import android.content.Intent;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.Fade;
-import android.transition.Slide;
-import android.transition.TransitionInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.uaeemployee.R;
 import com.uaeemployee.Utils.SharedPreferencesManager;

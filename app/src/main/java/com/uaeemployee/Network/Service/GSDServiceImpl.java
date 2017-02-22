@@ -10,6 +10,8 @@ import com.uaeemployee.Network.ResponseDTOs.LoginResponseDTO;
 import com.uaeemployee.Network.ResponseDTOs.OrganizationsDTO;
 import com.uaeemployee.Network.ResponseDTOs.OrganizationsResponseDTO;
 import com.uaeemployee.Network.ResponseDTOs.ResponseDTO;
+import com.uaeemployee.Network.ResponseDTOs.VacanciesDTO;
+import com.uaeemployee.Network.ResponseDTOs.VacanciesResponseDTO;
 import com.uaeemployee.Utils.SystemConstants;
 
 import java.util.List;
@@ -83,6 +85,31 @@ public class GSDServiceImpl implements GSDService {
                 res.setOrganizationsDTO(organizationsResponseDTO);
                 res.setCallBackId(organizationsDTO.getCallBackId());
                callback.onSuccess(res);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (error != null && error.getResponse() != null && error.getResponse().getStatus() != 0) {
+                    MyApplication.getInstance().setStatusCode(error.getResponse().getStatus());
+                    callback.onFailure(new ResponseDTO(error.getMessage()));
+                } else {
+                    MyApplication.getInstance().setStatusCode(1);
+                    callback.onFailure(new ResponseDTO(error.getMessage()));
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getVacancies(final com.uaeemployee.Network.RequestDTOs.OrganizationsDTO organizationsDTO, final MyCallBack callback) {
+        adapter.getVacancies(organizationsDTO.getUserID(), new Callback<List<VacanciesDTO>>() {
+            @Override
+            public void success(List<VacanciesDTO> vacanciesDTO, Response response) {
+                Log.e( "success: ", ""+vacanciesDTO );
+                VacanciesResponseDTO res = new VacanciesResponseDTO();
+                res.setVacanciesDTO(vacanciesDTO);
+                res.setCallBackId(organizationsDTO.getCallBackId());
+                callback.onSuccess(res);
             }
 
             @Override

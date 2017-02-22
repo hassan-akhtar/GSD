@@ -7,4 +7,5 @@ public interface GSDService {
 
      void loginRequest(LoginDTO loginFteDTO, MyCallBack callback);
      void getOrganizations(OrganizationsDTO organizationsDTO, MyCallBack callback);
+     void getVacancies(OrganizationsDTO organizationsDTO, MyCallBack callback);
 }

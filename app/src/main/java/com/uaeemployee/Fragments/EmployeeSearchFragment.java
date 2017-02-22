@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.uaeemployee.Activites.BaseActivity;
 import com.uaeemployee.Adapters.ListAdapter;
 import com.uaeemployee.Models.Employee;
+import com.uaeemployee.Network.ResponseDTOs.VacanciesDTO;
 import com.uaeemployee.R;
 import com.uaeemployee.Utils.SharedPreferencesManager;
 
@@ -26,8 +27,8 @@ import java.util.List;
 public class EmployeeSearchFragment extends Fragment {
 
     View mView;
-    List<Employee> lEmployees = new ArrayList<Employee>();
-    List<Employee> filteredList = new ArrayList<Employee>();
+    List<VacanciesDTO> lEmployees = new ArrayList<VacanciesDTO>();
+    List<VacanciesDTO> filteredList = new ArrayList<VacanciesDTO>();
     EditText etSearch;
     ListView lvList;
     ListAdapter mAdapter;
@@ -46,7 +47,7 @@ public class EmployeeSearchFragment extends Fragment {
         initViews();
         initObj();
         initListeners();
-        populateListEmployee();
+        //populateListEmployee();
 
         mAdapter = new ListAdapter(lEmployees, getActivity());
         lvList.setAdapter(mAdapter);
@@ -86,7 +87,7 @@ public class EmployeeSearchFragment extends Fragment {
 
                 for (int i = 0; i < lEmployees.size(); i++) {
 
-                    final String name = lEmployees.get(i).getName().toLowerCase();
+                    final String name = lEmployees.get(i).getTitle().toLowerCase();
                     if (name.startsWith((String) cs)) {
 
                         filteredList.add(lEmployees.get(i));
@@ -118,22 +119,22 @@ public class EmployeeSearchFragment extends Fragment {
     }
 
 
-    private void populateListEmployee() {
-        Employee employee = new Employee("Hassan Akhtar", "Male", "Pakistan");
-        lEmployees.add(employee);
-        employee = new Employee("Neil Patel", "Male", "India");
-        lEmployees.add(employee);
-        employee = new Employee("Siri Devi", "Female", "Malaysia");
-        lEmployees.add(employee);
-        employee = new Employee("Fahad Sheikh", "Male", "UAE");
-        lEmployees.add(employee);
-        employee = new Employee("Mohsin Qureshi", "Male", "Pakistan");
-        lEmployees.add(employee);
-        employee = new Employee("Kashan Ali", "Male", "India");
-        lEmployees.add(employee);
-        employee = new Employee("Sharjeel Khan", "Male", "UAE");
-        lEmployees.add(employee);
-        employee = new Employee("Html Css Developer", "Male", "Pakistan");
-        lEmployees.add(employee);
-    }
+//    private void populateListEmployee() {
+//        Employee employee = new Employee("Hassan Akhtar", "Male", "Pakistan");
+//        lEmployees.add(employee);
+//        employee = new Employee("Neil Patel", "Male", "India");
+//        lEmployees.add(employee);
+//        employee = new Employee("Siri Devi", "Female", "Malaysia");
+//        lEmployees.add(employee);
+//        employee = new Employee("Fahad Sheikh", "Male", "UAE");
+//        lEmployees.add(employee);
+//        employee = new Employee("Mohsin Qureshi", "Male", "Pakistan");
+//        lEmployees.add(employee);
+//        employee = new Employee("Kashan Ali", "Male", "India");
+//        lEmployees.add(employee);
+//        employee = new Employee("Sharjeel Khan", "Male", "UAE");
+//        lEmployees.add(employee);
+//        employee = new Employee("Html Css Developer", "Male", "Pakistan");
+//        lEmployees.add(employee);
+//    }
 }

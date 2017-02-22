@@ -1,6 +1,7 @@
 package com.uaeemployee.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,7 +12,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.uaeemployee.Activites.BaseActivity;
-import com.uaeemployee.Adapters.subOrganizationAdapter;
+import com.uaeemployee.Activites.GenderActivity;
+import com.uaeemployee.Adapters.SubOrganizationAdapter;
+import com.uaeemployee.Adapters.SubSubOrganizationAdapter;
+import com.uaeemployee.Network.ResponseDTOs.SubOrganizationsDTO;
 import com.uaeemployee.Network.ResponseDTOs.SubSubOrganizationsDTO;
 import com.uaeemployee.R;
 import com.uaeemployee.Utils.CommonActions;
@@ -25,9 +29,12 @@ import java.util.List;
 public class SubSubOrganizationFragment extends Fragment {
 
     ListView lvSubOrgs;
-    subOrganizationAdapter adapter;
+    SubOrganizationAdapter adapter;
+    SubSubOrganizationAdapter adapter2;
     View mView;
-    List<SubSubOrganizationsDTO> subOrganizationsDTO;
+    public static List<SubSubOrganizationsDTO> subSubOrganizationsDTO;
+    List<SubOrganizationsDTO> subOrganizationsDTO;
+    boolean isSubSub = false;
 
 
     @Override
@@ -46,8 +53,13 @@ public class SubSubOrganizationFragment extends Fragment {
         lvSubOrgs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(),"Clicked: "+position, Toast.LENGTH_LONG).show();
-                //EventBus.getDefault().post(subOrganizationsDTO.get(position));
+                if (!isSubSub) {
+                    adapter2 = new SubSubOrganizationAdapter(subSubOrganizationsDTO,getActivity());
+                    lvSubOrgs.setAdapter(adapter2);
+                    isSubSub = true;
+                }else {
+                    startActivity(new Intent(getActivity(), GenderActivity.class));
+                }
             }
         });
     }
@@ -66,13 +78,14 @@ public class SubSubOrganizationFragment extends Fragment {
 
     // Update UI on Main Thread
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEventinMainThread(List<SubSubOrganizationsDTO> subOrganizationsDTO) {
+    public void onMessageEventinMainThread(List<SubOrganizationsDTO> SubOrganizationsDTO) {
         CommonActions.DismissesDialog();
-        this.subOrganizationsDTO = subOrganizationsDTO;
-        adapter = new subOrganizationAdapter(subOrganizationsDTO, getActivity());
+        this.subOrganizationsDTO = SubOrganizationsDTO;
+        adapter = new SubOrganizationAdapter(SubOrganizationsDTO, getActivity());
         lvSubOrgs.setAdapter(adapter);
 
     }
+
 
     @Override
     public void onStart() {

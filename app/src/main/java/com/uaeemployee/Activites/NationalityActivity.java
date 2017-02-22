@@ -18,7 +18,7 @@ public class NationalityActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     public static int[] imageIds = {R.drawable.flag_pakistan, R.drawable.flag_india, R.drawable.flag_uae};
     public static String[] listCountryName = {"Pakistan", "India", "UAE"};
-    public static String[] listPercentages = {"30%", "20%", "50%"};
+    public static String[] listPercentages = {"30", "20", "50"};
     SharedPreferencesManager sharedpreferences;
 
     @Override

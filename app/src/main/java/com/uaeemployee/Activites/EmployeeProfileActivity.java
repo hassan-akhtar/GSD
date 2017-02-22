@@ -30,9 +30,9 @@ public class EmployeeProfileActivity extends AppCompatActivity {
         initListeners();
 
 
-        tvNameValue.setText(sharedPreferencesManager.getString(SharedPreferencesManager.CURRENT_FIRST, EmployeeProfileActivity.this));
-        tvGenderValue.setText(sharedPreferencesManager.getString(SharedPreferencesManager.CURRENT_SECOND, EmployeeProfileActivity.this));
-        tvNationalityValue.setText(sharedPreferencesManager.getString(SharedPreferencesManager.CURRENT_THIRD, EmployeeProfileActivity.this));
+        tvNameValue.setText(sharedPreferencesManager.getString(SharedPreferencesManager.CURRENT_TITLE, EmployeeProfileActivity.this));
+        tvGenderValue.setText(sharedPreferencesManager.getString(SharedPreferencesManager.CURRENT_JOB_LEVEL, EmployeeProfileActivity.this));
+        tvNationalityValue.setText(sharedPreferencesManager.getString(SharedPreferencesManager.CURRENT_JOB_TYPE, EmployeeProfileActivity.this));
     }
 
     private void initViews() {
@@ -52,7 +52,7 @@ public class EmployeeProfileActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Employee Profile");
         mToolbar.setNavigationIcon(R.drawable.back_icon);
 
-        String name = sharedPreferencesManager.getString(SharedPreferencesManager.CURRENT_FIRST, EmployeeProfileActivity.this);
+        String name = sharedPreferencesManager.getString(SharedPreferencesManager.CURRENT_TITLE, EmployeeProfileActivity.this);
         String[] splitStr = name.split("\\s+");
 
         if ("".equals(splitStr[1])) {

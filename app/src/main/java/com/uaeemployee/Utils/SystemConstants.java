@@ -14,6 +14,7 @@ public class SystemConstants {
     // GSD Callback Keys
     public static final int RESPONSE_LOGIN = 0;
     public static final int RESPONSE_ORGANIZATIONS = 1;
+    public static final int RESPONSE_VACANCIES = 2;
 
 
 }

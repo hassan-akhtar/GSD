@@ -1,8 +1,7 @@
 package com.uaeemployee.Activites;
 
-import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,7 +12,7 @@ import android.widget.TextView;
 
 import com.uaeemployee.Adapters.ListAdapter;
 import com.uaeemployee.Fragments.VacanciesFragment;
-import com.uaeemployee.Models.Employee;
+import com.uaeemployee.Network.ResponseDTOs.VacanciesDTO;
 import com.uaeemployee.R;
 import com.uaeemployee.Utils.SharedPreferencesManager;
 
@@ -23,8 +22,8 @@ import java.util.List;
 public class EmployeeSearchActivity extends AppCompatActivity {
 
 
-    List<Employee> lEmployees = new ArrayList<Employee>();
-    List<Employee> filteredList = new ArrayList<Employee>();
+    List<VacanciesDTO> lEmployees = new ArrayList<VacanciesDTO>();
+    List<VacanciesDTO> filteredList = new ArrayList<VacanciesDTO>();
     EditText etSearch;
     ListView lvList;
     ListAdapter mAdapter;
@@ -41,35 +40,33 @@ public class EmployeeSearchActivity extends AppCompatActivity {
         initViews();
         initObj();
         initListeners();
-
-
         genderKey = sharedpreferences.getString(SharedPreferencesManager.CURRENT_GENDER, EmployeeSearchActivity.this);
         countryKey = sharedpreferences.getString(SharedPreferencesManager.CURRENT_NATIONALITY, EmployeeSearchActivity.this);
 
-        if ("pakistan".equals(countryKey)) {
-            if ("male".equals(genderKey)) {
-                populateListMalePakistan();
-            } else if ("female".equals(genderKey)) {
-                populateListFemalePakistan();
-            }
-        } else if ("india".equals(countryKey)) {
-
-            if ("male".equals(genderKey)) {
-                populateListMaleIndia();
-            } else if ("female".equals(genderKey)) {
-                populateListFemaleIndia();
-            }
-
-        } else if ("localonly".equals(countryKey)) {
-            populateListLocalEmployees();
-        } else if ("local".equals(countryKey)) {
-
-            if ("male".equals(genderKey)) {
-                populateListLocalMale();
-            } else if ("female".equals(genderKey)) {
-                populateListLocalFemale();
-            }
-        }
+//        if ("pakistan".equals(countryKey)) {
+//            if ("male".equals(genderKey)) {
+//                populateListMalePakistan();
+//            } else if ("female".equals(genderKey)) {
+//                populateListFemalePakistan();
+//            }
+//        } else if ("india".equals(countryKey)) {
+//
+//            if ("male".equals(genderKey)) {
+//                populateListMaleIndia();
+//            } else if ("female".equals(genderKey)) {
+//                populateListFemaleIndia();
+//            }
+//
+//        } else if ("localonly".equals(countryKey)) {
+//            populateListLocalEmployees();
+//        } else if ("local".equals(countryKey)) {
+//
+//            if ("male".equals(genderKey)) {
+//                populateListLocalMale();
+//            } else if ("female".equals(genderKey)) {
+//                populateListLocalFemale();
+//            }
+//        }
 
 
         mAdapter = new ListAdapter(lEmployees, EmployeeSearchActivity.this);
@@ -113,7 +110,7 @@ public class EmployeeSearchActivity extends AppCompatActivity {
 
                 for (int i = 0; i < lEmployees.size(); i++) {
 
-                    final String name = lEmployees.get(i).getName().toLowerCase();
+                    final String name = lEmployees.get(i).getTitle().toLowerCase();
                     if (name.startsWith((String) cs)) {
 
                         filteredList.add(lEmployees.get(i));
@@ -152,89 +149,89 @@ public class EmployeeSearchActivity extends AppCompatActivity {
     }
 
 
-    private void populateListMalePakistan() {
-        Employee employee = new Employee("Hassan Akhtar", "Male", "Pakistan");
-        lEmployees.add(employee);
-        employee = new Employee("Qasim Bajwa", "Male", "Pakistan");
-        lEmployees.add(employee);
-        employee = new Employee("Fahad Sheikh", "Male", "Pakistan");
-        lEmployees.add(employee);
-        employee = new Employee("Mohsin Qureshi", "Male", "Pakistan");
-        lEmployees.add(employee);
-    }
-
-    private void populateListFemalePakistan() {
-        Employee employee = new Employee("Fatima Gull", "Female", "Pakistan");
-        lEmployees.add(employee);
-        employee = new Employee("Anum Bibi", "Female", "Pakistan");
-        lEmployees.add(employee);
-        employee = new Employee("Siri Devi", "Female", "Pakistan");
-        lEmployees.add(employee);
-        employee = new Employee("Ayesha Singh", "Female", "Pakistan");
-        lEmployees.add(employee);
-    }
-
-    private void populateListLocalMale() {
-        Employee employee = new Employee("Ali Husnain Sheikh", "Male", "UAE");
-        lEmployees.add(employee);
-        employee = new Employee("Sheikh Hassan", "Male", "UAE");
-        lEmployees.add(employee);
-        employee = new Employee("Naz Kumkum", "Male", "UAE");
-        lEmployees.add(employee);
-        employee = new Employee("Hussan Saeed", "Male", "UAE");
-        lEmployees.add(employee);
-    }
-
-    private void populateListLocalFemale() {
-        Employee employee = new Employee("Fatima Sheikh", "Female", "UAE");
-        lEmployees.add(employee);
-        employee = new Employee("Sheikh Sundus", "Female", "UAE");
-        lEmployees.add(employee);
-        employee = new Employee("Naz Kumkum", "Female", "UAE");
-        lEmployees.add(employee);
-        employee = new Employee("Sehar Nawaz", "Female", "UAE");
-        lEmployees.add(employee);
-    }
-
-    private void populateListMaleIndia() {
-        Employee employee = new Employee("Bahun Devan", "Male", "India");
-        lEmployees.add(employee);
-        employee = new Employee("Rahul Gill", "Male", "India");
-        lEmployees.add(employee);
-        employee = new Employee("Rohit Sheti", "Male", "India");
-        lEmployees.add(employee);
-        employee = new Employee("Arbab Kapoor", "Male", "India");
-        lEmployees.add(employee);
-    }
-
-    private void populateListLocalEmployees() {
-        Employee employee = new Employee("Ali Husnain Sheikh", "Male", "UAE");
-        lEmployees.add(employee);
-        employee = new Employee("Sheikh Hassan", "Male", "UAE");
-        lEmployees.add(employee);
-        employee = new Employee("Fatima Sheikh", "Female", "UAE");
-        lEmployees.add(employee);
-        employee = new Employee("Sheikh Sundus", "Female", "UAE");
-        lEmployees.add(employee);
-        employee = new Employee("Naz Kumkum", "Male", "UAE");
-        lEmployees.add(employee);
-        employee = new Employee("Hussan Saeed", "Male", "UAE");
-        lEmployees.add(employee);
-        employee = new Employee("Naz Kumkum", "Female", "UAE");
-        lEmployees.add(employee);
-        employee = new Employee("Sehar Nawaz", "Female", "UAE");
-        lEmployees.add(employee);
-    }
-
-    private void populateListFemaleIndia() {
-        Employee employee = new Employee("Deepika Padukon", "Female", "India");
-        lEmployees.add(employee);
-        employee = new Employee("Siri Devi", "Female", "India");
-        lEmployees.add(employee);
-        employee = new Employee("Farah Khan", "Female", "India");
-        lEmployees.add(employee);
-        employee = new Employee("Enkita Sharma", "Female", "India");
-        lEmployees.add(employee);
-    }
+//    private void populateListMalePakistan() {
+//        Employee employee = new Employee("Hassan Akhtar", "Male", "Pakistan");
+//        lEmployees.add(employee);
+//        employee = new Employee("Qasim Bajwa", "Male", "Pakistan");
+//        lEmployees.add(employee);
+//        employee = new Employee("Fahad Sheikh", "Male", "Pakistan");
+//        lEmployees.add(employee);
+//        employee = new Employee("Mohsin Qureshi", "Male", "Pakistan");
+//        lEmployees.add(employee);
+//    }
+//
+//    private void populateListFemalePakistan() {
+//        Employee employee = new Employee("Fatima Gull", "Female", "Pakistan");
+//        lEmployees.add(employee);
+//        employee = new Employee("Anum Bibi", "Female", "Pakistan");
+//        lEmployees.add(employee);
+//        employee = new Employee("Siri Devi", "Female", "Pakistan");
+//        lEmployees.add(employee);
+//        employee = new Employee("Ayesha Singh", "Female", "Pakistan");
+//        lEmployees.add(employee);
+//    }
+//
+//    private void populateListLocalMale() {
+//        Employee employee = new Employee("Ali Husnain Sheikh", "Male", "UAE");
+//        lEmployees.add(employee);
+//        employee = new Employee("Sheikh Hassan", "Male", "UAE");
+//        lEmployees.add(employee);
+//        employee = new Employee("Naz Kumkum", "Male", "UAE");
+//        lEmployees.add(employee);
+//        employee = new Employee("Hussan Saeed", "Male", "UAE");
+//        lEmployees.add(employee);
+//    }
+//
+//    private void populateListLocalFemale() {
+//        Employee employee = new Employee("Fatima Sheikh", "Female", "UAE");
+//        lEmployees.add(employee);
+//        employee = new Employee("Sheikh Sundus", "Female", "UAE");
+//        lEmployees.add(employee);
+//        employee = new Employee("Naz Kumkum", "Female", "UAE");
+//        lEmployees.add(employee);
+//        employee = new Employee("Sehar Nawaz", "Female", "UAE");
+//        lEmployees.add(employee);
+//    }
+//
+//    private void populateListMaleIndia() {
+//        Employee employee = new Employee("Bahun Devan", "Male", "India");
+//        lEmployees.add(employee);
+//        employee = new Employee("Rahul Gill", "Male", "India");
+//        lEmployees.add(employee);
+//        employee = new Employee("Rohit Sheti", "Male", "India");
+//        lEmployees.add(employee);
+//        employee = new Employee("Arbab Kapoor", "Male", "India");
+//        lEmployees.add(employee);
+//    }
+//
+//    private void populateListLocalEmployees() {
+//        Employee employee = new Employee("Ali Husnain Sheikh", "Male", "UAE");
+//        lEmployees.add(employee);
+//        employee = new Employee("Sheikh Hassan", "Male", "UAE");
+//        lEmployees.add(employee);
+//        employee = new Employee("Fatima Sheikh", "Female", "UAE");
+//        lEmployees.add(employee);
+//        employee = new Employee("Sheikh Sundus", "Female", "UAE");
+//        lEmployees.add(employee);
+//        employee = new Employee("Naz Kumkum", "Male", "UAE");
+//        lEmployees.add(employee);
+//        employee = new Employee("Hussan Saeed", "Male", "UAE");
+//        lEmployees.add(employee);
+//        employee = new Employee("Naz Kumkum", "Female", "UAE");
+//        lEmployees.add(employee);
+//        employee = new Employee("Sehar Nawaz", "Female", "UAE");
+//        lEmployees.add(employee);
+//    }
+//
+//    private void populateListFemaleIndia() {
+//        Employee employee = new Employee("Deepika Padukon", "Female", "India");
+//        lEmployees.add(employee);
+//        employee = new Employee("Siri Devi", "Female", "India");
+//        lEmployees.add(employee);
+//        employee = new Employee("Farah Khan", "Female", "India");
+//        lEmployees.add(employee);
+//        employee = new Employee("Enkita Sharma", "Female", "India");
+//        lEmployees.add(employee);
+//    }
 }
 

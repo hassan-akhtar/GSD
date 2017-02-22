@@ -61,7 +61,12 @@ public class OrganizationFragment extends Fragment implements MyCallBack {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BaseActivity.refreshMainViewByNew(new SubSubOrganizationFragment());
-                EventBus.getDefault().post(organizationsDTO.get(position).getLstSubSubOrganization());
+                getActivity().getSupportFragmentManager().executePendingTransactions();
+                EventBus.getDefault().post(organizationsDTO.get(position).getLstSubOrganization());
+                if (SubSubOrganizationFragment.subSubOrganizationsDTO!=null) {
+                    SubSubOrganizationFragment.subSubOrganizationsDTO.clear();
+                }
+                SubSubOrganizationFragment.subSubOrganizationsDTO = organizationsDTO.get(position).getLstSubSubOrganization();
             }
         });
     }
@@ -71,11 +76,8 @@ public class OrganizationFragment extends Fragment implements MyCallBack {
     }
 
     private void initObj() {
-
         myCommunicator = (Communicator) getActivity();
         BaseActivity.fragment = new OrganizationFragment();
-
-
     }
 
 

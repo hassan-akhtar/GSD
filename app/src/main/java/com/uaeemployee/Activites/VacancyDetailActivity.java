@@ -5,17 +5,30 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.uaeemployee.Adapters.SubOrganizationAdapter;
+import com.uaeemployee.Network.ResponseDTOs.SubOrganizationsDTO;
+import com.uaeemployee.Network.ResponseDTOs.VacanciesDTO;
 import com.uaeemployee.R;
+import com.uaeemployee.Utils.CommonActions;
 import com.uaeemployee.Utils.SharedPreferencesManager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
+
 
 public class VacancyDetailActivity extends AppCompatActivity {
 
 
-   // TextView tvNameValue, tvGenderValue,tvNationalityValue;
+    TextView tvJobTitle, tvSalaryValue, tvJobTypeValue, tvLevelValue, tvLocationValue, tvJobDescriptionValue;
     SharedPreferencesManager sharedPreferencesManager;
     private Toolbar mToolbar;
-    TextView tvJobTitle;
+    VacanciesDTO vacanciesDTO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,21 +37,21 @@ public class VacancyDetailActivity extends AppCompatActivity {
         initViews();
         initObj();
         initListeners();
+        setVacanciesData( vacanciesDTO);
 
 
-        //tvNameValue.setText(sharedPreferencesManager.getString(SharedPreferencesManager.CURRENT_FIRST,VacancyDetailActivity.this));
-       // tvGenderValue.setText(sharedPreferencesManager.getString(SharedPreferencesManager.CURRENT_SECOND,VacancyDetailActivity.this));
-       // tvNationalityValue.setText(sharedPreferencesManager.getString(SharedPreferencesManager.CURRENT_THIRD,VacancyDetailActivity.this));
-        tvJobTitle.setText(sharedPreferencesManager.getString(SharedPreferencesManager.CURRENT_FIRST,VacancyDetailActivity.this));
     }
 
     private void initViews() {
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-       // tvNameValue = (TextView) findViewById(R.id.tvNameValue);
-      //  tvGenderValue = (TextView) findViewById(R.id.tvGenderValue);
-       // tvNationalityValue = (TextView) findViewById(R.id.tvNationalityValue);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         tvJobTitle = (TextView) findViewById(R.id.tvJobTitle);
+        tvSalaryValue = (TextView) findViewById(R.id.tvSalaryValue);
+        tvJobTypeValue = (TextView) findViewById(R.id.tvJobTypeValue);
+        tvLevelValue = (TextView) findViewById(R.id.tvLevelValue);
+        tvLocationValue = (TextView) findViewById(R.id.tvLocationValue);
+        tvJobDescriptionValue  = (TextView) findViewById(R.id.tvJobDescriptionValue);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
     }
 
     private void initObj() {
@@ -48,6 +61,8 @@ public class VacancyDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Vacancy Detail");
         mToolbar.setNavigationIcon(R.drawable.back_icon);
+        vacanciesDTO = (VacanciesDTO) getIntent().getSerializableExtra("vacancies_DTO_Obj");
+
     }
 
     private void initListeners() {
@@ -70,4 +85,14 @@ public class VacancyDetailActivity extends AppCompatActivity {
         }
 
     };
+    //endregion
+
+    public void setVacanciesData(VacanciesDTO vacanciesDTO) {
+        tvJobTitle.setText(vacanciesDTO.getTitle());
+        tvSalaryValue.setText("10,000- 15,000");
+        tvJobTypeValue.setText(vacanciesDTO.getJobType());
+        tvLevelValue.setText(vacanciesDTO.getJobLevel());
+        tvLocationValue.setText("UAE");
+        tvJobDescriptionValue.setText(vacanciesDTO.getDescription());
+    }
 }

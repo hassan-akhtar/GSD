@@ -16,7 +16,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tvGender"
+        android:id="@+id/tvLevel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/tvName"
@@ -27,11 +27,11 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tvCountry"
+        android:id="@+id/tvJobType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tvGender"
-        android:layout_below="@+id/tvGender"
+        android:layout_alignStart="@+id/tvLevel"
+        android:layout_below="@+id/tvLevel"
         android:text="Pakistan"
         android:layout_marginBottom="7dp"/>
 

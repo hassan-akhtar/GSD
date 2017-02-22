@@ -10,9 +10,9 @@ public class SharedPreferencesManager {
     public static final String MY_PREFERENCES = "MyPrefs" ;
     public static final String CURRENT_GENDER = "gender";
     public static final String CURRENT_NATIONALITY = "nationality";
-    public static final String CURRENT_FIRST = "first";
-    public static final String CURRENT_SECOND = "second";
-    public static final String CURRENT_THIRD = "third";
+    public static final String CURRENT_TITLE = "first";
+    public static final String CURRENT_JOB_LEVEL = "second";
+    public static final String CURRENT_JOB_TYPE = "third";
     public static final String IS_VACANCY = "isvacancy";
 
 

@@ -9,19 +9,18 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.uaeemployee.Network.ResponseDTOs.SubOrganizationsDTO;
-import com.uaeemployee.Network.ResponseDTOs.SubSubOrganizationsDTO;
 import com.uaeemployee.R;
 
 import java.util.List;
 
 
-public class subOrganizationAdapter extends BaseAdapter {
+public class SubOrganizationAdapter extends BaseAdapter {
 
-    private List<SubSubOrganizationsDTO> orgsList;
+    private List<SubOrganizationsDTO> orgsList;
 
     Context mContext;
 
-    public subOrganizationAdapter(List<SubSubOrganizationsDTO> contactsList, Context context) {
+    public SubOrganizationAdapter(List<SubOrganizationsDTO> contactsList, Context context) {
         this.orgsList = contactsList;
         this.mContext = context;
     }
@@ -51,9 +50,17 @@ public class subOrganizationAdapter extends BaseAdapter {
                 .inflate(R.layout.org_row_item, parent, false);
 
         MyViewHolder holder = new MyViewHolder(itemView);
-        SubSubOrganizationsDTO organization = orgsList.get(position);
+        SubOrganizationsDTO organization = orgsList.get(position);
         holder.tvName.setText(organization.getName());
-        //holder.llbg.setBackgroundResource();
+        int pos = position+1;
+        if (1==pos%3) {
+            holder.llbg.setBackgroundResource(R.drawable.org_one);
+        } else  if (2==pos%3) {
+            holder.llbg.setBackgroundResource(R.drawable.org_two);
+        }else {
+            holder.llbg.setBackgroundResource(R.drawable.org_three);
+        }
+
 
         return itemView;
     }
