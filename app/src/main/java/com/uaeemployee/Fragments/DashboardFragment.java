@@ -84,12 +84,14 @@ public class DashboardFragment extends Fragment {
 
                 case R.id.llEmployeeSearch: {
                     BaseActivity.refreshMainViewByNew(new EmployeeSearchFragment());
+                    BaseActivity.isEmployeeDoc = false;
                 }
                 break;
 
 
                 case R.id.llEmployeeDocuments: {
-                    BaseActivity.refreshMainViewByNew(new EmployeeDocumentFragment());
+                    BaseActivity.refreshMainViewByNew(new EmployeeSearchFragment());
+                    BaseActivity.isEmployeeDoc = true;
                 }
                 break;
 

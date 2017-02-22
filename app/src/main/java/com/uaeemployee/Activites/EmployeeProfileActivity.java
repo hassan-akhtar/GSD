@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.uaeemployee.Network.ResponseDTOs.EmployeeDTO;
-import com.uaeemployee.Network.ResponseDTOs.VacanciesDTO;
 import com.uaeemployee.R;
 import com.uaeemployee.Utils.SharedPreferencesManager;
 import com.uaeemployee.Utils.TextDrawable;
@@ -37,7 +36,7 @@ public class EmployeeProfileActivity extends AppCompatActivity {
     private void initViews() {
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         tvNameValue = (TextView) findViewById(R.id.tvName);
-        tvGenderValue = (TextView) findViewById(R.id.tvGenderValue);
+        tvGenderValue = (TextView) findViewById(R.id.tvEmployeeID);
         tvNationalityValue = (TextView) findViewById(R.id.tvNationalityValue);
         tvOrgValue = (TextView) findViewById(R.id.tvOrgValue);
         tvEmailValue = (TextView) findViewById(R.id.tvEmailValue);

@@ -23,7 +23,7 @@
         <item>Vacancies</item>
         <item>Employee&#160;Search</item>
         <item>Employee&#160;Documents</item>
-<!--        <item>Incident&#160;Management</item>
+        <!--        <item>Incident&#160;Management</item>
         <item>Event&#160;&amp;&#160;Security&#160;Plan</item>-->
         <item>Logout</item>
     </string-array>
@@ -34,7 +34,7 @@
         <item>@drawable/vancancy</item>
         <item>@drawable/icon_search</item>
         <item>@drawable/documents</item>
-<!--        <item>@drawable/incidentmonitoring</item>
+        <!--        <item>@drawable/incidentmonitoring</item>
         <item>@drawable/eventplan</item>-->
         <item>@drawable/icon_logout</item>
     </string-array>

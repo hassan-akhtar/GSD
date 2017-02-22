@@ -33,7 +33,8 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".Activites.EmployeeProfileActivity" />
         <activity android:name=".Activites.VacancyDetailActivity" />
-        <activity android:name=".Activites.IncidentDetailActivity"></activity>
+        <activity android:name=".Activites.IncidentDetailActivity" />
+        <activity android:name=".Activites.EmployeeDocumentActivity"></activity>
     </application>
 
 </manifest>

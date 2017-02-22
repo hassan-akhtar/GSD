@@ -9,4 +9,6 @@ public interface GSDService {
      void getOrganizations(OrganizationsDTO organizationsDTO, MyCallBack callback);
      void getVacancies(OrganizationsDTO organizationsDTO, MyCallBack callback);
      void getEmployees(OrganizationsDTO organizationsDTO, MyCallBack callback);
+     void getEmployeeDocument(OrganizationsDTO organizationsDTO, MyCallBack callback);
+
 }

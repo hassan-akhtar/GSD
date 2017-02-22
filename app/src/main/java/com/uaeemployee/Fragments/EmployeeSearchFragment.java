@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uaeemployee.Activites.BaseActivity;
+import com.uaeemployee.Activites.EmployeeDocumentActivity;
 import com.uaeemployee.Activites.EmployeeProfileActivity;
 import com.uaeemployee.Activites.VacancyDetailActivity;
 import com.uaeemployee.Adapters.ListAdapter;
@@ -84,11 +85,15 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
         tvNoTextFound = (TextView) mView.findViewById(R.id.tvNoTextFound);
         toolbar = (Toolbar) mView.findViewById(R.id.toolbar);
         toolbar.setVisibility(View.GONE);
-        ((BaseActivity) getActivity()).mToolbar.setTitle(getString(R.string.employeeSearch));
+        if (!BaseActivity.isEmployeeDoc ) {
+            ((BaseActivity) getActivity()).mToolbar.setTitle(getString(R.string.employeeSearch));
+        } else {
+            ((BaseActivity) getActivity()).mToolbar.setTitle(getString(R.string.employee_document));
+        }
     }
 
     private void initObj() {
-        BaseActivity.fragment = new VacanciesFragment();
+        BaseActivity.fragment = new EmployeeSearchFragment();
         sharedPreferencesManager = new SharedPreferencesManager(getActivity());
         sharedPreferencesManager.setBoolean(SharedPreferencesManager.IS_VACANCY,false,getActivity());
     }
@@ -139,19 +144,33 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
         lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getActivity().getSupportFragmentManager().executePendingTransactions();
-                Intent in = new Intent(getActivity(), EmployeeProfileActivity.class);
-                if("".equals(etSearch.getText().toString().trim())){
-                    EmployeeDTO employeeDTO = new EmployeeDTO(lEmployees.get(position).getEmployeeID(), lEmployees.get(position).getSubSubOrganizationID(), lEmployees.get(position).getFirstName()
-                            , lEmployees.get(position).getLastName(), lEmployees.get(position).getGender(), lEmployees.get(position).getEmail(), lEmployees.get(position).getAddress(), lEmployees.get(position).getContactNo(), lEmployees.get(position).getSalary(), lEmployees.get(position).getCountryName());
-                    in.putExtra("employee_DTO_Obj", employeeDTO);
-                }else{
-                    EmployeeDTO employeeDTO = new EmployeeDTO(filteredList.get(position).getEmployeeID(), filteredList.get(position).getSubSubOrganizationID(), filteredList.get(position).getFirstName()
-                            , filteredList.get(position).getLastName(), filteredList.get(position).getGender(), filteredList.get(position).getEmail(), filteredList.get(position).getAddress(), filteredList.get(position).getContactNo(), filteredList.get(position).getSalary(), filteredList.get(position).getCountryName());
-                    in.putExtra("employee_DTO_Obj", employeeDTO);
-                }
+                if (!BaseActivity.isEmployeeDoc ) {
+                    Intent in = new Intent(getActivity(), EmployeeProfileActivity.class);
+                    if("".equals(etSearch.getText().toString().trim())){
+                        EmployeeDTO employeeDTO = new EmployeeDTO(lEmployees.get(position).getEmployeeID(), lEmployees.get(position).getSubSubOrganizationID(), lEmployees.get(position).getFirstName()
+                                , lEmployees.get(position).getLastName(), lEmployees.get(position).getGender(), lEmployees.get(position).getEmail(), lEmployees.get(position).getAddress(), lEmployees.get(position).getContactNo(), lEmployees.get(position).getSalary(), lEmployees.get(position).getCountryName());
+                        in.putExtra("employee_DTO_Obj", employeeDTO);
+                    }else{
+                        EmployeeDTO employeeDTO = new EmployeeDTO(filteredList.get(position).getEmployeeID(), filteredList.get(position).getSubSubOrganizationID(), filteredList.get(position).getFirstName()
+                                , filteredList.get(position).getLastName(), filteredList.get(position).getGender(), filteredList.get(position).getEmail(), filteredList.get(position).getAddress(), filteredList.get(position).getContactNo(), filteredList.get(position).getSalary(), filteredList.get(position).getCountryName());
+                        in.putExtra("employee_DTO_Obj", employeeDTO);
+                    }
 
-                startActivity(in);
+                    startActivity(in);
+                } else {
+                    Intent in = new Intent(getActivity(), EmployeeDocumentActivity.class);
+                    if("".equals(etSearch.getText().toString().trim())){
+                        EmployeeDTO employeeDTO = new EmployeeDTO(lEmployees.get(position).getEmployeeID(), lEmployees.get(position).getSubSubOrganizationID(), lEmployees.get(position).getFirstName()
+                                , lEmployees.get(position).getLastName(), lEmployees.get(position).getGender(), lEmployees.get(position).getEmail(), lEmployees.get(position).getAddress(), lEmployees.get(position).getContactNo(), lEmployees.get(position).getSalary(), lEmployees.get(position).getCountryName());
+                        in.putExtra("employee_doc_DTO_Obj", employeeDTO);
+                    }else{
+                        EmployeeDTO employeeDTO = new EmployeeDTO(filteredList.get(position).getEmployeeID(), filteredList.get(position).getSubSubOrganizationID(), filteredList.get(position).getFirstName()
+                                , filteredList.get(position).getLastName(), filteredList.get(position).getGender(), filteredList.get(position).getEmail(), filteredList.get(position).getAddress(), filteredList.get(position).getContactNo(), filteredList.get(position).getSalary(), filteredList.get(position).getCountryName());
+                        in.putExtra("employee_doc_DTO_Obj", employeeDTO);
+                    }
+
+                    startActivity(in);
+                }
 
             }
         });

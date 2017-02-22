@@ -4,12 +4,27 @@
     android:layout_height="match_parent"
     tools:context="com.uaeemployee.Fragments.EmployeeDocumentFragment">
 
-    <TextView
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <RelativeLayout
         android:layout_width="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/layout_list_common" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvNoTextFound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:textSize="25sp"
-        android:layout_height="wrap_content"
-        android:text="Employee Documents" />
+        android:text="No Employee(s) Found"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

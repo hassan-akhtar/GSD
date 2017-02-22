@@ -1,12 +1,13 @@
 package com.uaeemployee.Network.Service;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.uaeemployee.Application.MyApplication;
 import com.uaeemployee.Network.RequestDTOs.LoginDTO;
 import com.uaeemployee.Network.ResponseDTOs.EmployeeDTO;
+import com.uaeemployee.Network.ResponseDTOs.EmployeeDocument;
+import com.uaeemployee.Network.ResponseDTOs.EmployeeDocumentResponseDTO;
 import com.uaeemployee.Network.ResponseDTOs.EmployeeResponseDTO;
 import com.uaeemployee.Network.ResponseDTOs.LoginResponseDTO;
 import com.uaeemployee.Network.ResponseDTOs.OrganizationsDTO;
@@ -133,6 +134,31 @@ public class GSDServiceImpl implements GSDService {
 
                 EmployeeResponseDTO res = new EmployeeResponseDTO();
                 res.setEmployeeDTO(employeeDTO);
+                res.setCallBackId(organizationsDTO.getCallBackId());
+                callback.onSuccess(res);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (error != null && error.getResponse() != null && error.getResponse().getStatus() != 0) {
+                    MyApplication.getInstance().setStatusCode(error.getResponse().getStatus());
+                    callback.onFailure(new ResponseDTO(error.getMessage()));
+                } else {
+                    MyApplication.getInstance().setStatusCode(1);
+                    callback.onFailure(new ResponseDTO(error.getMessage()));
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getEmployeeDocument(final com.uaeemployee.Network.RequestDTOs.OrganizationsDTO organizationsDTO, final MyCallBack callback) {
+        adapter.getEmployeeDocument(organizationsDTO.getUserID(), new Callback<List<EmployeeDocument>>() {
+            @Override
+            public void success(List<EmployeeDocument> employeeDTO, Response response) {
+
+                EmployeeDocumentResponseDTO res = new EmployeeDocumentResponseDTO();
+                res.setEmployeeDocument(employeeDTO);
                 res.setCallBackId(organizationsDTO.getCallBackId());
                 callback.onSuccess(res);
             }

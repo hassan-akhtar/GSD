@@ -29,6 +29,7 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
 
     public Toolbar mToolbar;
+    public static boolean isEmployeeDoc = false;
     private FragmentDrawer drawerFragment;
     private static FragmentManager fragmentManager;
     String title;
@@ -70,11 +71,13 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 break;
             case 3:
                 fragment = new EmployeeSearchFragment();
+                isEmployeeDoc = false;
                 title = "Employee Search";
                 break;
             case 4:
-                fragment = new EmployeeDocumentFragment();
-                title = "Employee Document";
+                fragment = new EmployeeSearchFragment();
+                isEmployeeDoc = true;
+                title = "Employee Documents";
                 break;
 
 //            case 5:
