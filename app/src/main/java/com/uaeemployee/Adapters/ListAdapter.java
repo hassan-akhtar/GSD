@@ -27,14 +27,12 @@ public class ListAdapter extends BaseAdapter {
     List<VacanciesDTO> mlist;
     List<EmployeeDTO> mlistEmployee;
     private LayoutInflater inflater = null;
-    SharedPreferencesManager sharedPreferencesManager;
 
     public ListAdapter(List<VacanciesDTO> list, Context context) {
         mlist = list;
         mContext = context;
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        sharedPreferencesManager = new SharedPreferencesManager(context);
     }
 
     public ListAdapter(List<EmployeeDTO> list, Context context, String str) {
@@ -42,7 +40,6 @@ public class ListAdapter extends BaseAdapter {
         mContext = context;
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        sharedPreferencesManager = new SharedPreferencesManager(context);
     }
 
 

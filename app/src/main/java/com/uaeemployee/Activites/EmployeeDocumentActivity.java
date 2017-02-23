@@ -6,9 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.uaeemployee.Adapters.EmployeeDocumentAdapter;
 import com.uaeemployee.Adapters.ListAdapter;
 import com.uaeemployee.Application.MyApplication;
 import com.uaeemployee.Network.ResponseDTOs.EmployeeDTO;
@@ -23,12 +26,17 @@ import com.uaeemployee.Utils.CommonActions;
 import com.uaeemployee.Utils.SharedPreferencesManager;
 import com.uaeemployee.Utils.SystemConstants;
 
+import java.util.List;
+
 public class EmployeeDocumentActivity extends AppCompatActivity implements MyCallBack{
 
-    TextView tvEmployeeID,tvDocumentName;
+    TextView tvEmployeeID,tvDocumentName, tvNoTextFound;
     SharedPreferencesManager sharedPreferencesManager;
     private Toolbar mToolbar;
     EmployeeDTO employeeDTO;
+    EmployeeDocumentAdapter employeeDocumentAdapter;
+    List<EmployeeDocument> employeeDocumentList;
+    ListView lvEmployee;
 
 
     @Override
@@ -45,7 +53,10 @@ public class EmployeeDocumentActivity extends AppCompatActivity implements MyCal
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         tvEmployeeID = (TextView) findViewById(R.id.tvEmployeeID);
         tvDocumentName = (TextView) findViewById(R.id.tvDocumentName);
+        tvNoTextFound = (TextView) findViewById(R.id.tvNoTextFound);
+        lvEmployee = (ListView) findViewById(R.id.lvList);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        tvNoTextFound.setVisibility(View.GONE);
     }
 
     private void initObj() {
@@ -70,6 +81,13 @@ public class EmployeeDocumentActivity extends AppCompatActivity implements MyCal
                 onBackPressed();
             }
         });
+
+        lvEmployee.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(),""+employeeDocumentList.get(position).getDocPath(),Toast.LENGTH_LONG).show();
+            }
+        });
     }
     @Override
     public void onSuccess(ResponseDTO responseDTO) {
@@ -80,9 +98,8 @@ public class EmployeeDocumentActivity extends AppCompatActivity implements MyCal
                 if (responseDTO != null) {
                     if (null==responseDTO.getMessage()) {
                         CommonActions.DismissesDialog();
-                        // Employee k document ki list aae hai
-                        //etupData();
-                        Toast.makeText(getApplicationContext(),"recvd",Toast.LENGTH_LONG).show();
+                        employeeDocumentList = employeeResponseDTO.getEmployeeDocument();
+                        setupData();
 
                     } else {
                         CommonActions.DismissesDialog();
@@ -101,6 +118,16 @@ public class EmployeeDocumentActivity extends AppCompatActivity implements MyCal
 
             default:
                 break;
+        }
+    }
+
+    private void setupData() {
+        if (0!=employeeDocumentList.size()) {
+            tvNoTextFound.setVisibility(View.GONE);
+            employeeDocumentAdapter = new EmployeeDocumentAdapter(employeeDocumentList, getApplicationContext());
+            lvEmployee.setAdapter(employeeDocumentAdapter);
+        } else {
+            tvNoTextFound.setVisibility(View.VISIBLE);
         }
     }
 
