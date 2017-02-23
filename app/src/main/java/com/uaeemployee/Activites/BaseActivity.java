@@ -90,7 +90,7 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
 //                title = "Event & Security Plan";
 //                break;
 
-            case 7:
+            case 5:
                 startActivity(new Intent(BaseActivity.this, LoginActivity.class));
                 finish();
                 Toast.makeText(getApplicationContext(), "Successfully Logged out!", Toast.LENGTH_LONG).show();
