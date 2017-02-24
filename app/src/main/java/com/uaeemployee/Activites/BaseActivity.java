@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.uaeemployee.Fragments.DashboardFragment;
@@ -182,7 +183,32 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_orgs) {
-            Toast.makeText(getApplicationContext(),"orgs menu clicked",Toast.LENGTH_LONG).show();
+            AlertDialog.Builder builderSingle = new AlertDialog.Builder(BaseActivity.this);
+            builderSingle.setIcon(R.drawable.icon_orgs);
+            builderSingle.setTitle("Please select a company");
+
+            final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(BaseActivity.this, android.R.layout.select_dialog_singlechoice);
+            arrayAdapter.add("Emmar");
+            arrayAdapter.add("AHD");
+            arrayAdapter.add("Armani");
+            arrayAdapter.add("Company");
+            arrayAdapter.add("Emmar");
+
+            builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String strName = arrayAdapter.getItem(which);
+                   Toast.makeText(getApplicationContext(),"You selected: "+strName,Toast.LENGTH_LONG).show();
+                }
+            });
+            builderSingle.show();
             return true;
         }
         return super.onOptionsItemSelected(item);
