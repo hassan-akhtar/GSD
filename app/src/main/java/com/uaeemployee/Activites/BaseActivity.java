@@ -10,6 +10,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ import com.uaeemployee.Fragments.OrganizationFragment;
 import com.uaeemployee.Fragments.SubSubOrganizationFragment;
 import com.uaeemployee.Fragments.VacanciesFragment;
 import com.uaeemployee.Interfaces.Communicator;
+import com.uaeemployee.Models.Organization;
 import com.uaeemployee.R;
 
 public class BaseActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener, Communicator {
@@ -34,6 +37,7 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private static FragmentManager fragmentManager;
     String title;
     public static Fragment fragment;
+    MenuItem item;
 
 
     @Override
@@ -153,6 +157,35 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
                     .replace(R.id.container_body,
                             new SubSubOrganizationFragment()).commit();
         }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.org_menu, menu);
+         item = menu.findItem(R.id.action_orgs);
+        if(BaseActivity.fragment instanceof DashboardFragment || BaseActivity.fragment instanceof OrganizationFragment){
+            item.setVisible(false);
+            invalidateOptionsMenu();
+        }else {
+            item.setVisible(true);
+            invalidateOptionsMenu();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_orgs) {
+            Toast.makeText(getApplicationContext(),"orgs menu clicked",Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
