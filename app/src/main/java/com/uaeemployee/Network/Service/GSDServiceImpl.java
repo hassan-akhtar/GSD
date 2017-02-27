@@ -47,6 +47,7 @@ public class GSDServiceImpl implements GSDService {
                 TimeUnit.SECONDS);
         final RestAdapter retroAdapter = new RestAdapter.Builder()
                 .setEndpoint(SystemConstants.URL_BASE)
+                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setClient(new OkClient(okHttpClient)).build();
         adapter = retroAdapter.create(GSDRESTService.class);
     }

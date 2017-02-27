@@ -29,7 +29,7 @@ public class IncidentDetailActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Incident Detail");
+        getSupportActionBar().setTitle(R.string.txt_incident_detail);
         mToolbar.setNavigationIcon(R.drawable.back_icon);
     }
 

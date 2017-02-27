@@ -71,9 +71,9 @@ public class LoginActivity extends AppCompatActivity   implements MyCallBack {
     private boolean checkValidation() {
 
         if ("".equals(etUser.getText().toString().trim())) {
-            showToast("Please enter username");
+            showToast(getString(R.string.txt_enter_username));
         } else if ("".equals(etPass.getText().toString().trim())) {
-            showToast("Please enter password");
+            showToast(getString(R.string.txt_enter_pass));
         } else {
             return true;
         }
@@ -98,9 +98,9 @@ public class LoginActivity extends AppCompatActivity   implements MyCallBack {
                     } else {
                         CommonActions.DismissesDialog();
                         new AlertDialog.Builder(LoginActivity.this)
-                                .setTitle("Login")
-                                .setMessage("Login Failed. Please try again")
-                                .setNegativeButton("CLOSE", new DialogInterface.OnClickListener() {
+                                .setTitle(R.string.txt_login)
+                                .setMessage(R.string.msg_login_failed)
+                                .setNegativeButton(getString(R.string.txt_close), new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
 
                                     }
@@ -119,10 +119,10 @@ public class LoginActivity extends AppCompatActivity   implements MyCallBack {
     public void onFailure(ResponseDTO errorDTO) {
         CommonActions.DismissesDialog();
         if (404 == MyApplication.getInstance().getStatusCode())
-            Toast.makeText(getApplicationContext(), "Service is not Available please try again Later!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.error_404_msg, Toast.LENGTH_LONG).show();
         else if (1 == MyApplication.getInstance().getStatusCode())
-            Toast.makeText(getApplicationContext(), "Poor or no Internet Connection!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.error_poor_con, Toast.LENGTH_LONG).show();
         else
-            Toast.makeText(getApplicationContext(), "Connection Timeout!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.error_con_timeout, Toast.LENGTH_LONG).show();
     }
 }

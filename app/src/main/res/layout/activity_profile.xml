@@ -72,7 +72,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
-                    android:text="Gender:"
+                    android:text="@string/gender"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -82,7 +82,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.9"
-                    android:text="Male"
+                    android:text="@string/male"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18dp" />
 
@@ -120,7 +120,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
-                    android:text="Nationality:"
+                    android:text="@string/nationality"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -166,7 +166,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
-                    android:text="Organization:"
+                    android:text="@string/organization"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -211,7 +211,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
-                    android:text="Email:"
+                    android:text="@string/email"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -256,7 +256,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
-                    android:text="Contact:"
+                    android:text="@string/contact"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18dp"
                     android:textStyle="bold" />

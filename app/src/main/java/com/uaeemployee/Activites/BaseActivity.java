@@ -63,26 +63,26 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
         switch (position) {
             case 0:
                 fragment = new DashboardFragment();
-                title = "Main Menu";
+                title =  getString(R.string.txt_main_menu);
                 break;
             case 1:
                 fragment = new OrganizationFragment();
-                title = "Organization";
+                title =  getString(R.string.txt_Org);
                 break;
 
             case 2:
                 fragment = new VacanciesFragment();
-                title = "Vacancies";
+                title = getString(R.string.txt_vacancies);
                 break;
             case 3:
                 fragment = new EmployeeSearchFragment();
                 isEmployeeDoc = false;
-                title = "Employee Search";
+                title = getString(R.string.txt_employee_search);
                 break;
             case 4:
                 fragment = new EmployeeSearchFragment();
                 isEmployeeDoc = true;
-                title = "Employee Documents";
+                title = getString(R.string.txt_employee_doc);
                 break;
 
 //            case 5:
@@ -98,7 +98,7 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
             case 5:
                 startActivity(new Intent(BaseActivity.this, LoginActivity.class));
                 finish();
-                Toast.makeText(getApplicationContext(), "Successfully Logged out!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.txt_logout_success, Toast.LENGTH_LONG).show();
 
                 break;
             default:
@@ -185,16 +185,16 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
         if (id == R.id.action_orgs) {
             AlertDialog.Builder builderSingle = new AlertDialog.Builder(BaseActivity.this);
             builderSingle.setIcon(R.drawable.icon_orgs);
-            builderSingle.setTitle("Please select a company");
+            builderSingle.setTitle(R.string.menu_txt_title);
 
             final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(BaseActivity.this, android.R.layout.select_dialog_singlechoice);
-            arrayAdapter.add("Emmar");
-            arrayAdapter.add("AHD");
-            arrayAdapter.add("Armani");
-            arrayAdapter.add("Company");
-            arrayAdapter.add("Emmar");
+            arrayAdapter.add(getString(R.string.txt_emmar));
+            arrayAdapter.add(getString(R.string.ahd));
+            arrayAdapter.add(getString(R.string.txt_armani));
+            arrayAdapter.add(getString(R.string.txt_company));
+            arrayAdapter.add(getString(R.string.txt_emmar));
 
-            builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            builderSingle.setNegativeButton(R.string.txt_cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
@@ -205,7 +205,7 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     String strName = arrayAdapter.getItem(which);
-                   Toast.makeText(getApplicationContext(),"You selected: "+strName,Toast.LENGTH_LONG).show();
+                   Toast.makeText(getApplicationContext(),getString(R.string.txt_selected)+strName,Toast.LENGTH_LONG).show();
                 }
             });
             builderSingle.show();
@@ -228,16 +228,16 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
     public void onBackPressed() {
 
         if (BaseActivity.fragment instanceof SubSubOrganizationFragment) {
-            getSupportActionBar().setTitle("Organizations");
+            getSupportActionBar().setTitle(getString(R.string.txt_Org));
             refreshMainViewByNew(new OrganizationFragment());
         } else if (!(BaseActivity.fragment instanceof DashboardFragment)) {
-            getSupportActionBar().setTitle("Main Menu");
+            getSupportActionBar().setTitle(getString(R.string.txt_main_menu));
             refreshMainViewByNew(new DashboardFragment());
         } else {
             new AlertDialog.Builder(BaseActivity.this)
-                    .setTitle("Logout")
-                    .setMessage("Are you sure you want to Logout?")
-                    .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.txt_logout)
+                    .setMessage(R.string.txt_logout_msg)
+                    .setPositiveButton(R.string.txt_yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             Intent in = new Intent(BaseActivity.this,
                                     LoginActivity.class);
@@ -245,7 +245,7 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
                             finish();
                         }
                     })
-                    .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.txt_cancle_large, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // do nothing
                         }

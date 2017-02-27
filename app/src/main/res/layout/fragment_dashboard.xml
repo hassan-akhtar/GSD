@@ -42,7 +42,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/ivOrg"
                         android:layout_centerHorizontal="true"
-                        android:text="Organizations"
+                        android:text="@string/txt_Org"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -76,12 +76,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/ivOrg2"
-                        android:layout_centerHorizontal="true"
-                        android:text="Vacancies"
+                        android:text="@string/vacancies"
                         android:textColor="@color/white"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_below="@+id/ivOrg2"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/textView2" />
 
                 </RelativeLayout>
 
@@ -113,7 +114,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/ivOrg3"
                         android:layout_centerHorizontal="true"
-                        android:text="Employee Search"
+                        android:text="@string/employeeSearch"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -147,7 +148,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Employee Documents"
+                        android:text="@string/employee_document"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:textStyle="bold"

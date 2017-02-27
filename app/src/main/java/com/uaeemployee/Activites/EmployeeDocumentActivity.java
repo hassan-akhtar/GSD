@@ -61,11 +61,11 @@ public class EmployeeDocumentActivity extends AppCompatActivity implements MyCal
 
     private void initObj() {
         sharedPreferencesManager = new SharedPreferencesManager(EmployeeDocumentActivity.this);
-        employeeDTO = (EmployeeDTO) getIntent().getSerializableExtra("employee_doc_DTO_Obj");
+        employeeDTO = (EmployeeDTO) getIntent().getSerializableExtra(getString(R.string.bundle_employee_doc));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Employee Document");
+        getSupportActionBar().setTitle(getString(R.string.txt_employee_doc));
         mToolbar.setNavigationIcon(R.drawable.back_icon);
     }
 
@@ -85,7 +85,7 @@ public class EmployeeDocumentActivity extends AppCompatActivity implements MyCal
         lvEmployee.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(),""+employeeDocumentList.get(position).getDocPath(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),getString(R.string.txt_doc_path)+employeeDocumentList.get(position).getDocPath(),Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -104,9 +104,9 @@ public class EmployeeDocumentActivity extends AppCompatActivity implements MyCal
                     } else {
                         CommonActions.DismissesDialog();
                         new AlertDialog.Builder(getApplicationContext())
-                                .setTitle("Employee Documents")
+                                .setTitle(getString(R.string.txt_employee_doc))
                                 .setMessage(responseDTO.getMessage())
-                                .setNegativeButton("CLOSE", new DialogInterface.OnClickListener() {
+                                .setNegativeButton(R.string.txt_close, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
 
                                     }
@@ -135,10 +135,10 @@ public class EmployeeDocumentActivity extends AppCompatActivity implements MyCal
     public void onFailure(ResponseDTO errorDTO) {
         CommonActions.DismissesDialog();
         if (404 == MyApplication.getInstance().getStatusCode())
-            Toast.makeText(getApplicationContext(), "Service is not Available please try again Later!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.error_404_msg, Toast.LENGTH_LONG).show();
         else if (1 == MyApplication.getInstance().getStatusCode())
-            Toast.makeText(getApplicationContext(), "Poor or no Internet Connection!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.error_poor_con, Toast.LENGTH_LONG).show();
         else
-            Toast.makeText(getApplicationContext(), "Connection Timeout!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.error_con_timeout, Toast.LENGTH_LONG).show();
     }
 }

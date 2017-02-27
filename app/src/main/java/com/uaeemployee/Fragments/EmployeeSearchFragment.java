@@ -149,11 +149,11 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
                     if("".equals(etSearch.getText().toString().trim())){
                         EmployeeDTO employeeDTO = new EmployeeDTO(lEmployees.get(position).getEmployeeID(), lEmployees.get(position).getSubSubOrganizationID(), lEmployees.get(position).getFirstName()
                                 , lEmployees.get(position).getLastName(), lEmployees.get(position).getGender(), lEmployees.get(position).getEmail(), lEmployees.get(position).getAddress(), lEmployees.get(position).getContactNo(), lEmployees.get(position).getSalary(), lEmployees.get(position).getCountryName());
-                        in.putExtra("employee_DTO_Obj", employeeDTO);
+                        in.putExtra(getString(R.string.bundle_emp_dto), employeeDTO);
                     }else{
                         EmployeeDTO employeeDTO = new EmployeeDTO(filteredList.get(position).getEmployeeID(), filteredList.get(position).getSubSubOrganizationID(), filteredList.get(position).getFirstName()
                                 , filteredList.get(position).getLastName(), filteredList.get(position).getGender(), filteredList.get(position).getEmail(), filteredList.get(position).getAddress(), filteredList.get(position).getContactNo(), filteredList.get(position).getSalary(), filteredList.get(position).getCountryName());
-                        in.putExtra("employee_DTO_Obj", employeeDTO);
+                        in.putExtra(getString(R.string.bundle_emp_dto), employeeDTO);
                     }
 
                     startActivity(in);
@@ -162,11 +162,11 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
                     if("".equals(etSearch.getText().toString().trim())){
                         EmployeeDTO employeeDTO = new EmployeeDTO(lEmployees.get(position).getEmployeeID(), lEmployees.get(position).getSubSubOrganizationID(), lEmployees.get(position).getFirstName()
                                 , lEmployees.get(position).getLastName(), lEmployees.get(position).getGender(), lEmployees.get(position).getEmail(), lEmployees.get(position).getAddress(), lEmployees.get(position).getContactNo(), lEmployees.get(position).getSalary(), lEmployees.get(position).getCountryName());
-                        in.putExtra("employee_doc_DTO_Obj", employeeDTO);
+                        in.putExtra(getString(R.string.bundle_emp_doc), employeeDTO);
                     }else{
                         EmployeeDTO employeeDTO = new EmployeeDTO(filteredList.get(position).getEmployeeID(), filteredList.get(position).getSubSubOrganizationID(), filteredList.get(position).getFirstName()
                                 , filteredList.get(position).getLastName(), filteredList.get(position).getGender(), filteredList.get(position).getEmail(), filteredList.get(position).getAddress(), filteredList.get(position).getContactNo(), filteredList.get(position).getSalary(), filteredList.get(position).getCountryName());
-                        in.putExtra("employee_doc_DTO_Obj", employeeDTO);
+                        in.putExtra(getString(R.string.bundle_emp_doc), employeeDTO);
                     }
 
                     startActivity(in);
@@ -195,9 +195,9 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
                     } else {
                         CommonActions.DismissesDialog();
                         new AlertDialog.Builder(getActivity())
-                                .setTitle("Organizations")
+                                .setTitle(getString(R.string.txt_Org))
                                 .setMessage(responseDTO.getMessage())
-                                .setNegativeButton("CLOSE", new DialogInterface.OnClickListener() {
+                                .setNegativeButton(getString(R.string.txt_close), new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
 
                                     }
@@ -216,10 +216,10 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
     public void onFailure(ResponseDTO errorDTO) {
         CommonActions.DismissesDialog();
         if (404 == MyApplication.getInstance().getStatusCode())
-            Toast.makeText(getActivity(), "Service is not Available please try again Later!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), R.string.error_404_msg, Toast.LENGTH_LONG).show();
         else if (1 == MyApplication.getInstance().getStatusCode())
-            Toast.makeText(getActivity(), "Poor or no Internet Connection!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), R.string.error_poor_con, Toast.LENGTH_LONG).show();
         else
-            Toast.makeText(getActivity(), "Connection Timeout!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), R.string.error_con_timeout, Toast.LENGTH_LONG).show();
     }
 }

@@ -47,11 +47,11 @@ public class EmployeeProfileActivity extends AppCompatActivity {
 
     private void initObj() {
         sharedPreferencesManager = new SharedPreferencesManager(EmployeeProfileActivity.this);
-        employeeDTO = (EmployeeDTO) getIntent().getSerializableExtra("employee_DTO_Obj");
+        employeeDTO = (EmployeeDTO) getIntent().getSerializableExtra(getString(R.string.bundle_employee_profile));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Employee Profile");
+        getSupportActionBar().setTitle(R.string.txt_emp_profile);
         mToolbar.setNavigationIcon(R.drawable.back_icon);
 
         String name = employeeDTO.getFirstName().trim()+" "+employeeDTO.getLastName().trim();
@@ -90,7 +90,7 @@ public class EmployeeProfileActivity extends AppCompatActivity {
         tvNameValue.setText(employeeDTO.getFirstName()+" "+ employeeDTO.getLastName());
         tvGenderValue.setText(employeeDTO.getGender());
         tvNationalityValue.setText(employeeDTO.getCountryName());
-        tvOrgValue.setText("Emmar");
+        tvOrgValue.setText(getString(R.string.txt_emmar));
         tvEmailValue.setText(employeeDTO.getEmail());
         tvContactValue.setText(employeeDTO.getContactNo());
     }

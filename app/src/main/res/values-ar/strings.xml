@@ -1,0 +1,101 @@
+<resources>
+    <string name="app_name">GSD</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="employee_doc">ملفات الموظفين</string>
+    <string name="employee_document">ملفات الموظفين</string>
+    <string name="employee_search"> بحث عن موظف</string>
+    <string name="employeeSearch">بحث عن موظف</string>
+    <string name="events_and_plans">أحداث وخطط</string>
+    <string name="incident_management">ادارة الحوادث</string>
+    <string name="organizations">ألشركات</string>
+    <string name="vacancies">وظائف شاغرة</string>
+    <string name="logo">شعار</string>
+    <string name="txt_Org">ألشركات</string>
+    <string name="txt_main_menu">القائمة الرئيسية</string>
+    <string name="txt_vacancies">الشواغر</string>
+    <string name="txt_employee_search">موظف البحث</string>
+    <string name="txt_employee_doc">وثائق الموظف</string>
+    <string name="txt_logout_success">تسجيل بنجاح</string>
+    <string name="menu_txt_title">يرجى اختيار شركة</string>
+    <string name="txt_emmar">إعمار</string>
+    <string name="ahd">أحد</string>
+    <string name="txt_armani">أرماني</string>
+    <string name="txt_company">شركة</string>
+    <string name="txt_cancel">إلغاء</string>
+    <string name="txt_selected">"الذي حددته: "</string>
+    <string name="txt_logout"> تسجيل الخروج</string>
+    <string name="txtSearch">بحث</string>
+    <string name="txt_logout_msg">هل أنت متأكد أنك تريد تسجيل الخروج؟</string>
+    <string name="txt_cancle_large">إلغاء</string>
+    <string name="txt_yes">نعم</string>
+    <string name="bundle_employee_doc">employee_doc_DTO_Obj</string>
+    <string name="txt_doc_path">وثيقة مسار:</string>
+    <string name="txt_close">أغلق</string>
+    <string name="error_404_msg">الخدمة غير متوفرة يرجى المحاولة مرة أخرى في وقت لاحق!</string>
+    <string name="error_poor_con">الفقراء أو أي اتصال الإنترنت!</string>
+    <string name="error_con_timeout">انتهى وقت محاولة الاتصال!</string>
+    <string name="bundle_employee_profile">employee_DTO_Obj</string>
+    <string name="txt_emp_profile">ملف الموظف</string>
+    <string name="txt_select_gender">حدد الجنس</string>
+    <string name="txt_male">ذكور</string>
+    <string name="txt_female">اناث</string>
+    <string name="txt_local_only">localonly</string>
+    <string name="txt_incident_detail">حادث التفاصيل</string>
+    <string name="txt_login">اللغة</string>
+    <string name="msg_login_failed">فشل تسجيل الدخول. حاول مرة اخرى</string>
+    <string name="txt_enter_username">الرجاء إدخال اسم المستخدم</string>
+    <string name="txt_enter_pass">الرجاء إدخال كلمة المرور</string>
+    <string name="txt_local">local</string>
+    <string name="txt_india">india</string>
+    <string name="txt_pak">pakistan</string>
+    <string name="txt_select_nationality">حدد الجنسية</string>
+    <string name="txt_pakistan">باكستان</string>
+    <string name="txt_ind">الهند</string>
+    <string name="txt_UAE">الإمارات العربية المتحدة</string>
+    <string name="txt_thirty">30</string>
+    <string name="txt_twenty">20</string>
+    <string name="txt_fifty">50</string>
+    <string name="txt_vac_detail">الشواغر التفاصيل</string>
+    <string name="bundle_vac_dto">vacancies_DTO_Obj</string>
+    <string name="txt_salary_range">10,000- 15,000</string>
+    <string name="bundle_emp_doc">employee_doc_DTO_Obj</string>
+    <string name="bundle_emp_dto">employee_DTO_Obj</string>
+    <string name="bundle_vacDto">vacancies_DTO_Obj</string>
+    <string name="txt_loginn">اللغة</string>
+    <string name="txt_password">كلمة المرور</string>
+    <string name="txt_username">اسم المستخدم</string>
+    <string name="copyright_2016_gsd_all_rights_reserved">حقوق التأليف والنشر © 2016 GSD. كل الحقوق محفوظة</string>
+    <string name="no_employee_s_found">لا موظف موجود</string>
+    <string name="no_vacancies_s_found">لا الوظائف الشاغرة العثور</string>
+    <string name="logged_in_username">دخولك اسم المستخدم</string>
+
+    <string name="contact">رقم الهاتف:</string>
+    <string name="email">البريد الالكتروني:</string>
+    <string name="gender">الجنس:</string>
+    <string name="male">ذكور</string>
+    <string name="nationality">الجنسية:</string>
+    <string name="organization">ألشركات:</string>
+
+
+    <string name="salary">المرتب:</string>
+    <string name="job_type">نوع العمل:</string>
+    <string name="level">المستوي:</string>
+    <string name="location">الشركة:</string>
+    <string name="description">تفاصيل:</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/txt_main_menu</item>
+        <item>@string/txt_Org</item>
+        <item>@string/vacancies</item>
+        <item>@string/employee_search</item>
+        <item>@string/employee_document</item>
+        <!--        <item>Incident&#160;Management</item>
+        <item>Event&#160;&amp;&#160;Security&#160;Plan</item>-->
+        <item>@string/txt_logout</item>
+    </string-array>
+
+</resources>

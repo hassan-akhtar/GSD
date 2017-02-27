@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity=""
             android:background="@drawable/custom_button"
-            android:text="Login"
+            android:text="@string/txt_loginn"
             android:textColor="@color/white" />
     </LinearLayout>
 
@@ -59,11 +59,13 @@
         <EditText
             android:id="@+id/etUser"
             android:layout_width="290dp"
+            android:inputType="textPersonName"
+            android:maxLines="1"
             android:drawableLeft="@drawable/user_icon"
             android:drawablePadding="15dp"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_edittext"
-            android:hint="Username"
+            android:hint="@string/txt_username"
             android:padding="7dp" />
 
         <EditText
@@ -74,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/custom_edittext"
-            android:hint="Password"
+            android:hint="@string/txt_password"
             android:inputType="textPassword"
             android:padding="7dp" />
 
@@ -93,7 +95,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:layout_marginBottom="5dp"
-        android:text="Copyright ©2016 GSD. All Rights Reserved"
+        android:text="@string/copyright_2016_gsd_all_rights_reserved"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

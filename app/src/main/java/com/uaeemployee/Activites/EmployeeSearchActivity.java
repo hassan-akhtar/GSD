@@ -92,7 +92,7 @@ public class EmployeeSearchActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Employee Search");
+        getSupportActionBar().setTitle(getString(R.string.employee_search));
         mToolbar.setNavigationIcon(R.drawable.back_icon);
         sharedpreferences.setBoolean(SharedPreferencesManager.IS_VACANCY,false,EmployeeSearchActivity.this);
     }

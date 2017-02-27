@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="No Vacancies(s) Found"
+        android:text="@string/no_vacancies_s_found"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
         android:textStyle="bold" />

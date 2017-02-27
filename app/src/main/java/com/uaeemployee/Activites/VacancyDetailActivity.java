@@ -59,9 +59,9 @@ public class VacancyDetailActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Vacancy Detail");
+        getSupportActionBar().setTitle(R.string.txt_vac_detail);
         mToolbar.setNavigationIcon(R.drawable.back_icon);
-        vacanciesDTO = (VacanciesDTO) getIntent().getSerializableExtra("vacancies_DTO_Obj");
+        vacanciesDTO = (VacanciesDTO) getIntent().getSerializableExtra(getString(R.string.bundle_vac_dto));
 
     }
 
@@ -89,10 +89,10 @@ public class VacancyDetailActivity extends AppCompatActivity {
 
     public void setVacanciesData(VacanciesDTO vacanciesDTO) {
         tvJobTitle.setText(vacanciesDTO.getTitle());
-        tvSalaryValue.setText("10,000- 15,000");
+        tvSalaryValue.setText(R.string.txt_salary_range);
         tvJobTypeValue.setText(vacanciesDTO.getJobType());
         tvLevelValue.setText(vacanciesDTO.getJobLevel());
-        tvLocationValue.setText("UAE");
+        tvLocationValue.setText(getString(R.string.txt_UAE));
         tvJobDescriptionValue.setText(vacanciesDTO.getDescription());
     }
 }

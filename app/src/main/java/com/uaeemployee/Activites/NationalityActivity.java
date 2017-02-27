@@ -17,8 +17,8 @@ public class NationalityActivity extends AppCompatActivity {
     ListView lvNationality;
     private Toolbar mToolbar;
     public static int[] imageIds = {R.drawable.flag_pakistan, R.drawable.flag_india, R.drawable.flag_uae};
-    public static String[] listCountryName = {"Pakistan", "India", "UAE"};
-    public static String[] listPercentages = {"30", "20", "50"};
+    public static String[] listCountryName;
+    public static String[] listPercentages;
     SharedPreferencesManager sharedpreferences;
 
     @Override
@@ -42,10 +42,12 @@ public class NationalityActivity extends AppCompatActivity {
 
     private void initObj() {
         setSupportActionBar(mToolbar);
+        listPercentages = new String[]{getString(R.string.txt_thirty), getString(R.string.txt_twenty), getString(R.string.txt_fifty)};
+        listCountryName = new String[]{getString(R.string.txt_pakistan), getString(R.string.txt_ind), getString(R.string.txt_UAE)};
         sharedpreferences = new SharedPreferencesManager(NationalityActivity.this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Select Nationality");
+        getSupportActionBar().setTitle(R.string.txt_select_nationality);
         mToolbar.setNavigationIcon(R.drawable.back_icon);
         lvNationality.setAdapter(new NationalityAdapter(this, listCountryName, listPercentages, imageIds));
     }
@@ -58,17 +60,17 @@ public class NationalityActivity extends AppCompatActivity {
                 switch (position) {
 
                     case 0:
-                        sharedpreferences.setString(SharedPreferencesManager.CURRENT_NATIONALITY,"pakistan", NationalityActivity.this);
+                        sharedpreferences.setString(SharedPreferencesManager.CURRENT_NATIONALITY,getString(R.string.txt_pak), NationalityActivity.this);
                         startActivity(new Intent(NationalityActivity.this, EmployeeSearchActivity.class));
                         break;
 
                     case 1:
-                        sharedpreferences.setString(SharedPreferencesManager.CURRENT_NATIONALITY,"india", NationalityActivity.this);
+                        sharedpreferences.setString(SharedPreferencesManager.CURRENT_NATIONALITY,getString(R.string.txt_india), NationalityActivity.this);
                         startActivity(new Intent(NationalityActivity.this, EmployeeSearchActivity.class));
                         break;
 
                     case 2:
-                        sharedpreferences.setString(SharedPreferencesManager.CURRENT_NATIONALITY,"local", NationalityActivity.this);
+                        sharedpreferences.setString(SharedPreferencesManager.CURRENT_NATIONALITY,getString(R.string.txt_local), NationalityActivity.this);
                         startActivity(new Intent(NationalityActivity.this, EmployeeSearchActivity.class));
                         break;
 

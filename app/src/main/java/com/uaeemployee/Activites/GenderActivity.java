@@ -47,7 +47,7 @@ public class GenderActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        getSupportActionBar().setTitle("Select Gender");
+        getSupportActionBar().setTitle(R.string.txt_select_gender);
         sharedpreferences = new SharedPreferencesManager(GenderActivity.this);
     }
 
@@ -62,19 +62,19 @@ public class GenderActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.llMale: {
                     startActivity(new Intent(GenderActivity.this, NationalityActivity.class));
-                    sharedpreferences.setString(SharedPreferencesManager.CURRENT_GENDER,"male", GenderActivity.this);
+                    sharedpreferences.setString(SharedPreferencesManager.CURRENT_GENDER,getString(R.string.txt_male), GenderActivity.this);
                     break;
                 }
 
                 case R.id.llFemale: {
                     startActivity(new Intent(GenderActivity.this, NationalityActivity.class));
-                    sharedpreferences.setString(SharedPreferencesManager.CURRENT_GENDER,"female", GenderActivity.this);
+                    sharedpreferences.setString(SharedPreferencesManager.CURRENT_GENDER,getString(R.string.txt_female), GenderActivity.this);
                     break;
                 }
 
                 case R.id.llLocal: {
                     startActivity(new Intent(GenderActivity.this, EmployeeSearchActivity.class));
-                    sharedpreferences.setString(SharedPreferencesManager.CURRENT_NATIONALITY,"localonly", GenderActivity.this);
+                    sharedpreferences.setString(SharedPreferencesManager.CURRENT_NATIONALITY,getString(R.string.txt_local_only), GenderActivity.this);
                     break;
                 }
 

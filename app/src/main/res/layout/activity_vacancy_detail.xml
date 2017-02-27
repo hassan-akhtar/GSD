@@ -73,7 +73,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
-                    android:text="Salary:"
+                    android:text="@string/salary"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -121,7 +121,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
-                    android:text="Job Type:"
+                    android:text="@string/job_type"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -167,7 +167,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
-                    android:text="Level:"
+                    android:text="@string/level"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -212,7 +212,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
-                    android:text="Location:"
+                    android:text="@string/location"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -257,7 +257,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
-                    android:text="Description:"
+                    android:text="@string/description"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18dp"
                     android:textStyle="bold" />

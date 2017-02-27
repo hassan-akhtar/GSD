@@ -143,11 +143,11 @@ public class VacanciesFragment extends Fragment implements MyCallBack {
                 if ("".equals(etSearch.getText().toString().trim())) {
                     VacanciesDTO vacanciesDTO = new VacanciesDTO(lVacancies.get(position).getVacancyID(), lVacancies.get(position).getJobType(), lVacancies.get(position).getTitle()
                             , lVacancies.get(position).getJobLevel(), lVacancies.get(position).getDescription(), lVacancies.get(position).getSubSubOrganizationID());
-                    in.putExtra("vacancies_DTO_Obj", vacanciesDTO);
+                    in.putExtra(getString(R.string.bundle_vacDto), vacanciesDTO);
                 } else {
                     VacanciesDTO vacanciesDTO = new VacanciesDTO(filteredList.get(position).getVacancyID(), filteredList.get(position).getJobType(), filteredList.get(position).getTitle()
                             , filteredList.get(position).getJobLevel(), filteredList.get(position).getDescription(), filteredList.get(position).getSubSubOrganizationID());
-                    in.putExtra("vacancies_DTO_Obj", vacanciesDTO);
+                    in.putExtra(getString(R.string.bundle_vacDto), vacanciesDTO);
                 }
 
                 startActivity(in);
@@ -172,9 +172,9 @@ public class VacanciesFragment extends Fragment implements MyCallBack {
                     } else {
                         CommonActions.DismissesDialog();
                         new AlertDialog.Builder(getActivity())
-                                .setTitle("Organizations")
+                                .setTitle(getString(R.string.txt_Org))
                                 .setMessage(responseDTO.getMessage())
-                                .setNegativeButton("CLOSE", new DialogInterface.OnClickListener() {
+                                .setNegativeButton(getString(R.string.txt_close), new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
 
                                     }
@@ -193,10 +193,10 @@ public class VacanciesFragment extends Fragment implements MyCallBack {
     public void onFailure(ResponseDTO errorDTO) {
         CommonActions.DismissesDialog();
         if (404 == MyApplication.getInstance().getStatusCode())
-            Toast.makeText(getActivity(), "Service is not Available please try again Later!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), R.string.error_404_msg, Toast.LENGTH_LONG).show();
         else if (1 == MyApplication.getInstance().getStatusCode())
-            Toast.makeText(getActivity(), "Poor or no Internet Connection!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), R.string.error_poor_con, Toast.LENGTH_LONG).show();
         else
-            Toast.makeText(getActivity(), "Connection Timeout!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), R.string.error_con_timeout, Toast.LENGTH_LONG).show();
     }
 }
