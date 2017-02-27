@@ -1,5 +1,6 @@
 package com.uaeemployee.Activites;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -7,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.uaeemployee.Application.MyApplication;
@@ -18,18 +21,27 @@ import com.uaeemployee.Network.Service.GSDServiceFactory;
 import com.uaeemployee.Network.Service.MyCallBack;
 import com.uaeemployee.R;
 import com.uaeemployee.Utils.CommonActions;
+import com.uaeemployee.Utils.SharedPreferencesManager;
 import com.uaeemployee.Utils.SystemConstants;
+
+import java.util.Locale;
 
 public class LoginActivity extends AppCompatActivity   implements MyCallBack {
 
     Button btnLogin;
     EditText etUser, etPass;
+    Switch switchLanguage;
+    SharedPreferencesManager sharedPreferencesManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferencesManager = new SharedPreferencesManager(LoginActivity.this);
+        if (sharedPreferencesManager.getBoolean(SharedPreferencesManager.IS_ARABIC,LoginActivity.this)){
+            changeLang(getApplicationContext(),"ar");
+        }
         setContentView(R.layout.activity_login);
-
         initViews();
         initObj();
         initListeners();
@@ -40,13 +52,36 @@ public class LoginActivity extends AppCompatActivity   implements MyCallBack {
         btnLogin = (Button) findViewById(R.id.btnLogin);
         etUser = (EditText) findViewById(R.id.etUser);
         etPass = (EditText) findViewById(R.id.etPass);
+        switchLanguage = (Switch) findViewById(R.id.mySwitch);
     }
 
     private void initObj() {
+
+
+
+        switchLanguage = (Switch) findViewById(R.id.mySwitch);
+        if (sharedPreferencesManager.getBoolean(SharedPreferencesManager.IS_ARABIC,LoginActivity.this)){
+            switchLanguage.setChecked(true);
+        }
     }
 
     private void initListeners() {
         btnLogin.setOnClickListener(mGlobal_OnClickListener);
+
+        switchLanguage.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    changeLang(LoginActivity.this,"ar");
+                    sharedPreferencesManager.setBoolean(SharedPreferencesManager.IS_ARABIC,true,getApplicationContext());
+                    restartActivity();
+                }else{
+                    changeLang(LoginActivity.this,"en");
+                    sharedPreferencesManager.setBoolean(SharedPreferencesManager.IS_ARABIC,false,getApplicationContext());
+                    restartActivity();
+                }
+            }
+        });
     }
 
     final View.OnClickListener mGlobal_OnClickListener = new View.OnClickListener() {
@@ -83,6 +118,22 @@ public class LoginActivity extends AppCompatActivity   implements MyCallBack {
     void showToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
+
+
+    public  void changeLang(Context context, String lang) {
+        Locale myLocale = new Locale(lang);
+        Locale.setDefault(myLocale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = myLocale;
+        context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+    }
+
+    private void restartActivity() {
+        Intent intent = new Intent(LoginActivity.this,LoginActivity.class);
+        finish();
+        startActivity(intent);
+    }
+
 
     @Override
     public void onSuccess(ResponseDTO responseDTO) {

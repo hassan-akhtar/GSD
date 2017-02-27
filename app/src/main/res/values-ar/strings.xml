@@ -85,6 +85,7 @@
     <string name="level">المستوي:</string>
     <string name="location">الشركة:</string>
     <string name="description">تفاصيل:</string>
+    <string name="arabic">العربية</string>
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">

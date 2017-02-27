@@ -31,6 +31,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:orientation="vertical"
         android:id="@+id/llLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,6 +47,20 @@
             android:background="@drawable/custom_button"
             android:text="@string/txt_loginn"
             android:textColor="@color/white" />
+
+
+        <Switch
+            android:layout_below="@+id/btnLogin"
+            android:id="@+id/mySwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:textSize="14sp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/white"
+            android:text="@string/arabic"
+            android:theme="@style/SCBSwitch" />
     </LinearLayout>
 
     <LinearLayout
@@ -98,4 +113,8 @@
         android:text="@string/copyright_2016_gsd_all_rights_reserved"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+
+
+
 </RelativeLayout>

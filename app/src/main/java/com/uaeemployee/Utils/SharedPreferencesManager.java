@@ -14,6 +14,7 @@ public class SharedPreferencesManager {
     public static final String CURRENT_JOB_LEVEL = "second";
     public static final String CURRENT_JOB_TYPE = "third";
     public static final String IS_VACANCY = "isvacancy";
+    public static final String IS_ARABIC = "isarabic";
 
 
     public SharedPreferencesManager(Context context) {
