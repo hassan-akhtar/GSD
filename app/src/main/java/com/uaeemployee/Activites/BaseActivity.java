@@ -166,7 +166,7 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.org_menu, menu);
          item = menu.findItem(R.id.action_orgs);
-        if(BaseActivity.fragment instanceof DashboardFragment || BaseActivity.fragment instanceof OrganizationFragment){
+        if(BaseActivity.fragment instanceof DashboardFragment || BaseActivity.fragment instanceof OrganizationFragment || BaseActivity.fragment instanceof SubSubOrganizationFragment ){
             item.setVisible(false);
             invalidateOptionsMenu();
         }else {

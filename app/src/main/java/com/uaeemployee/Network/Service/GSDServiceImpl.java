@@ -4,11 +4,14 @@ import android.content.Context;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.uaeemployee.Application.MyApplication;
+import com.uaeemployee.Network.RequestDTOs.GenderRequestDTO;
 import com.uaeemployee.Network.RequestDTOs.LoginDTO;
 import com.uaeemployee.Network.ResponseDTOs.EmployeeDTO;
 import com.uaeemployee.Network.ResponseDTOs.EmployeeDocument;
 import com.uaeemployee.Network.ResponseDTOs.EmployeeDocumentResponseDTO;
 import com.uaeemployee.Network.ResponseDTOs.EmployeeResponseDTO;
+import com.uaeemployee.Network.ResponseDTOs.GenderDTO;
+import com.uaeemployee.Network.ResponseDTOs.GenderResponseDTO;
 import com.uaeemployee.Network.ResponseDTOs.LoginResponseDTO;
 import com.uaeemployee.Network.ResponseDTOs.OrganizationsDTO;
 import com.uaeemployee.Network.ResponseDTOs.OrganizationsResponseDTO;
@@ -104,8 +107,8 @@ public class GSDServiceImpl implements GSDService {
     }
 
     @Override
-    public void getVacancies(final com.uaeemployee.Network.RequestDTOs.OrganizationsDTO organizationsDTO, final MyCallBack callback) {
-        adapter.getVacancies(organizationsDTO.getUserID(), new Callback<List<VacanciesDTO>>() {
+    public void getVacancies(final com.uaeemployee.Network.RequestDTOs.VacanciesDTO organizationsDTO, final MyCallBack callback) {
+        adapter.getVacancies(organizationsDTO.getOrganizationID(),organizationsDTO.getStatusID(),organizationsDTO.getLoginEmpID(), new Callback<List<VacanciesDTO>>() {
             @Override
             public void success(List<VacanciesDTO> vacanciesDTO, Response response) {
                 VacanciesResponseDTO res = new VacanciesResponseDTO();
@@ -128,8 +131,8 @@ public class GSDServiceImpl implements GSDService {
     }
 
     @Override
-    public void getEmployees(final com.uaeemployee.Network.RequestDTOs.OrganizationsDTO organizationsDTO, final MyCallBack callback) {
-        adapter.getAllEmployees(organizationsDTO.getUserID(), new Callback<List<EmployeeDTO>>() {
+    public void getEmployees(final com.uaeemployee.Network.RequestDTOs.VacanciesDTO organizationsDTO, final MyCallBack callback) {
+        adapter.getAllEmployees(organizationsDTO.getOrganizationID(),organizationsDTO.getStatusID(),organizationsDTO.getLoginEmpID(), new Callback<List<EmployeeDTO>>() {
             @Override
             public void success(List<EmployeeDTO> employeeDTO, Response response) {
 
@@ -161,6 +164,31 @@ public class GSDServiceImpl implements GSDService {
                 EmployeeDocumentResponseDTO res = new EmployeeDocumentResponseDTO();
                 res.setEmployeeDocument(employeeDTO);
                 res.setCallBackId(organizationsDTO.getCallBackId());
+                callback.onSuccess(res);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (error != null && error.getResponse() != null && error.getResponse().getStatus() != 0) {
+                    MyApplication.getInstance().setStatusCode(error.getResponse().getStatus());
+                    callback.onFailure(new ResponseDTO(error.getMessage()));
+                } else {
+                    MyApplication.getInstance().setStatusCode(1);
+                    callback.onFailure(new ResponseDTO(error.getMessage()));
+                }
+            }
+        });
+    }
+
+    @Override
+    public void GetCountByGender(final GenderRequestDTO genderRequestDTO, final MyCallBack callback) {
+        adapter.getCountByGender(genderRequestDTO.getOrganizationID(), genderRequestDTO.getStatusID(), genderRequestDTO.getLoginEmpID(), new Callback<List<GenderDTO>>() {
+            @Override
+            public void success(List<GenderDTO> genderResponseDTOs, Response response) {
+
+                GenderResponseDTO res = new GenderResponseDTO();
+                res.setGenderDTO(genderResponseDTOs);
+                res.setCallBackId(genderRequestDTO.getCallBackId());
                 callback.onSuccess(res);
             }
 

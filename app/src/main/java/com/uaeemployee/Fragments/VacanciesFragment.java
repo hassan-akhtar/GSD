@@ -76,7 +76,7 @@ public class VacanciesFragment extends Fragment implements MyCallBack {
 
     private void getAllVacancies() {
         CommonActions.showProgressDialog(getActivity());
-        GSDServiceFactory.getService(getActivity()).getVacancies(new com.uaeemployee.Network.RequestDTOs.OrganizationsDTO(SystemConstants.RESPONSE_VACANCIES, 1), this);
+        GSDServiceFactory.getService(getActivity()).getVacancies(new com.uaeemployee.Network.RequestDTOs.VacanciesDTO(SystemConstants.RESPONSE_VACANCIES,1,1,MyApplication.getInstance().getUserID()), this);
     }
 
     private void initViews() {

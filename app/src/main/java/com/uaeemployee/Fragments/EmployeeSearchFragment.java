@@ -76,7 +76,7 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
 
     private void getAllEmployees() {
         CommonActions.showProgressDialog(getActivity());
-        GSDServiceFactory.getService(getActivity()).getEmployees(new com.uaeemployee.Network.RequestDTOs.OrganizationsDTO(SystemConstants.RESPONSE_EMPLOYEES,1),this);
+        GSDServiceFactory.getService(getActivity()).getEmployees(new com.uaeemployee.Network.RequestDTOs.VacanciesDTO(SystemConstants.RESPONSE_EMPLOYEES,1,1,MyApplication.getInstance().getUserID()),this);
     }
 
     private void initViews() {

@@ -8,13 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uaeemployee.Activites.BaseActivity;
 import com.uaeemployee.Activites.GenderActivity;
 import com.uaeemployee.Adapters.SubOrganizationAdapter;
 import com.uaeemployee.Adapters.SubSubOrganizationAdapter;
+import com.uaeemployee.Network.RequestDTOs.GenderRequestDTO;
+import com.uaeemployee.Network.ResponseDTOs.GenderDTO;
 import com.uaeemployee.Network.ResponseDTOs.SubOrganizationsDTO;
 import com.uaeemployee.Network.ResponseDTOs.SubSubOrganizationsDTO;
 import com.uaeemployee.R;
@@ -29,12 +34,15 @@ import java.util.List;
 public class SubSubOrganizationFragment extends Fragment {
 
     ListView lvSubOrgs;
+    RelativeLayout lHeader;
     SubOrganizationAdapter adapter;
     SubSubOrganizationAdapter adapter2;
     View mView;
+    TextView tvName, tvMaleCount, tvFemaleCount, tvLocalCount;
     public static List<SubSubOrganizationsDTO> subSubOrganizationsDTO;
     List<SubOrganizationsDTO> subOrganizationsDTO;
     boolean isSubSub = false;
+    private int OrganizationID = 0 ;
 
 
     @Override
@@ -54,19 +62,43 @@ public class SubSubOrganizationFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (!isSubSub) {
-                    adapter2 = new SubSubOrganizationAdapter(subSubOrganizationsDTO,getActivity());
+                    tvName.setText(subOrganizationsDTO.get(position).getName());
+                    adapter2 = new SubSubOrganizationAdapter(subSubOrganizationsDTO, getActivity());
                     lvSubOrgs.setAdapter(adapter2);
                     isSubSub = true;
-                }else {
+                } else {
                     startActivity(new Intent(getActivity(), GenderActivity.class));
                 }
+            }
+        });
+
+        lHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int orgType = 0;
+                Intent intent = new Intent(getActivity(), GenderActivity.class);
+                intent.putExtra("org_Id", OrganizationID);
+                if (!isSubSub) {
+                    orgType = 1;
+                }else{
+                    orgType = 2;
+                }
+                intent.putExtra("org_type", orgType);
+                startActivity(intent);
             }
         });
     }
 
     private void initViews() {
+
         lvSubOrgs = (ListView) mView.findViewById(R.id.lvSubOrgs);
         CommonActions.showProgressDialog(getActivity());
+        lHeader  = (RelativeLayout) mView.findViewById(R.id.lHeader);
+        tvName = (TextView) mView.findViewById(R.id.tvName);
+        tvMaleCount = (TextView) mView.findViewById(R.id.tvMaleCount);
+        tvFemaleCount = (TextView) mView.findViewById(R.id.tvFemaleCount);
+        tvLocalCount = (TextView) mView.findViewById(R.id.tvLocalCount);
+        ((BaseActivity) getActivity()).mToolbar.setTitle(getString(R.string.suborganizations));
     }
 
     private void initObj() {
@@ -83,6 +115,15 @@ public class SubSubOrganizationFragment extends Fragment {
         this.subOrganizationsDTO = SubOrganizationsDTO;
         adapter = new SubOrganizationAdapter(SubOrganizationsDTO, getActivity());
         lvSubOrgs.setAdapter(adapter);
+
+    }
+
+    // Update UI on Main Thread
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEventinMainThread(String groupName) {
+        String[] str = groupName.split(",");
+        tvName.setText(str[0]);
+        OrganizationID = Integer.parseInt(str[1]);
 
     }
 

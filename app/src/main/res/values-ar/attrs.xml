@@ -20,9 +20,5 @@
 
         <!--<attr name="mlpb_progress_text_offset" format="dimension"/>-->
 
-        <attr name="progress_text_v" format="enum">
-            <enum name="visible" value="0"/>
-            <enum name="invisible" value="1"/>
-        </attr>
     </declare-styleable>
 </resources>

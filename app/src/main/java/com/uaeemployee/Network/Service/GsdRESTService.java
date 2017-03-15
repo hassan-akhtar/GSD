@@ -3,6 +3,7 @@ package com.uaeemployee.Network.Service;
 
 import com.uaeemployee.Network.ResponseDTOs.EmployeeDTO;
 import com.uaeemployee.Network.ResponseDTOs.EmployeeDocument;
+import com.uaeemployee.Network.ResponseDTOs.GenderDTO;
 import com.uaeemployee.Network.ResponseDTOs.LoginResponseDTO;
 import com.uaeemployee.Network.ResponseDTOs.OrganizationsDTO;
 import com.uaeemployee.Network.ResponseDTOs.VacanciesDTO;
@@ -28,14 +29,14 @@ public interface GSDRESTService {
                       Callback<List<OrganizationsDTO>> organizationsDTOCallback);
 
     // get Vacancies Request
-    @GET("/GetAllVacancies/null/{id}")
-    void getVacancies(@Path("id")  int user,
+    @GET("/GetAllVacancies/null/{OrganizationID}/{StatusID}/{LoginEmpID}")
+    void getVacancies( @Path("OrganizationID")  int OrganizationID, @Path("StatusID")  int StatusID,  @Path("LoginEmpID")  int LoginEmpID,
                           Callback<List<VacanciesDTO>> vacanciesResponseDTO);
 
 
     // get Employees Request
-    @GET("/GetAllEmployees/null/{id}")
-    void getAllEmployees(@Path("id")  int user,
+    @GET("/GetAllEmployees/null/{OrganizationID}/{StatusID}/{LoginEmpID}")
+    void getAllEmployees(@Path("OrganizationID")  int OrganizationID, @Path("StatusID")  int StatusID,  @Path("LoginEmpID")  int LoginEmpID,
                       Callback<List<EmployeeDTO>> employeeResponseDTO);
 
 
@@ -44,7 +45,9 @@ public interface GSDRESTService {
     void getEmployeeDocument(@Path("id")  int user,
                          Callback<List<EmployeeDocument>> employeeDocument);
 
-
-
+    // get count by gender
+    @GET("/GetCountBySex/{OrganizationID}/{StatusID}/{LoginEmpID}")
+    void getCountByGender(@Path("OrganizationID")  int OrganizationID, @Path("StatusID")  int StatusID, @Path("LoginEmpID")  int LoginEmpID,
+                             Callback<List<GenderDTO>> genderResponseDTO);
 }
 

@@ -19,48 +19,6 @@
             layout="@layout/toolbar" />
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/llMale"
-        android:layout_marginTop="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/container_toolbar"
-        android:clickable="true">
-
-
-        <ImageView
-            android:id="@+id/ivFlag2"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:paddingLeft="10dp"
-            android:src="@drawable/banda" />
-
-        <TextView
-            android:id="@+id/tvCountry_name2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/ivFlag2"
-            android:layout_toRightOf="@+id/ivFlag2"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingTop="24dp"
-            android:text="@string/txt_male"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/tvPercentage2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/tvCountry_name2"
-            android:layout_alignBottom="@+id/tvCountry_name2"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="29dp"
-            android:text="50"
-            android:textSize="20sp" />
-
-    </RelativeLayout>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
@@ -70,6 +28,7 @@
 
     <RelativeLayout
         android:id="@+id/llFemale"
+        android:visibility="gone"
         android:layout_marginTop="7dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -100,10 +59,10 @@
             android:layout_toStartOf="@+id/ivFlag" />
 
         <TextView
-            android:id="@+id/tvPercentage"
+            android:id="@+id/tvFemaleCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="30"
+            android:text="0"
             android:textSize="20sp"
             android:layout_marginStart="22dp"
             android:layout_alignBaseline="@+id/tvCountry_name"
@@ -121,6 +80,7 @@
 
     <RelativeLayout
         android:id="@+id/llLocal"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/llFemale"
@@ -149,7 +109,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tvPercentage3"
+            android:id="@+id/tvLocalCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/tvCountry_name3"
@@ -166,5 +126,48 @@
         android:layout_below="@+id/llLocal"
         android:layout_marginTop="3dp"
         android:background="@color/grey" />
+
+    <RelativeLayout
+        android:id="@+id/llMale"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_below="@+id/container_toolbar"
+        android:layout_alignParentStart="true">
+
+
+        <ImageView
+            android:id="@+id/ivFlag2"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:paddingLeft="10dp"
+            android:src="@drawable/banda" />
+
+        <TextView
+            android:id="@+id/tvCountry_name2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/ivFlag2"
+            android:layout_toRightOf="@+id/ivFlag2"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="24dp"
+            android:text="@string/txt_male"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvMaleCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvCountry_name2"
+            android:layout_alignBottom="@+id/tvCountry_name2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="29dp"
+            android:text="0"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

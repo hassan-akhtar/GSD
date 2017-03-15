@@ -5,6 +5,7 @@ import android.app.Application;
 public class MyApplication extends Application{
 
     private int statusCode;
+    private int UserID;
 
     private static MyApplication myApplication;
 
@@ -15,6 +16,14 @@ public class MyApplication extends Application{
     public void onCreate() {
         super.onCreate();
         myApplication = this;
+    }
+
+    public int getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(int userID) {
+        UserID = userID;
     }
 
     public int getStatusCode() {

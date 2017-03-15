@@ -144,6 +144,7 @@ public class LoginActivity extends AppCompatActivity   implements MyCallBack {
                 if (responseDTO != null) {
                     if (0!=loginResponseDTO.getUserID()) {
                         CommonActions.DismissesDialog();
+                        MyApplication.getInstance().setUserID(loginResponseDTO.getUserID());
                         startActivity(new Intent(LoginActivity.this, BaseActivity.class));
                         finish();
                     } else {

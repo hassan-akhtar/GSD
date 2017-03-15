@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uaeemployee.Activites.BaseActivity;
@@ -52,7 +53,7 @@ public class OrganizationFragment extends Fragment implements MyCallBack {
 
     private void getAllOrganizations() {
         CommonActions.showProgressDialog(getActivity());
-        GSDServiceFactory.getService(getActivity()).getOrganizations(new com.uaeemployee.Network.RequestDTOs.OrganizationsDTO(SystemConstants.RESPONSE_ORGANIZATIONS,1),this);
+        GSDServiceFactory.getService(getActivity()).getOrganizations(new com.uaeemployee.Network.RequestDTOs.OrganizationsDTO(SystemConstants.RESPONSE_ORGANIZATIONS, MyApplication.getInstance().getUserID()), this);
     }
 
     private void initListeners() {
@@ -63,7 +64,8 @@ public class OrganizationFragment extends Fragment implements MyCallBack {
                 BaseActivity.refreshMainViewByNew(new SubSubOrganizationFragment());
                 getActivity().getSupportFragmentManager().executePendingTransactions();
                 EventBus.getDefault().post(organizationsDTO.get(position).getLstSubOrganization());
-                if (SubSubOrganizationFragment.subSubOrganizationsDTO!=null) {
+                EventBus.getDefault().post(organizationsDTO.get(position).getName()+","+organizationsDTO.get(position).getOrganizationID());
+                if (SubSubOrganizationFragment.subSubOrganizationsDTO != null) {
                     SubSubOrganizationFragment.subSubOrganizationsDTO.clear();
                 }
                 SubSubOrganizationFragment.subSubOrganizationsDTO = organizationsDTO.get(position).getLstSubSubOrganization();
@@ -89,9 +91,9 @@ public class OrganizationFragment extends Fragment implements MyCallBack {
             case SystemConstants.RESPONSE_ORGANIZATIONS:
                 OrganizationsResponseDTO organizationsResponseDTO = (OrganizationsResponseDTO) responseDTO;
                 if (responseDTO != null) {
-                    if (null==responseDTO.getMessage()) {
+                    if (null == responseDTO.getMessage()) {
                         CommonActions.DismissesDialog();
-                        organizationsDTO =organizationsResponseDTO.getOrganizationsDTO();
+                        organizationsDTO = organizationsResponseDTO.getOrganizationsDTO();
                         adapter = new OrganizationAdapter(organizationsDTO, getActivity());
                         lvOrgs.setAdapter(adapter);
                     } else {
@@ -124,6 +126,7 @@ public class OrganizationFragment extends Fragment implements MyCallBack {
         else
             Toast.makeText(getActivity(), R.string.error_con_timeout, Toast.LENGTH_LONG).show();
     }
+
     @Override
     public void onStart() {
         super.onStart();

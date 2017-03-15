@@ -58,6 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
+                android:visibility="gone"
                 android:gravity="center|top"
                 android:orientation="horizontal"
                 android:weightSum="4">
@@ -98,6 +99,7 @@
 
             <View
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_marginTop="5dp"
                 android:layout_height="1px"
                 android:background="@color/colorPrimaryDark" />
@@ -198,6 +200,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:gravity="center|top"
+                android:visibility="gone"
                 android:orientation="horizontal"
                 android:weightSum="4">
 
@@ -236,6 +239,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_marginTop="5dp"
+                android:visibility="gone"
                 android:layout_height="1px"
                 android:background="@color/colorPrimaryDark" />
             <LinearLayout

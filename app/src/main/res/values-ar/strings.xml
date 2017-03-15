@@ -11,6 +11,7 @@
     <string name="events_and_plans">أحداث وخطط</string>
     <string name="incident_management">ادارة الحوادث</string>
     <string name="organizations">ألشركات</string>
+    <string name="suborganizations"> فرعية منظمة</string>
     <string name="vacancies">وظائف شاغرة</string>
     <string name="logo">شعار</string>
     <string name="txt_Org">ألشركات</string>
@@ -64,7 +65,7 @@
     <string name="bundle_emp_doc">employee_doc_DTO_Obj</string>
     <string name="bundle_emp_dto">employee_DTO_Obj</string>
     <string name="bundle_vacDto">vacancies_DTO_Obj</string>
-    <string name="txt_loginn">اللغة</string>
+    <string name="txt_loginn">تسجيل الدخول</string>
     <string name="txt_password">كلمة المرور</string>
     <string name="txt_username">اسم المستخدم</string>
     <string name="copyright_2016_gsd_all_rights_reserved">حقوق التأليف والنشر © 2016 GSD. كل الحقوق محفوظة</string>
