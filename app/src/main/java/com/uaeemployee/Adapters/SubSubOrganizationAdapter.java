@@ -28,7 +28,6 @@ public class SubSubOrganizationAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        Log.e("Count", "Count: " + orgsList.size());
         return orgsList.size();
     }
 

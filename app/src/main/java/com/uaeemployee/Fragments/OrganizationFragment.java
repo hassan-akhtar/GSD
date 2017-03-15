@@ -36,6 +36,7 @@ public class OrganizationFragment extends Fragment implements MyCallBack {
     View mView;
     Communicator myCommunicator;
     ListView lvOrgs;
+    TextView tvNoTextFound;
     OrganizationAdapter adapter;
     private List<OrganizationsDTO> organizationsDTO;
 
@@ -68,13 +69,14 @@ public class OrganizationFragment extends Fragment implements MyCallBack {
                 if (SubSubOrganizationFragment.subSubOrganizationsDTO != null) {
                     SubSubOrganizationFragment.subSubOrganizationsDTO.clear();
                 }
-                SubSubOrganizationFragment.subSubOrganizationsDTO = organizationsDTO.get(position).getLstSubSubOrganization();
+                SubSubOrganizationFragment.subSubOrganizationsDTO = organizationsDTO.get(position).getLstSubOrganization().get(position).getLstSubSubOrganization();
             }
         });
     }
 
     private void initViews() {
         lvOrgs = (ListView) mView.findViewById(R.id.lvOrgs);
+        tvNoTextFound  = (TextView) mView.findViewById(R.id.tvNoTextFound);
         ((BaseActivity) getActivity()).mToolbar.setTitle(getString(R.string.organizations));
     }
 
@@ -96,6 +98,10 @@ public class OrganizationFragment extends Fragment implements MyCallBack {
                         organizationsDTO = organizationsResponseDTO.getOrganizationsDTO();
                         adapter = new OrganizationAdapter(organizationsDTO, getActivity());
                         lvOrgs.setAdapter(adapter);
+
+                        if(0 == organizationsDTO.size()){
+                            tvNoTextFound.setVisibility(View.VISIBLE);
+                        }
                     } else {
                         CommonActions.DismissesDialog();
                         new AlertDialog.Builder(getActivity())

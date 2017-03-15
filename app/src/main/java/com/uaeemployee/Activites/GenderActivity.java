@@ -29,7 +29,7 @@ public class GenderActivity extends AppCompatActivity implements MyCallBack {
     private Toolbar mToolbar;
     RelativeLayout llMale, llFemale, llLocal;
     SharedPreferencesManager sharedpreferences;
-    TextView tvLocalCount, tvMaleCount, tvFemalecount;
+    TextView tvLocalCount, tvMaleCount, tvFemalecount, tvNoTextFound;
     int organizationID, orgType, maleCount, femaleCount;
     boolean maleDisabled = false, femaleDisabled = false;
 
@@ -54,6 +54,7 @@ public class GenderActivity extends AppCompatActivity implements MyCallBack {
         llLocal = (RelativeLayout) findViewById(R.id.llLocal);
         tvLocalCount = (TextView) findViewById(R.id.tvLocalCount);
         tvMaleCount = (TextView) findViewById(R.id.tvMaleCount);
+        tvNoTextFound  = (TextView) findViewById(R.id.tvNoTextFound);
         tvFemalecount = (TextView) findViewById(R.id.tvFemaleCount);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -138,6 +139,13 @@ public class GenderActivity extends AppCompatActivity implements MyCallBack {
                                     llMale.setVisibility(View.VISIBLE);
                                 }
                             }
+                        }
+
+                        if(llFemale.getVisibility()==View.GONE && llMale.getVisibility()==View.GONE ){
+                            tvNoTextFound.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            tvNoTextFound.setVisibility(View.GONE);
                         }
                     } else {
                         CommonActions.DismissesDialog();

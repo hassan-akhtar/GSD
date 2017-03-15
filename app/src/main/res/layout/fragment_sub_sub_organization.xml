@@ -16,7 +16,7 @@
 
             <include
                 android:id="@+id/lHeader"
-                layout="@layout/ord_header" />
+                layout="@layout/org_header" />
 
             <ListView
                 android:id="@+id/lvSubOrgs"
@@ -26,4 +26,16 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/tvNoTextFound"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="No Sub Organization(s) Found"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 </RelativeLayout>

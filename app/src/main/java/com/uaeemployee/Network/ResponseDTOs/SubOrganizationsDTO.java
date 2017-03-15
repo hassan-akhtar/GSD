@@ -1,5 +1,7 @@
 package com.uaeemployee.Network.ResponseDTOs;
 
+import java.util.List;
+
 /**
  * Created by hakhtar on 2/16/2017.
  * General Data
@@ -16,6 +18,7 @@ public class SubOrganizationsDTO {
     private String Email;
     private String WebsiteURL;
     private String POC;
+    private List<SubSubOrganizationsDTO> lstSubSubOrganization;
 
     public SubOrganizationsDTO(int subOrgnizationID, String organizationID, String name, String address, String poBox, String contactNo, String email, String websiteURL, String POC) {
         SubOrgnizationID = subOrgnizationID;
@@ -27,6 +30,14 @@ public class SubOrganizationsDTO {
         Email = email;
         WebsiteURL = websiteURL;
         this.POC = POC;
+    }
+
+    public List<SubSubOrganizationsDTO> getLstSubSubOrganization() {
+        return lstSubSubOrganization;
+    }
+
+    public void setLstSubSubOrganization(List<SubSubOrganizationsDTO> lstSubSubOrganization) {
+        this.lstSubSubOrganization = lstSubSubOrganization;
     }
 
     public int getSubOrgnizationID() {

@@ -18,9 +18,8 @@ public class OrganizationsDTO extends ResponseDTO{
     private String WebsiteURL;
     private String POC;
     private List<SubOrganizationsDTO> lstSubOrganization;
-    private List<SubSubOrganizationsDTO> lstSubSubOrganization;
 
-    public OrganizationsDTO(int organizationID, String name, String address, String poBox, String contactNo, String email, String websiteURL, String POC, List<SubOrganizationsDTO> lstSubOrganization, List<SubSubOrganizationsDTO> lstSubSubOrganization) {
+    public OrganizationsDTO(int organizationID, String name, String address, String poBox, String contactNo, String email, String websiteURL, String POC, List<SubOrganizationsDTO> lstSubOrganization) {
         OrganizationID = organizationID;
         Name = name;
         Address = address;
@@ -30,7 +29,6 @@ public class OrganizationsDTO extends ResponseDTO{
         WebsiteURL = websiteURL;
         this.POC = POC;
         this.lstSubOrganization = lstSubOrganization;
-        this.lstSubSubOrganization = lstSubSubOrganization;
     }
 
     public List<SubOrganizationsDTO> getLstSubOrganization() {
@@ -39,14 +37,6 @@ public class OrganizationsDTO extends ResponseDTO{
 
     public void setLstSubOrganization(List<SubOrganizationsDTO> lstSubOrganization) {
         this.lstSubOrganization = lstSubOrganization;
-    }
-
-    public List<SubSubOrganizationsDTO> getLstSubSubOrganization() {
-        return lstSubSubOrganization;
-    }
-
-    public void setLstSubSubOrganization(List<SubSubOrganizationsDTO> lstSubSubOrganization) {
-        this.lstSubSubOrganization = lstSubSubOrganization;
     }
 
     public int getOrganizationID() {

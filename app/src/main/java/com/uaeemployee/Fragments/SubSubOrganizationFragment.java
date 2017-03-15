@@ -38,7 +38,7 @@ public class SubSubOrganizationFragment extends Fragment {
     SubOrganizationAdapter adapter;
     SubSubOrganizationAdapter adapter2;
     View mView;
-    TextView tvName, tvMaleCount, tvFemaleCount, tvLocalCount;
+    TextView tvName, tvMaleCount, tvFemaleCount, tvLocalCount, tvNoTextFound;
     public static List<SubSubOrganizationsDTO> subSubOrganizationsDTO;
     List<SubOrganizationsDTO> subOrganizationsDTO;
     boolean isSubSub = false;
@@ -66,6 +66,10 @@ public class SubSubOrganizationFragment extends Fragment {
                     adapter2 = new SubSubOrganizationAdapter(subSubOrganizationsDTO, getActivity());
                     lvSubOrgs.setAdapter(adapter2);
                     isSubSub = true;
+
+                    if(0 == subOrganizationsDTO.size()){
+                        tvNoTextFound.setVisibility(View.VISIBLE);
+                    }
                 } else {
                     startActivity(new Intent(getActivity(), GenderActivity.class));
                 }
@@ -93,6 +97,7 @@ public class SubSubOrganizationFragment extends Fragment {
 
         lvSubOrgs = (ListView) mView.findViewById(R.id.lvSubOrgs);
         CommonActions.showProgressDialog(getActivity());
+        tvNoTextFound  = (TextView) mView.findViewById(R.id.tvNoTextFound);
         lHeader  = (RelativeLayout) mView.findViewById(R.id.lHeader);
         tvName = (TextView) mView.findViewById(R.id.tvName);
         tvMaleCount = (TextView) mView.findViewById(R.id.tvMaleCount);
@@ -115,7 +120,9 @@ public class SubSubOrganizationFragment extends Fragment {
         this.subOrganizationsDTO = SubOrganizationsDTO;
         adapter = new SubOrganizationAdapter(SubOrganizationsDTO, getActivity());
         lvSubOrgs.setAdapter(adapter);
-
+        if(0 == subOrganizationsDTO.size()){
+            tvNoTextFound.setVisibility(View.VISIBLE);
+        }
     }
 
     // Update UI on Main Thread
