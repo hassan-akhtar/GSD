@@ -42,7 +42,7 @@ public class SubSubOrganizationFragment extends Fragment {
     public static List<SubSubOrganizationsDTO> subSubOrganizationsDTO;
     List<SubOrganizationsDTO> subOrganizationsDTO;
     boolean isSubSub = false;
-    private int OrganizationID = 0 ;
+    private static int OrganizationID = 0 ;
 
 
     @Override
@@ -66,12 +66,16 @@ public class SubSubOrganizationFragment extends Fragment {
                     adapter2 = new SubSubOrganizationAdapter(subSubOrganizationsDTO, getActivity());
                     lvSubOrgs.setAdapter(adapter2);
                     isSubSub = true;
+                    OrganizationID = subOrganizationsDTO.get(position).getSubOrgnizationID();
 
                     if(0 == subOrganizationsDTO.size()){
                         tvNoTextFound.setVisibility(View.VISIBLE);
                     }
                 } else {
-                    startActivity(new Intent(getActivity(), GenderActivity.class));
+                    Intent intent = new Intent(getActivity(), GenderActivity.class);
+                    intent.putExtra("org_Id", subSubOrganizationsDTO.get(position).getSubSubOrgnizationID());
+                    intent.putExtra("org_type", 3);
+                    startActivity(intent);
                 }
             }
         });

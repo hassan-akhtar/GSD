@@ -69,7 +69,9 @@ public class OrganizationFragment extends Fragment implements MyCallBack {
                 if (SubSubOrganizationFragment.subSubOrganizationsDTO != null) {
                     SubSubOrganizationFragment.subSubOrganizationsDTO.clear();
                 }
-                SubSubOrganizationFragment.subSubOrganizationsDTO = organizationsDTO.get(position).getLstSubOrganization().get(position).getLstSubSubOrganization();
+                if (0!=organizationsDTO.get(position).getLstSubOrganization().size()) {
+                    SubSubOrganizationFragment.subSubOrganizationsDTO = organizationsDTO.get(position).getLstSubOrganization().get(position).getLstSubSubOrganization();
+                }
             }
         });
     }
