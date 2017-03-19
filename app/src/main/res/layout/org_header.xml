@@ -30,6 +30,7 @@
                 android:textStyle="bold" />
 
             <ImageView
+                android:id="@+id/ivForwardArrow"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"

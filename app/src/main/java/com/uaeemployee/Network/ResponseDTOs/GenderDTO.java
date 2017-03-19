@@ -6,6 +6,7 @@ public class GenderDTO {
 
     private int Count;
     private String Gen;
+    private int Salary;
     List<NationDTO> lstNation;
 
 
@@ -31,5 +32,13 @@ public class GenderDTO {
 
     public void setLstNation(List<NationDTO> lstNation) {
         this.lstNation = lstNation;
+    }
+
+    public int getSalary() {
+        return Salary;
+    }
+
+    public void setSalary(int salary) {
+        Salary = salary;
     }
 }

@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,8 @@ import com.uaeemployee.Adapters.OrganizationAdapter;
 import com.uaeemployee.Application.MyApplication;
 import com.uaeemployee.Network.RequestDTOs.GenderRequestDTO;
 import com.uaeemployee.Network.ResponseDTOs.GenderResponseDTO;
+import com.uaeemployee.Network.ResponseDTOs.NationDTO;
+import com.uaeemployee.Network.ResponseDTOs.NationDTOList;
 import com.uaeemployee.Network.ResponseDTOs.OrganizationsResponseDTO;
 import com.uaeemployee.Network.ResponseDTOs.ResponseDTO;
 import com.uaeemployee.Network.Service.GSDServiceFactory;
@@ -24,14 +27,20 @@ import com.uaeemployee.Utils.CommonActions;
 import com.uaeemployee.Utils.SharedPreferencesManager;
 import com.uaeemployee.Utils.SystemConstants;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GenderActivity extends AppCompatActivity implements MyCallBack {
 
     private Toolbar mToolbar;
     RelativeLayout llMale, llFemale, llLocal;
     SharedPreferencesManager sharedpreferences;
-    TextView tvLocalCount, tvMaleCount, tvFemalecount, tvNoTextFound;
+    TextView tvLocalCount, tvMaleCount, tvFemalecount, tvNoTextFound, tvName;
     int organizationID, orgType, maleCount, femaleCount;
     boolean maleDisabled = false, femaleDisabled = false;
+    ImageView ivForwardArrow;
+    List<NationDTO>  lstNationMale  = new ArrayList<NationDTO>();
+    List<NationDTO> lstNationFemale   = new ArrayList<NationDTO>();;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +65,9 @@ public class GenderActivity extends AppCompatActivity implements MyCallBack {
         tvMaleCount = (TextView) findViewById(R.id.tvMaleCount);
         tvNoTextFound  = (TextView) findViewById(R.id.tvNoTextFound);
         tvFemalecount = (TextView) findViewById(R.id.tvFemaleCount);
+        tvName = (TextView) findViewById(R.id.tvName);
+        ivForwardArrow = (ImageView) findViewById(R.id.ivForwardArrow);
+        ivForwardArrow.setVisibility(View.GONE);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
     }
@@ -94,13 +106,17 @@ public class GenderActivity extends AppCompatActivity implements MyCallBack {
         public void onClick(final View v) {
             switch (v.getId()) {
                 case R.id.llMale: {
-                    startActivity(new Intent(GenderActivity.this, NationalityActivity.class));
+                    Intent in  = new Intent(GenderActivity.this, NationalityActivity.class);
+                    in.putExtra("List", new NationDTOList(lstNationMale));
+                    startActivity(in);
                     sharedpreferences.setString(SharedPreferencesManager.CURRENT_GENDER, getString(R.string.txt_male), GenderActivity.this);
                     break;
                 }
 
                 case R.id.llFemale: {
-                    startActivity(new Intent(GenderActivity.this, NationalityActivity.class));
+                    Intent in  = new Intent(GenderActivity.this, NationalityActivity.class);
+                    in.putExtra("List", new NationDTOList(lstNationFemale));
+                    startActivity(in);
                     sharedpreferences.setString(SharedPreferencesManager.CURRENT_GENDER, getString(R.string.txt_female), GenderActivity.this);
                     break;
                 }
@@ -125,20 +141,27 @@ public class GenderActivity extends AppCompatActivity implements MyCallBack {
                 if (responseDTO != null) {
                     if (null == responseDTO.getMessage()) {
                         CommonActions.DismissesDialog();
-
+                        lstNationFemale.clear();
+                        lstNationMale.clear();
+                        int salary = 0;
                         if (0 < genderResponseDTO.getGenderDTO().size()) {
                             for (int i = 0; i < genderResponseDTO.getGenderDTO().size(); i++) {
                                 String gender = genderResponseDTO.getGenderDTO().get(i).getGen();
                                 if ("Female".equals(gender)) {
                                     femaleCount = genderResponseDTO.getGenderDTO().get(i).getCount();
                                     tvFemalecount.setText("" + femaleCount);
+                                    salary = salary+ genderResponseDTO.getGenderDTO().get(i).getSalary();
                                     llFemale.setVisibility(View.VISIBLE);
+                                    lstNationFemale.addAll(genderResponseDTO.getGenderDTO().get(i).getLstNation());
                                 } else if ("Male".equals(gender)) {
                                     maleCount = genderResponseDTO.getGenderDTO().get(i).getCount();
                                     tvMaleCount.setText("" + maleCount);
+                                    salary = salary+ genderResponseDTO.getGenderDTO().get(i).getSalary();
+                                    lstNationMale.addAll(genderResponseDTO.getGenderDTO().get(i).getLstNation());
                                     llMale.setVisibility(View.VISIBLE);
                                 }
                             }
+                            tvName.setText("Total Salary: "+salary);
                         }
 
                         if(llFemale.getVisibility()==View.GONE && llMale.getVisibility()==View.GONE ){

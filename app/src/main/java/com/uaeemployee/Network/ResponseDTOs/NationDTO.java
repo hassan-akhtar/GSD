@@ -1,9 +1,12 @@
 package com.uaeemployee.Network.ResponseDTOs;
 
-public class NationDTO {
+import java.io.Serializable;
+
+public class NationDTO implements Serializable {
 
     private int Count;
     private String Name;
+    private String FlagURL;
 
     public int getCount() {
         return Count;
@@ -19,5 +22,13 @@ public class NationDTO {
 
     public void setName(String name) {
         Name = name;
+    }
+
+    public String getFlagURL() {
+        return FlagURL;
+    }
+
+    public void setFlagURL(String flagURL) {
+        FlagURL = flagURL;
     }
 }

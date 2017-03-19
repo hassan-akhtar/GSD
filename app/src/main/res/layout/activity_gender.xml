@@ -19,6 +19,19 @@
             layout="@layout/toolbar" />
     </LinearLayout>
 
+
+    <RelativeLayout
+        android:layout_marginTop="1px"
+        android:id="@+id/llSalary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/container_toolbar">
+
+        <include
+            android:id="@+id/lHeader"
+            layout="@layout/org_header" />
+    </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
@@ -28,46 +41,46 @@
 
     <RelativeLayout
         android:id="@+id/llFemale"
-        android:visibility="gone"
-        android:layout_marginTop="7dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/llMale"
-        android:clickable="true">
+        android:layout_marginTop="7dp"
+        android:clickable="true"
+        android:visibility="gone">
 
 
         <ImageView
             android:id="@+id/ivFlag"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:paddingLeft="10dp"
-            android:layout_marginEnd="21dp"
-            android:src="@drawable/bandi"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_marginEnd="21dp"
+            android:paddingLeft="10dp"
+            android:src="@drawable/bandi" />
 
         <TextView
             android:id="@+id/tvCountry_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/ivFlag"
             android:paddingBottom="10dp"
             android:paddingLeft="10dp"
             android:paddingTop="24dp"
             android:text="@string/txt_female"
-            android:textSize="20sp"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/ivFlag" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tvFemaleCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
-            android:textSize="20sp"
-            android:layout_marginStart="22dp"
             android:layout_alignBaseline="@+id/tvCountry_name"
             android:layout_alignBottom="@+id/tvCountry_name"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="22dp"
+            android:text="0"
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
@@ -80,12 +93,12 @@
 
     <RelativeLayout
         android:id="@+id/llLocal"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/llFemale"
         android:layout_marginTop="7dp"
-        android:clickable="true">
+        android:clickable="true"
+        android:visibility="gone">
 
 
         <ImageView
@@ -120,6 +133,7 @@
             android:textSize="20sp" />
 
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
@@ -129,12 +143,13 @@
 
     <RelativeLayout
         android:id="@+id/llMale"
-        android:visibility="gone"
+        android:layout_marginTop="2dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/llSalary"
         android:clickable="true"
-        android:layout_below="@+id/container_toolbar"
-        android:layout_alignParentStart="true">
+        android:visibility="gone">
 
 
         <ImageView
@@ -172,7 +187,6 @@
 
     <TextView
         android:id="@+id/tvNoTextFound"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -180,6 +194,7 @@
         android:text="No Employee(s) Found"
         android:textColor="@color/colorPrimary"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
 </RelativeLayout>

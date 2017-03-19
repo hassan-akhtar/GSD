@@ -10,27 +10,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.uaeemployee.Network.ResponseDTOs.NationDTO;
 import com.uaeemployee.R;
+
+import java.util.List;
 
 
 public class NationalityAdapter extends BaseAdapter {
-    String[] listCountryName, listPercentages;
+    List<NationDTO> lstNation;
     Context context;
-    int[] imageIds;
     private static LayoutInflater inflater = null;
 
-    public NationalityAdapter(Context context, String[] listCountryName, String[] listPercentages,int[] imageIds) {
-        this.listCountryName = listCountryName;
-        this.listPercentages = listPercentages;
+    public NationalityAdapter(Context context, List<NationDTO> lstNation) {
         this.context = context;
-        this.imageIds = imageIds;
+        this.lstNation = lstNation;
         inflater = (LayoutInflater) context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return listCountryName.length;
+        return lstNation.size();
     }
 
     @Override
@@ -56,9 +58,16 @@ public class NationalityAdapter extends BaseAdapter {
         holder.tvCountry_name = (TextView) rowView.findViewById(R.id.tvCountry_name);
         holder.tvPercentage= (TextView) rowView.findViewById(R.id.tvPercentage);
         holder.img = (ImageView) rowView.findViewById(R.id.ivFlag);
-        holder.tvCountry_name.setText(listCountryName[position]);
-        holder.tvPercentage.setText(listPercentages[position]);
-        holder.img.setImageResource(imageIds[position]);
+        holder.tvCountry_name.setText(lstNation.get(position).getName());
+        holder.tvPercentage.setText(""+lstNation.get(position).getCount());
+
+        Glide.with(context).load(lstNation.get(position).getFlagURL())
+                .thumbnail(0.5f)
+                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.img);
+
+        //holder.img.setImageResource(imageIds[position]);
         return rowView;
     }
 

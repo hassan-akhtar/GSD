@@ -9,8 +9,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.uaeemployee.Adapters.NationalityAdapter;
+import com.uaeemployee.Network.ResponseDTOs.NationDTO;
+import com.uaeemployee.Network.ResponseDTOs.NationDTOList;
 import com.uaeemployee.R;
 import com.uaeemployee.Utils.SharedPreferencesManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NationalityActivity extends AppCompatActivity {
 
@@ -20,6 +25,8 @@ public class NationalityActivity extends AppCompatActivity {
     public static String[] listCountryName;
     public static String[] listPercentages;
     SharedPreferencesManager sharedpreferences;
+    NationDTOList lstNation;
+    List<NationDTO>  lst = new ArrayList<NationDTO>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +56,9 @@ public class NationalityActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(R.string.txt_select_nationality);
         mToolbar.setNavigationIcon(R.drawable.back_icon);
-        lvNationality.setAdapter(new NationalityAdapter(this, listCountryName, listPercentages, imageIds));
+        lstNation = (NationDTOList) this.getIntent().getExtras().getSerializable("List");
+        lst= lstNation.getNationDTO();
+        lvNationality.setAdapter(new NationalityAdapter(this, lst));
     }
 
     private void initListeners() {
