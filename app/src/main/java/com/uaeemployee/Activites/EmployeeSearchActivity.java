@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.uaeemployee.Adapters.ListAdapter;
 import com.uaeemployee.Application.MyApplication;
+import com.uaeemployee.Fragments.SubSubOrganizationFragment;
 import com.uaeemployee.Fragments.VacanciesFragment;
 import com.uaeemployee.Network.ResponseDTOs.EmployeeDTO;
 import com.uaeemployee.Network.ResponseDTOs.EmployeeResponseDTO;
@@ -78,7 +79,7 @@ public class EmployeeSearchActivity extends AppCompatActivity  implements MyCall
     }
 
     private void initObj() {
-        BaseActivity.fragment = new VacanciesFragment();
+        BaseActivity.fragment = new SubSubOrganizationFragment();
         sharedpreferences = new SharedPreferencesManager(EmployeeSearchActivity.this);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
