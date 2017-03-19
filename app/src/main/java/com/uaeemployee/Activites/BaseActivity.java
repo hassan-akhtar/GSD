@@ -29,6 +29,9 @@ import com.uaeemployee.Interfaces.Communicator;
 import com.uaeemployee.Models.Organization;
 import com.uaeemployee.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BaseActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener, Communicator {
 
 
@@ -38,6 +41,7 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private static FragmentManager fragmentManager;
     String title;
     public static Fragment fragment;
+    public static List<String> companisList = new ArrayList<String>();
     MenuItem item;
 
 
@@ -63,11 +67,11 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
         switch (position) {
             case 0:
                 fragment = new DashboardFragment();
-                title =  getString(R.string.txt_main_menu);
+                title = getString(R.string.txt_main_menu);
                 break;
             case 1:
                 fragment = new OrganizationFragment();
-                title =  getString(R.string.txt_Org);
+                title = getString(R.string.txt_Org);
                 break;
 
             case 2:
@@ -165,11 +169,11 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.org_menu, menu);
-         item = menu.findItem(R.id.action_orgs);
-        if(BaseActivity.fragment instanceof DashboardFragment || BaseActivity.fragment instanceof OrganizationFragment || BaseActivity.fragment instanceof SubSubOrganizationFragment ){
+        item = menu.findItem(R.id.action_orgs);
+        if (BaseActivity.fragment instanceof DashboardFragment || BaseActivity.fragment instanceof OrganizationFragment || BaseActivity.fragment instanceof SubSubOrganizationFragment) {
             item.setVisible(false);
             invalidateOptionsMenu();
-        }else {
+        } else {
             item.setVisible(true);
             invalidateOptionsMenu();
         }
@@ -186,13 +190,9 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
             AlertDialog.Builder builderSingle = new AlertDialog.Builder(BaseActivity.this);
             builderSingle.setIcon(R.drawable.icon_orgs);
             builderSingle.setTitle(R.string.menu_txt_title);
-
             final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(BaseActivity.this, android.R.layout.select_dialog_singlechoice);
             arrayAdapter.add(getString(R.string.txt_emmar));
-            arrayAdapter.add(getString(R.string.ahd));
-            arrayAdapter.add(getString(R.string.txt_armani));
-            arrayAdapter.add(getString(R.string.txt_company));
-            arrayAdapter.add(getString(R.string.txt_emmar));
+            arrayAdapter.addAll(companisList);
 
             builderSingle.setNegativeButton(R.string.txt_cancel, new DialogInterface.OnClickListener() {
                 @Override
@@ -205,7 +205,7 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     String strName = arrayAdapter.getItem(which);
-                   Toast.makeText(getApplicationContext(),getString(R.string.txt_selected)+strName,Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.txt_selected) + strName, Toast.LENGTH_LONG).show();
                 }
             });
             builderSingle.show();

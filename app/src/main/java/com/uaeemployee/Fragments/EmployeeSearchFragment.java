@@ -192,6 +192,14 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
                         lEmployees = employeeResponseDTO.getEmployeeDTO();
                         mAdapter = new ListAdapter(lEmployees, getActivity(),"");
                         lvList.setAdapter(mAdapter);
+                        BaseActivity.companisList.clear();
+                        for (int i=0;i<lEmployees.size();i++){
+                            if (!"".equals(lEmployees.get(i).getOrganization())) {
+                                if (!BaseActivity.companisList.contains(lEmployees.get(i).getOrganization())) {
+                                    BaseActivity.companisList.add(lEmployees.get(i).getOrganization());
+                                }
+                            }
+                        }
                     } else {
                         CommonActions.DismissesDialog();
                         new AlertDialog.Builder(getActivity())

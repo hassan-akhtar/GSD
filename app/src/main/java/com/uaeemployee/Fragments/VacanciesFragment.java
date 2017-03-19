@@ -169,6 +169,14 @@ public class VacanciesFragment extends Fragment implements MyCallBack {
                         lVacancies = vacanciesResponseDTO.getVacanciesDTO();
                         mAdapter = new ListAdapter(lVacancies, getActivity());
                         lvList.setAdapter(mAdapter);
+                        BaseActivity.companisList.clear();
+                        for (int i=0;i<lVacancies.size();i++){
+                            if (!"".equals(lVacancies.get(i).getOrganization())) {
+                                if (!BaseActivity.companisList.contains(lVacancies.get(i).getOrganization())) {
+                                    BaseActivity.companisList.add(lVacancies.get(i).getOrganization());
+                                }
+                            }
+                        }
                     } else {
                         CommonActions.DismissesDialog();
                         new AlertDialog.Builder(getActivity())

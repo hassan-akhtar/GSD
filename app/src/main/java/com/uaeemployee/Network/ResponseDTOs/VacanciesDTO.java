@@ -12,6 +12,7 @@ public class VacanciesDTO implements Serializable {
     private String JobLevel;
     private String Description;
     private int SubSubOrganizationID;
+    private String Organization;
 
 
     public VacanciesDTO() {
@@ -28,6 +29,14 @@ public class VacanciesDTO implements Serializable {
 
     public int getVacancyID() {
         return VacancyID;
+    }
+
+    public String getOrganization() {
+        return Organization;
+    }
+
+    public void setOrganization(String organization) {
+        Organization = organization;
     }
 
     public void setVacancyID(int vacancyID) {
