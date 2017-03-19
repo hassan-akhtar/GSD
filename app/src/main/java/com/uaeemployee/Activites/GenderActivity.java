@@ -108,6 +108,9 @@ public class GenderActivity extends AppCompatActivity implements MyCallBack {
                 case R.id.llMale: {
                     Intent in  = new Intent(GenderActivity.this, NationalityActivity.class);
                     in.putExtra("List", new NationDTOList(lstNationMale));
+                    in.putExtra("org_Id",organizationID);
+                    in.putExtra("org_type",orgType);
+                    in.putExtra("gender_type",1);
                     startActivity(in);
                     sharedpreferences.setString(SharedPreferencesManager.CURRENT_GENDER, getString(R.string.txt_male), GenderActivity.this);
                     break;
@@ -116,6 +119,9 @@ public class GenderActivity extends AppCompatActivity implements MyCallBack {
                 case R.id.llFemale: {
                     Intent in  = new Intent(GenderActivity.this, NationalityActivity.class);
                     in.putExtra("List", new NationDTOList(lstNationFemale));
+                    in.putExtra("org_Id",organizationID);
+                    in.putExtra("org_type",orgType);
+                    in.putExtra("gender_type",0);
                     startActivity(in);
                     sharedpreferences.setString(SharedPreferencesManager.CURRENT_GENDER, getString(R.string.txt_female), GenderActivity.this);
                     break;

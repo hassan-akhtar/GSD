@@ -11,6 +11,7 @@ public interface GSDService {
      void getOrganizations(OrganizationsDTO organizationsDTO, MyCallBack callback);
      void getVacancies(VacanciesDTO organizationsDTO, MyCallBack callback);
      void getEmployees(VacanciesDTO organizationsDTO, MyCallBack callback);
+     void getEmployeesByGender(VacanciesDTO organizationsDTO, MyCallBack callback);
      void getEmployeeDocument(OrganizationsDTO organizationsDTO, MyCallBack callback);
      void GetCountByGender(GenderRequestDTO genderRequestDTO, MyCallBack callback);
 

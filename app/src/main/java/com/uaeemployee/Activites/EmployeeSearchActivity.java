@@ -1,29 +1,42 @@
 package com.uaeemployee.Activites;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.uaeemployee.Adapters.ListAdapter;
+import com.uaeemployee.Application.MyApplication;
 import com.uaeemployee.Fragments.VacanciesFragment;
+import com.uaeemployee.Network.ResponseDTOs.EmployeeDTO;
+import com.uaeemployee.Network.ResponseDTOs.EmployeeResponseDTO;
+import com.uaeemployee.Network.ResponseDTOs.ResponseDTO;
 import com.uaeemployee.Network.ResponseDTOs.VacanciesDTO;
+import com.uaeemployee.Network.Service.GSDServiceFactory;
+import com.uaeemployee.Network.Service.MyCallBack;
 import com.uaeemployee.R;
+import com.uaeemployee.Utils.CommonActions;
 import com.uaeemployee.Utils.SharedPreferencesManager;
+import com.uaeemployee.Utils.SystemConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeSearchActivity extends AppCompatActivity {
+public class EmployeeSearchActivity extends AppCompatActivity  implements MyCallBack{
 
 
-    List<VacanciesDTO> lEmployees = new ArrayList<VacanciesDTO>();
-    List<VacanciesDTO> filteredList = new ArrayList<VacanciesDTO>();
+    List<EmployeeDTO> lEmployees = new ArrayList<EmployeeDTO>();
+    List<EmployeeDTO> filteredList = new ArrayList<EmployeeDTO>();
     EditText etSearch;
     ListView lvList;
     ListAdapter mAdapter;
@@ -31,6 +44,8 @@ public class EmployeeSearchActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     String genderKey = "", countryKey = "";
     SharedPreferencesManager sharedpreferences;
+    int organizationID, orgType, genderType;
+    String nationality;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,36 +55,12 @@ public class EmployeeSearchActivity extends AppCompatActivity {
         initViews();
         initObj();
         initListeners();
+        getAllEmployees();
         genderKey = sharedpreferences.getString(SharedPreferencesManager.CURRENT_GENDER, EmployeeSearchActivity.this);
         countryKey = sharedpreferences.getString(SharedPreferencesManager.CURRENT_NATIONALITY, EmployeeSearchActivity.this);
 
-//        if ("pakistan".equals(countryKey)) {
-//            if ("male".equals(genderKey)) {
-//                populateListMalePakistan();
-//            } else if ("female".equals(genderKey)) {
-//                populateListFemalePakistan();
-//            }
-//        } else if ("india".equals(countryKey)) {
-//
-//            if ("male".equals(genderKey)) {
-//                populateListMaleIndia();
-//            } else if ("female".equals(genderKey)) {
-//                populateListFemaleIndia();
-//            }
-//
-//        } else if ("localonly".equals(countryKey)) {
-//            populateListLocalEmployees();
-//        } else if ("local".equals(countryKey)) {
-//
-//            if ("male".equals(genderKey)) {
-//                populateListLocalMale();
-//            } else if ("female".equals(genderKey)) {
-//                populateListLocalFemale();
-//            }
-//        }
 
-
-        mAdapter = new ListAdapter(lEmployees, EmployeeSearchActivity.this);
+        mAdapter = new ListAdapter(lEmployees, EmployeeSearchActivity.this,"");
         lvList.setAdapter(mAdapter);
 
         if (lEmployees.size() < 0)
@@ -94,9 +85,20 @@ public class EmployeeSearchActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.employee_search));
         mToolbar.setNavigationIcon(R.drawable.back_icon);
-        sharedpreferences.setBoolean(SharedPreferencesManager.IS_VACANCY,false,EmployeeSearchActivity.this);
+
+        organizationID = getIntent().getIntExtra("org_Id", 0);
+        orgType = getIntent().getIntExtra("org_type", 0);
+        genderType = getIntent().getIntExtra("gender_type", 0);
+        nationality = getIntent().getStringExtra("nationality");
+
+        sharedpreferences.setBoolean(SharedPreferencesManager.IS_VACANCY, false, EmployeeSearchActivity.this);
     }
 
+
+    private void getAllEmployees() {
+        CommonActions.showProgressDialog(EmployeeSearchActivity.this);
+        GSDServiceFactory.getService(getApplicationContext()).getEmployeesByGender(new com.uaeemployee.Network.RequestDTOs.VacanciesDTO(SystemConstants.RESPONSE_EMPLOYEES,organizationID,orgType,MyApplication.getInstance().getUserID(),genderType,nationality),this);
+    }
     private void initListeners() {
 
         etSearch.addTextChangedListener(new TextWatcher() {
@@ -110,7 +112,7 @@ public class EmployeeSearchActivity extends AppCompatActivity {
 
                 for (int i = 0; i < lEmployees.size(); i++) {
 
-                    final String name = lEmployees.get(i).getTitle().toLowerCase();
+                    final String name = lEmployees.get(i).getFirstName().toLowerCase();
                     if (name.startsWith((String) cs)) {
 
                         filteredList.add(lEmployees.get(i));
@@ -119,12 +121,12 @@ public class EmployeeSearchActivity extends AppCompatActivity {
 
                 if (0 == filteredList.size()) {
                     tvNoTextFound.setVisibility(View.VISIBLE);
-                    mAdapter = new ListAdapter(filteredList, EmployeeSearchActivity.this);
+                    mAdapter = new ListAdapter(filteredList, EmployeeSearchActivity.this,"");
                     lvList.setAdapter(mAdapter);
                     mAdapter.notifyDataSetChanged();
                 } else {
                     tvNoTextFound.setVisibility(View.GONE);
-                    mAdapter = new ListAdapter(filteredList, EmployeeSearchActivity.this);
+                    mAdapter = new ListAdapter(filteredList, EmployeeSearchActivity.this,"");
                     lvList.setAdapter(mAdapter);
                     mAdapter.notifyDataSetChanged();
                 }
@@ -146,92 +148,67 @@ public class EmployeeSearchActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent in = new Intent(getApplicationContext(), EmployeeProfileActivity.class);
+                if("".equals(etSearch.getText().toString().trim())){
+                    EmployeeDTO employeeDTO = new EmployeeDTO(lEmployees.get(position).getOrganization(),lEmployees.get(position).getEmployeeID(), lEmployees.get(position).getSubSubOrganizationID(), lEmployees.get(position).getFirstName()
+                            , lEmployees.get(position).getLastName(), lEmployees.get(position).getGender(), lEmployees.get(position).getEmail(), lEmployees.get(position).getAddress(), lEmployees.get(position).getContactNo(), lEmployees.get(position).getSalary(), lEmployees.get(position).getCountryName());
+                    in.putExtra(getString(R.string.bundle_emp_dto), employeeDTO);
+                }else{
+                    EmployeeDTO employeeDTO = new EmployeeDTO(filteredList.get(position).getOrganization(),filteredList.get(position).getEmployeeID(), filteredList.get(position).getSubSubOrganizationID(), filteredList.get(position).getFirstName()
+                            , filteredList.get(position).getLastName(), filteredList.get(position).getGender(), filteredList.get(position).getEmail(), filteredList.get(position).getAddress(), filteredList.get(position).getContactNo(), filteredList.get(position).getSalary(), filteredList.get(position).getCountryName());
+                    in.putExtra(getString(R.string.bundle_emp_dto), employeeDTO);
+                }
+
+                startActivity(in);
+            }
+        });
+    }
+    @Override
+    public void onSuccess(ResponseDTO responseDTO) {
+        switch (responseDTO.getCallBackId()) {
+
+            case SystemConstants.RESPONSE_EMPLOYEES:
+                EmployeeResponseDTO employeeResponseDTO = (EmployeeResponseDTO) responseDTO;
+                if (responseDTO != null) {
+                    if (null==responseDTO.getMessage()) {
+                        CommonActions.DismissesDialog();
+                        lEmployees = employeeResponseDTO.getEmployeeDTO();
+                        mAdapter = new ListAdapter(lEmployees, getApplicationContext(),"");
+                        lvList.setAdapter(mAdapter);
+                    } else {
+                        CommonActions.DismissesDialog();
+                        new AlertDialog.Builder(getApplicationContext())
+                                .setTitle(getString(R.string.txt_Org))
+                                .setMessage(responseDTO.getMessage())
+                                .setNegativeButton(getString(R.string.txt_close), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                })
+                                .show();
+                    }
+                }
+                break;
+
+            default:
+                break;
+        }
     }
 
-
-//    private void populateListMalePakistan() {
-//        Employee employee = new Employee("Hassan Akhtar", "Male", "Pakistan");
-//        lEmployees.add(employee);
-//        employee = new Employee("Qasim Bajwa", "Male", "Pakistan");
-//        lEmployees.add(employee);
-//        employee = new Employee("Fahad Sheikh", "Male", "Pakistan");
-//        lEmployees.add(employee);
-//        employee = new Employee("Mohsin Qureshi", "Male", "Pakistan");
-//        lEmployees.add(employee);
-//    }
-//
-//    private void populateListFemalePakistan() {
-//        Employee employee = new Employee("Fatima Gull", "Female", "Pakistan");
-//        lEmployees.add(employee);
-//        employee = new Employee("Anum Bibi", "Female", "Pakistan");
-//        lEmployees.add(employee);
-//        employee = new Employee("Siri Devi", "Female", "Pakistan");
-//        lEmployees.add(employee);
-//        employee = new Employee("Ayesha Singh", "Female", "Pakistan");
-//        lEmployees.add(employee);
-//    }
-//
-//    private void populateListLocalMale() {
-//        Employee employee = new Employee("Ali Husnain Sheikh", "Male", "UAE");
-//        lEmployees.add(employee);
-//        employee = new Employee("Sheikh Hassan", "Male", "UAE");
-//        lEmployees.add(employee);
-//        employee = new Employee("Naz Kumkum", "Male", "UAE");
-//        lEmployees.add(employee);
-//        employee = new Employee("Hussan Saeed", "Male", "UAE");
-//        lEmployees.add(employee);
-//    }
-//
-//    private void populateListLocalFemale() {
-//        Employee employee = new Employee("Fatima Sheikh", "Female", "UAE");
-//        lEmployees.add(employee);
-//        employee = new Employee("Sheikh Sundus", "Female", "UAE");
-//        lEmployees.add(employee);
-//        employee = new Employee("Naz Kumkum", "Female", "UAE");
-//        lEmployees.add(employee);
-//        employee = new Employee("Sehar Nawaz", "Female", "UAE");
-//        lEmployees.add(employee);
-//    }
-//
-//    private void populateListMaleIndia() {
-//        Employee employee = new Employee("Bahun Devan", "Male", "India");
-//        lEmployees.add(employee);
-//        employee = new Employee("Rahul Gill", "Male", "India");
-//        lEmployees.add(employee);
-//        employee = new Employee("Rohit Sheti", "Male", "India");
-//        lEmployees.add(employee);
-//        employee = new Employee("Arbab Kapoor", "Male", "India");
-//        lEmployees.add(employee);
-//    }
-//
-//    private void populateListLocalEmployees() {
-//        Employee employee = new Employee("Ali Husnain Sheikh", "Male", "UAE");
-//        lEmployees.add(employee);
-//        employee = new Employee("Sheikh Hassan", "Male", "UAE");
-//        lEmployees.add(employee);
-//        employee = new Employee("Fatima Sheikh", "Female", "UAE");
-//        lEmployees.add(employee);
-//        employee = new Employee("Sheikh Sundus", "Female", "UAE");
-//        lEmployees.add(employee);
-//        employee = new Employee("Naz Kumkum", "Male", "UAE");
-//        lEmployees.add(employee);
-//        employee = new Employee("Hussan Saeed", "Male", "UAE");
-//        lEmployees.add(employee);
-//        employee = new Employee("Naz Kumkum", "Female", "UAE");
-//        lEmployees.add(employee);
-//        employee = new Employee("Sehar Nawaz", "Female", "UAE");
-//        lEmployees.add(employee);
-//    }
-//
-//    private void populateListFemaleIndia() {
-//        Employee employee = new Employee("Deepika Padukon", "Female", "India");
-//        lEmployees.add(employee);
-//        employee = new Employee("Siri Devi", "Female", "India");
-//        lEmployees.add(employee);
-//        employee = new Employee("Farah Khan", "Female", "India");
-//        lEmployees.add(employee);
-//        employee = new Employee("Enkita Sharma", "Female", "India");
-//        lEmployees.add(employee);
-//    }
+    @Override
+    public void onFailure(ResponseDTO errorDTO) {
+        CommonActions.DismissesDialog();
+        if (404 == MyApplication.getInstance().getStatusCode())
+            Toast.makeText(getApplicationContext(), R.string.error_404_msg, Toast.LENGTH_LONG).show();
+        else if (1 == MyApplication.getInstance().getStatusCode())
+            Toast.makeText(getApplicationContext(), R.string.error_poor_con, Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(getApplicationContext(), R.string.error_con_timeout, Toast.LENGTH_LONG).show();
+    }
 }
+
 

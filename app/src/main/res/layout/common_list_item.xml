@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:textColor="@color/darkGrey"
         android:layout_marginStart="21dp"
         android:layout_marginTop="7dp"
         android:text="Dilawar"
@@ -22,6 +23,7 @@
         android:layout_alignStart="@+id/tvName"
         android:layout_below="@+id/tvName"
         android:layout_marginTop="11dp"
+        android:textColor="@color/darkGrey"
         android:text="Male"
         android:textSize="16sp"
         android:textStyle="bold" />

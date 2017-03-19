@@ -76,7 +76,7 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
 
     private void getAllEmployees() {
         CommonActions.showProgressDialog(getActivity());
-        GSDServiceFactory.getService(getActivity()).getEmployees(new com.uaeemployee.Network.RequestDTOs.VacanciesDTO(SystemConstants.RESPONSE_EMPLOYEES,1,1,MyApplication.getInstance().getUserID()),this);
+        GSDServiceFactory.getService(getActivity()).getEmployees(new com.uaeemployee.Network.RequestDTOs.VacanciesDTO(SystemConstants.RESPONSE_EMPLOYEES,MyApplication.getInstance().getUserID()),this);
     }
 
     private void initViews() {
@@ -147,11 +147,11 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
                 if (!BaseActivity.isEmployeeDoc ) {
                     Intent in = new Intent(getActivity(), EmployeeProfileActivity.class);
                     if("".equals(etSearch.getText().toString().trim())){
-                        EmployeeDTO employeeDTO = new EmployeeDTO(lEmployees.get(position).getEmployeeID(), lEmployees.get(position).getSubSubOrganizationID(), lEmployees.get(position).getFirstName()
+                        EmployeeDTO employeeDTO = new EmployeeDTO(lEmployees.get(position).getOrganization(),lEmployees.get(position).getEmployeeID(), lEmployees.get(position).getSubSubOrganizationID(), lEmployees.get(position).getFirstName()
                                 , lEmployees.get(position).getLastName(), lEmployees.get(position).getGender(), lEmployees.get(position).getEmail(), lEmployees.get(position).getAddress(), lEmployees.get(position).getContactNo(), lEmployees.get(position).getSalary(), lEmployees.get(position).getCountryName());
                         in.putExtra(getString(R.string.bundle_emp_dto), employeeDTO);
                     }else{
-                        EmployeeDTO employeeDTO = new EmployeeDTO(filteredList.get(position).getEmployeeID(), filteredList.get(position).getSubSubOrganizationID(), filteredList.get(position).getFirstName()
+                        EmployeeDTO employeeDTO = new EmployeeDTO(filteredList.get(position).getOrganization(),filteredList.get(position).getEmployeeID(), filteredList.get(position).getSubSubOrganizationID(), filteredList.get(position).getFirstName()
                                 , filteredList.get(position).getLastName(), filteredList.get(position).getGender(), filteredList.get(position).getEmail(), filteredList.get(position).getAddress(), filteredList.get(position).getContactNo(), filteredList.get(position).getSalary(), filteredList.get(position).getCountryName());
                         in.putExtra(getString(R.string.bundle_emp_dto), employeeDTO);
                     }
@@ -160,11 +160,11 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
                 } else {
                     Intent in = new Intent(getActivity(), EmployeeDocumentActivity.class);
                     if("".equals(etSearch.getText().toString().trim())){
-                        EmployeeDTO employeeDTO = new EmployeeDTO(lEmployees.get(position).getEmployeeID(), lEmployees.get(position).getSubSubOrganizationID(), lEmployees.get(position).getFirstName()
+                        EmployeeDTO employeeDTO = new EmployeeDTO(lEmployees.get(position).getOrganization(),lEmployees.get(position).getEmployeeID(), lEmployees.get(position).getSubSubOrganizationID(), lEmployees.get(position).getFirstName()
                                 , lEmployees.get(position).getLastName(), lEmployees.get(position).getGender(), lEmployees.get(position).getEmail(), lEmployees.get(position).getAddress(), lEmployees.get(position).getContactNo(), lEmployees.get(position).getSalary(), lEmployees.get(position).getCountryName());
                         in.putExtra(getString(R.string.bundle_emp_doc), employeeDTO);
                     }else{
-                        EmployeeDTO employeeDTO = new EmployeeDTO(filteredList.get(position).getEmployeeID(), filteredList.get(position).getSubSubOrganizationID(), filteredList.get(position).getFirstName()
+                        EmployeeDTO employeeDTO = new EmployeeDTO(filteredList.get(position).getOrganization(),filteredList.get(position).getEmployeeID(), filteredList.get(position).getSubSubOrganizationID(), filteredList.get(position).getFirstName()
                                 , filteredList.get(position).getLastName(), filteredList.get(position).getGender(), filteredList.get(position).getEmail(), filteredList.get(position).getAddress(), filteredList.get(position).getContactNo(), filteredList.get(position).getSalary(), filteredList.get(position).getCountryName());
                         in.putExtra(getString(R.string.bundle_emp_doc), employeeDTO);
                     }

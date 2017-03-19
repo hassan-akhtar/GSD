@@ -15,7 +15,7 @@ import com.uaeemployee.Utils.TextDrawable;
 public class EmployeeProfileActivity extends AppCompatActivity {
 
 
-    TextView tvNameValue, tvGenderValue, tvNationalityValue, tvOrgValue, tvEmailValue, tvContactValue;
+    TextView tvNameValue, tvGenderValue, tvNationalityValue, tvOrgValue, tvEmailValue, tvContactValue, tvSalaryValue;
     SharedPreferencesManager sharedPreferencesManager;
     private Toolbar mToolbar;
     ImageView ivLetter;
@@ -41,6 +41,7 @@ public class EmployeeProfileActivity extends AppCompatActivity {
         tvOrgValue = (TextView) findViewById(R.id.tvOrgValue);
         tvEmailValue = (TextView) findViewById(R.id.tvEmailValue);
         tvContactValue = (TextView) findViewById(R.id.tvContactValue);
+        tvSalaryValue = (TextView) findViewById(R.id.tvSalaryValue);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         ivLetter = (ImageView) findViewById(R.id.ivLetter);
     }
@@ -90,8 +91,9 @@ public class EmployeeProfileActivity extends AppCompatActivity {
         tvNameValue.setText(employeeDTO.getFirstName()+" "+ employeeDTO.getLastName());
         tvGenderValue.setText(employeeDTO.getGender());
         tvNationalityValue.setText(employeeDTO.getCountryName());
-        tvOrgValue.setText(getString(R.string.txt_emmar));
+        tvOrgValue.setText(employeeDTO.getOrganization());
         tvEmailValue.setText(employeeDTO.getEmail());
+        tvSalaryValue.setText(employeeDTO.getSalary());
         tvContactValue.setText(employeeDTO.getContactNo());
     }
 

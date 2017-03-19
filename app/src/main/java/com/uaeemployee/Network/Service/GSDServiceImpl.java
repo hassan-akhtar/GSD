@@ -132,7 +132,32 @@ public class GSDServiceImpl implements GSDService {
 
     @Override
     public void getEmployees(final com.uaeemployee.Network.RequestDTOs.VacanciesDTO organizationsDTO, final MyCallBack callback) {
-        adapter.getAllEmployees(organizationsDTO.getOrganizationID(),organizationsDTO.getStatusID(),organizationsDTO.getLoginEmpID(), new Callback<List<EmployeeDTO>>() {
+        adapter.getAllEmployees(organizationsDTO.getLoginEmpID(), new Callback<List<EmployeeDTO>>() {
+            @Override
+            public void success(List<EmployeeDTO> employeeDTO, Response response) {
+
+                EmployeeResponseDTO res = new EmployeeResponseDTO();
+                res.setEmployeeDTO(employeeDTO);
+                res.setCallBackId(organizationsDTO.getCallBackId());
+                callback.onSuccess(res);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (error != null && error.getResponse() != null && error.getResponse().getStatus() != 0) {
+                    MyApplication.getInstance().setStatusCode(error.getResponse().getStatus());
+                    callback.onFailure(new ResponseDTO(error.getMessage()));
+                } else {
+                    MyApplication.getInstance().setStatusCode(1);
+                    callback.onFailure(new ResponseDTO(error.getMessage()));
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getEmployeesByGender(final com.uaeemployee.Network.RequestDTOs.VacanciesDTO organizationsDTO, final MyCallBack callback) {
+        adapter.geEmployeesByGender(organizationsDTO.getOrganizationID(),organizationsDTO.getStatusID(),organizationsDTO.getLoginEmpID(),organizationsDTO.getGenderType(),organizationsDTO.getNationality(), new Callback<List<EmployeeDTO>>() {
             @Override
             public void success(List<EmployeeDTO> employeeDTO, Response response) {
 

@@ -26,7 +26,8 @@ public class NationalityActivity extends AppCompatActivity {
     public static String[] listPercentages;
     SharedPreferencesManager sharedpreferences;
     NationDTOList lstNation;
-    List<NationDTO>  lst = new ArrayList<NationDTO>();
+    List<NationDTO> lst = new ArrayList<NationDTO>();
+    int organizationID, orgType, genderType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,15 +50,18 @@ public class NationalityActivity extends AppCompatActivity {
 
     private void initObj() {
         setSupportActionBar(mToolbar);
-        listPercentages = new String[]{getString(R.string.txt_thirty), getString(R.string.txt_twenty), getString(R.string.txt_fifty)};
-        listCountryName = new String[]{getString(R.string.txt_pakistan), getString(R.string.txt_ind), getString(R.string.txt_UAE)};
         sharedpreferences = new SharedPreferencesManager(NationalityActivity.this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(R.string.txt_select_nationality);
         mToolbar.setNavigationIcon(R.drawable.back_icon);
+
         lstNation = (NationDTOList) this.getIntent().getExtras().getSerializable("List");
-        lst= lstNation.getNationDTO();
+        organizationID = getIntent().getIntExtra("org_Id", 0);
+        orgType = getIntent().getIntExtra("org_type", 0);
+        genderType = getIntent().getIntExtra("gender_type", 0);
+
+        lst = lstNation.getNationDTO();
         lvNationality.setAdapter(new NationalityAdapter(this, lst));
     }
 
@@ -65,25 +69,16 @@ public class NationalityActivity extends AppCompatActivity {
         lvNationality.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        sharedpreferences.setString(SharedPreferencesManager.CURRENT_NATIONALITY, getString(R.string.txt_pak), NationalityActivity.this);
+                        Intent in = new Intent(NationalityActivity.this, EmployeeSearchActivity.class);
+                        in.putExtra("org_Id",organizationID);
+                        in.putExtra("org_type",orgType);
+                        in.putExtra("gender_type",genderType);
+                        in.putExtra("nationality",lst.get(position).getName());
+                        startActivity(in);
 
-                switch (position) {
 
-                    case 0:
-                        sharedpreferences.setString(SharedPreferencesManager.CURRENT_NATIONALITY,getString(R.string.txt_pak), NationalityActivity.this);
-                        startActivity(new Intent(NationalityActivity.this, EmployeeSearchActivity.class));
-                        break;
 
-                    case 1:
-                        sharedpreferences.setString(SharedPreferencesManager.CURRENT_NATIONALITY,getString(R.string.txt_india), NationalityActivity.this);
-                        startActivity(new Intent(NationalityActivity.this, EmployeeSearchActivity.class));
-                        break;
-
-                    case 2:
-                        sharedpreferences.setString(SharedPreferencesManager.CURRENT_NATIONALITY,getString(R.string.txt_local), NationalityActivity.this);
-                        startActivity(new Intent(NationalityActivity.this, EmployeeSearchActivity.class));
-                        break;
-
-                }
             }
         });
 

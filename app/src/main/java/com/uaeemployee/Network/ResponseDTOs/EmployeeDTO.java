@@ -1,5 +1,7 @@
 package com.uaeemployee.Network.ResponseDTOs;
 
+import com.uaeemployee.Models.Organization;
+
 import java.io.Serializable;
 
 public class EmployeeDTO implements Serializable{
@@ -14,8 +16,10 @@ public class EmployeeDTO implements Serializable{
     private String ContactNo;
     private String Salary;
     private String CountryName;
+    private String Organization;
 
-    public EmployeeDTO(int employeeID, int subSubOrganizationID, String firstName, String lastName, String gender, String email, String address, String contactNo, String salary, String countryName) {
+    public EmployeeDTO(String organization, int employeeID, int subSubOrganizationID, String firstName, String lastName, String gender, String email, String address, String contactNo, String salary, String countryName) {
+        Organization = organization;
         EmployeeID = employeeID;
         SubSubOrganizationID = subSubOrganizationID;
         FirstName = firstName;
@@ -26,6 +30,14 @@ public class EmployeeDTO implements Serializable{
         ContactNo = contactNo;
         Salary = salary;
         CountryName = countryName;
+    }
+
+    public String getOrganization() {
+        return Organization;
+    }
+
+    public void setOrganization(String organization) {
+        Organization = organization;
     }
 
     public int getEmployeeID() {
