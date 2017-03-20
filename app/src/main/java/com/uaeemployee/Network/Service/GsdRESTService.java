@@ -29,8 +29,8 @@ public interface GSDRESTService {
                           Callback<List<OrganizationsDTO>> organizationsDTOCallback);
 
     // get Vacancies Request
-    @GET("/GetAllVacancies/null/{OrganizationID}/{StatusID}/{LoginEmpID}")
-    void getVacancies(@Path("OrganizationID") int OrganizationID, @Path("StatusID") int StatusID, @Path("LoginEmpID") int LoginEmpID,
+    @GET("/GetAllVacancies/null/null/null/{LoginEmpID}")
+    void getVacancies(@Path("LoginEmpID") int LoginEmpID,
                       Callback<List<VacanciesDTO>> vacanciesResponseDTO);
 
 // get All Employees

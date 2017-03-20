@@ -11,6 +11,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -37,18 +39,25 @@ import com.uaeemployee.Utils.SharedPreferencesManager;
 import com.uaeemployee.Utils.SystemConstants;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
 public class VacanciesFragment extends Fragment implements MyCallBack {
 
     View mView;
+
+    List<VacanciesDTO> lVacanciesFiltered = new ArrayList<VacanciesDTO>();
     List<VacanciesDTO> lVacancies = new ArrayList<VacanciesDTO>();
     List<VacanciesDTO> filteredList = new ArrayList<VacanciesDTO>();
     EditText etSearch;
     ListView lvList;
     ListAdapter mAdapter;
+    boolean compFilterApplied = false;
     TextView tvNoTextFound;
     SharedPreferencesManager sharedPreferencesManager;
 
@@ -76,7 +85,7 @@ public class VacanciesFragment extends Fragment implements MyCallBack {
 
     private void getAllVacancies() {
         CommonActions.showProgressDialog(getActivity());
-        GSDServiceFactory.getService(getActivity()).getVacancies(new com.uaeemployee.Network.RequestDTOs.VacanciesDTO(SystemConstants.RESPONSE_VACANCIES,1,1,MyApplication.getInstance().getUserID()), this);
+        GSDServiceFactory.getService(getActivity()).getVacancies(new com.uaeemployee.Network.RequestDTOs.VacanciesDTO(SystemConstants.RESPONSE_VACANCIES,MyApplication.getInstance().getUserID()), this);
     }
 
     private void initViews() {
@@ -103,25 +112,48 @@ public class VacanciesFragment extends Fragment implements MyCallBack {
 
                 filteredList.clear();
 
-                for (int i = 0; i < lVacancies.size(); i++) {
+                if (!compFilterApplied) {
+                    for (int i = 0; i < lVacancies.size(); i++) {
 
-                    final String name = lVacancies.get(i).getTitle().toLowerCase();
-                    if (name.startsWith((String) cs)) {
+                        final String name = lVacancies.get(i).getTitle().toLowerCase();
+                        if (name.startsWith((String) cs)) {
 
-                        filteredList.add(lVacancies.get(i));
+                            filteredList.add(lVacancies.get(i));
+                        }
                     }
-                }
 
-                if (0 == filteredList.size()) {
-                    tvNoTextFound.setVisibility(View.VISIBLE);
-                    mAdapter = new ListAdapter(filteredList, getActivity());
-                    lvList.setAdapter(mAdapter);
-                    mAdapter.notifyDataSetChanged();
+                    if (0 == filteredList.size()) {
+                        tvNoTextFound.setVisibility(View.VISIBLE);
+                        mAdapter = new ListAdapter(filteredList, getActivity());
+                        lvList.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
+                    } else {
+                        tvNoTextFound.setVisibility(View.GONE);
+                        mAdapter = new ListAdapter(filteredList, getActivity());
+                        lvList.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
+                    }
                 } else {
-                    tvNoTextFound.setVisibility(View.GONE);
-                    mAdapter = new ListAdapter(filteredList, getActivity());
-                    lvList.setAdapter(mAdapter);
-                    mAdapter.notifyDataSetChanged();
+                    for (int i = 0; i < lVacanciesFiltered.size(); i++) {
+
+                        final String name = lVacanciesFiltered.get(i).getTitle().toLowerCase();
+                        if (name.startsWith((String) cs)) {
+
+                            filteredList.add(lVacanciesFiltered.get(i));
+                        }
+                    }
+
+                    if (0 == filteredList.size()) {
+                        tvNoTextFound.setVisibility(View.VISIBLE);
+                        mAdapter = new ListAdapter(filteredList, getActivity());
+                        lvList.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
+                    } else {
+                        tvNoTextFound.setVisibility(View.GONE);
+                        mAdapter = new ListAdapter(filteredList, getActivity());
+                        lvList.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
+                    }
                 }
             }
 
@@ -140,13 +172,18 @@ public class VacanciesFragment extends Fragment implements MyCallBack {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 getActivity().getSupportFragmentManager().executePendingTransactions();
                 Intent in = new Intent(getActivity(), VacancyDetailActivity.class);
-                if ("".equals(etSearch.getText().toString().trim())) {
-                    VacanciesDTO vacanciesDTO = new VacanciesDTO(lVacancies.get(position).getVacancyID(), lVacancies.get(position).getJobType(), lVacancies.get(position).getTitle()
+                if ("".equals(etSearch.getText().toString().trim())&& !compFilterApplied) {
+                    VacanciesDTO vacanciesDTO = new VacanciesDTO(lVacancies.get(position).getOrganization(),lVacancies.get(position).getVacancyID(), lVacancies.get(position).getJobType(), lVacancies.get(position).getTitle()
                             , lVacancies.get(position).getJobLevel(), lVacancies.get(position).getDescription(), lVacancies.get(position).getSubSubOrganizationID());
                     in.putExtra(getString(R.string.bundle_vacDto), vacanciesDTO);
-                } else {
-                    VacanciesDTO vacanciesDTO = new VacanciesDTO(filteredList.get(position).getVacancyID(), filteredList.get(position).getJobType(), filteredList.get(position).getTitle()
+                } else  if (!"".equals(etSearch.getText().toString().trim())) {
+                    VacanciesDTO vacanciesDTO = new VacanciesDTO(filteredList.get(position).getOrganization(),filteredList.get(position).getVacancyID(), filteredList.get(position).getJobType(), filteredList.get(position).getTitle()
                             , filteredList.get(position).getJobLevel(), filteredList.get(position).getDescription(), filteredList.get(position).getSubSubOrganizationID());
+                    in.putExtra(getString(R.string.bundle_vacDto), vacanciesDTO);
+                }else{
+                    VacanciesDTO vacanciesDTO = new VacanciesDTO(lVacanciesFiltered.get(position).getOrganization(),
+                            lVacanciesFiltered.get(position).getVacancyID(), lVacanciesFiltered.get(position).getJobType(), lVacanciesFiltered.get(position).getTitle()
+                            , lVacanciesFiltered.get(position).getJobLevel(), lVacanciesFiltered.get(position).getDescription(), lVacanciesFiltered.get(position).getSubSubOrganizationID());
                     in.putExtra(getString(R.string.bundle_vacDto), vacanciesDTO);
                 }
 
@@ -156,6 +193,45 @@ public class VacanciesFragment extends Fragment implements MyCallBack {
         });
     }
 
+
+    // Update UI on Main Thread
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEventinMainThread(String compnayNmae) {
+        etSearch.setText("");
+        InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        lVacanciesFiltered.clear();
+        if (compnayNmae.startsWith("All")) {
+            compFilterApplied = false;
+            mAdapter = new ListAdapter(lVacancies, getActivity());
+            lvList.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+        } else {
+            compFilterApplied = true;
+            for (int i = 0; i < lVacancies.size(); i++) {
+                if (compnayNmae.equals(lVacancies.get(i).getOrganization())) {
+                    lVacanciesFiltered.add(lVacancies.get(i));
+                }
+            }
+            mAdapter = new ListAdapter(lVacanciesFiltered, getActivity());
+            lvList.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+    
 
     @Override
     public void onSuccess(ResponseDTO responseDTO) {

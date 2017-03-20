@@ -24,7 +24,7 @@ import java.util.List;
 public class VacancyDetailActivity extends AppCompatActivity {
 
 
-    TextView tvJobTitle, tvSalaryValue, tvJobTypeValue, tvLevelValue, tvLocationValue, tvJobDescriptionValue;
+    TextView tvJobTitle, tvSalaryValue, tvJobTypeValue, tvLevelValue, tvLocationValue, tvJobDescriptionValue, tvOrgValue;
     SharedPreferencesManager sharedPreferencesManager;
     private Toolbar mToolbar;
     VacanciesDTO vacanciesDTO;
@@ -48,6 +48,7 @@ public class VacancyDetailActivity extends AppCompatActivity {
         tvSalaryValue = (TextView) findViewById(R.id.tvSalaryValue);
         tvJobTypeValue = (TextView) findViewById(R.id.tvJobTypeValue);
         tvLevelValue = (TextView) findViewById(R.id.tvLevelValue);
+        tvOrgValue  = (TextView) findViewById(R.id.tvOrgValue);
         tvLocationValue = (TextView) findViewById(R.id.tvLocationValue);
         tvJobDescriptionValue  = (TextView) findViewById(R.id.tvJobDescriptionValue);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -93,6 +94,7 @@ public class VacancyDetailActivity extends AppCompatActivity {
         tvJobTypeValue.setText(vacanciesDTO.getJobType());
         tvLevelValue.setText(vacanciesDTO.getJobLevel());
         tvLocationValue.setText(getString(R.string.txt_UAE));
+        tvOrgValue.setText(vacanciesDTO.getOrganization());
         tvJobDescriptionValue.setText(vacanciesDTO.getDescription());
     }
 }

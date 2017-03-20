@@ -167,7 +167,7 @@ public class GenderActivity extends AppCompatActivity implements MyCallBack {
                                     llMale.setVisibility(View.VISIBLE);
                                 }
                             }
-                            tvName.setText("Total Salary: "+salary);
+                            tvName.setText(getString(R.string.txt_salary)+" "+salary);
                         }
 
                         if(llFemale.getVisibility()==View.GONE && llMale.getVisibility()==View.GONE ){

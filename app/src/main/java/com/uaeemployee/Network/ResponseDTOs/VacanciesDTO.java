@@ -18,11 +18,12 @@ public class VacanciesDTO implements Serializable {
     public VacanciesDTO() {
     }
 
-    public VacanciesDTO(int vacancyID, String jobType, String title, String jobLevel, String description, int subSubOrganizationID) {
+    public VacanciesDTO(String organization, int vacancyID, String jobType, String title, String jobLevel, String description, int subSubOrganizationID) {
         VacancyID = vacancyID;
         JobType = jobType;
         Title = title;
         JobLevel = jobLevel;
+        Organization = organization;
         Description = description;
         SubSubOrganizationID = subSubOrganizationID;
     }

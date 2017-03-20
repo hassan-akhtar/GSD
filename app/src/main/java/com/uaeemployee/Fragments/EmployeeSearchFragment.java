@@ -12,6 +12,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -38,19 +40,27 @@ import com.uaeemployee.Utils.CommonActions;
 import com.uaeemployee.Utils.SharedPreferencesManager;
 import com.uaeemployee.Utils.SystemConstants;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeSearchFragment extends Fragment implements MyCallBack{
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
+public class EmployeeSearchFragment extends Fragment implements MyCallBack {
 
     View mView;
-    List<EmployeeDTO> lEmployees = new ArrayList<EmployeeDTO>();
+    static List<EmployeeDTO> lEmployees = new ArrayList<EmployeeDTO>();
+    static List<EmployeeDTO> lEmployeesFiltered = new ArrayList<EmployeeDTO>();
     List<EmployeeDTO> filteredList = new ArrayList<EmployeeDTO>();
     EditText etSearch;
-    ListView lvList;
-    ListAdapter mAdapter;
+    static ListView lvList;
+    static ListAdapter mAdapter;
     TextView tvNoTextFound;
     Toolbar toolbar;
+    boolean compFilterApplied = false;
     SharedPreferencesManager sharedPreferencesManager;
 
     public EmployeeSearchFragment() {
@@ -76,7 +86,7 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
 
     private void getAllEmployees() {
         CommonActions.showProgressDialog(getActivity());
-        GSDServiceFactory.getService(getActivity()).getEmployees(new com.uaeemployee.Network.RequestDTOs.VacanciesDTO(SystemConstants.RESPONSE_EMPLOYEES,MyApplication.getInstance().getUserID()),this);
+        GSDServiceFactory.getService(getActivity()).getEmployees(new com.uaeemployee.Network.RequestDTOs.VacanciesDTO(SystemConstants.RESPONSE_EMPLOYEES, MyApplication.getInstance().getUserID()), this);
     }
 
     private void initViews() {
@@ -85,7 +95,7 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
         tvNoTextFound = (TextView) mView.findViewById(R.id.tvNoTextFound);
         toolbar = (Toolbar) mView.findViewById(R.id.toolbar);
         toolbar.setVisibility(View.GONE);
-        if (!BaseActivity.isEmployeeDoc ) {
+        if (!BaseActivity.isEmployeeDoc) {
             ((BaseActivity) getActivity()).mToolbar.setTitle(getString(R.string.employeeSearch));
         } else {
             ((BaseActivity) getActivity()).mToolbar.setTitle(getString(R.string.employee_document));
@@ -95,7 +105,7 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
     private void initObj() {
         BaseActivity.fragment = new EmployeeSearchFragment();
         sharedPreferencesManager = new SharedPreferencesManager(getActivity());
-        sharedPreferencesManager.setBoolean(SharedPreferencesManager.IS_VACANCY,false,getActivity());
+        sharedPreferencesManager.setBoolean(SharedPreferencesManager.IS_VACANCY, false, getActivity());
     }
 
     private void initListeners() {
@@ -109,30 +119,53 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
 
                 filteredList.clear();
 
-                for (int i = 0; i < lEmployees.size(); i++) {
+                if (!compFilterApplied) {
+                    for (int i = 0; i < lEmployees.size(); i++) {
 
-                    final String name = lEmployees.get(i).getFirstName().toLowerCase();
-                    if (name.startsWith((String) cs)) {
+                        final String name = lEmployees.get(i).getFirstName().toLowerCase();
+                        if (name.startsWith((String) cs)) {
 
-                        filteredList.add(lEmployees.get(i));
+                            filteredList.add(lEmployees.get(i));
+                        }
                     }
-                }
 
-                if (0 == filteredList.size()) {
-                    tvNoTextFound.setVisibility(View.VISIBLE);
-                    mAdapter = new ListAdapter(filteredList, getActivity(),"");
-                    lvList.setAdapter(mAdapter);
-                    mAdapter.notifyDataSetChanged();
+                    if (0 == filteredList.size()) {
+                        tvNoTextFound.setVisibility(View.VISIBLE);
+                        mAdapter = new ListAdapter(filteredList, getActivity(), "");
+                        lvList.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
+                    } else {
+                        tvNoTextFound.setVisibility(View.GONE);
+                        mAdapter = new ListAdapter(filteredList, getActivity(), "");
+                        lvList.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
+                    }
                 } else {
-                    tvNoTextFound.setVisibility(View.GONE);
-                    mAdapter = new ListAdapter(filteredList, getActivity(),"");
-                    lvList.setAdapter(mAdapter);
-                    mAdapter.notifyDataSetChanged();
+                    for (int i = 0; i < lEmployeesFiltered.size(); i++) {
+
+                        final String name = lEmployeesFiltered.get(i).getFirstName().toLowerCase();
+                        if (name.startsWith((String) cs)) {
+
+                            filteredList.add(lEmployeesFiltered.get(i));
+                        }
+                    }
+
+                    if (0 == filteredList.size()) {
+                        tvNoTextFound.setVisibility(View.VISIBLE);
+                        mAdapter = new ListAdapter(filteredList, getActivity(), "");
+                        lvList.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
+                    } else {
+                        tvNoTextFound.setVisibility(View.GONE);
+                        mAdapter = new ListAdapter(filteredList, getActivity(), "");
+                        lvList.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
+                    }
                 }
             }
 
             @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,int arg3) {
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
             }
 
             @Override
@@ -144,27 +177,31 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
         lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (!BaseActivity.isEmployeeDoc ) {
+                if (!BaseActivity.isEmployeeDoc) {
                     Intent in = new Intent(getActivity(), EmployeeProfileActivity.class);
-                    if("".equals(etSearch.getText().toString().trim())){
-                        EmployeeDTO employeeDTO = new EmployeeDTO(lEmployees.get(position).getOrganization(),lEmployees.get(position).getEmployeeID(), lEmployees.get(position).getSubSubOrganizationID(), lEmployees.get(position).getFirstName()
+                    if ("".equals(etSearch.getText().toString().trim())&& !compFilterApplied) {
+                        EmployeeDTO employeeDTO = new EmployeeDTO(lEmployees.get(position).getOrganization(), lEmployees.get(position).getEmployeeID(), lEmployees.get(position).getSubSubOrganizationID(), lEmployees.get(position).getFirstName()
                                 , lEmployees.get(position).getLastName(), lEmployees.get(position).getGender(), lEmployees.get(position).getEmail(), lEmployees.get(position).getAddress(), lEmployees.get(position).getContactNo(), lEmployees.get(position).getSalary(), lEmployees.get(position).getCountryName());
                         in.putExtra(getString(R.string.bundle_emp_dto), employeeDTO);
-                    }else{
-                        EmployeeDTO employeeDTO = new EmployeeDTO(filteredList.get(position).getOrganization(),filteredList.get(position).getEmployeeID(), filteredList.get(position).getSubSubOrganizationID(), filteredList.get(position).getFirstName()
+                    } else  if (!"".equals(etSearch.getText().toString().trim())) {
+                        EmployeeDTO employeeDTO = new EmployeeDTO(filteredList.get(position).getOrganization(), filteredList.get(position).getEmployeeID(), filteredList.get(position).getSubSubOrganizationID(), filteredList.get(position).getFirstName()
                                 , filteredList.get(position).getLastName(), filteredList.get(position).getGender(), filteredList.get(position).getEmail(), filteredList.get(position).getAddress(), filteredList.get(position).getContactNo(), filteredList.get(position).getSalary(), filteredList.get(position).getCountryName());
+                        in.putExtra(getString(R.string.bundle_emp_dto), employeeDTO);
+                    }else{
+                        EmployeeDTO employeeDTO = new EmployeeDTO(lEmployeesFiltered.get(position).getOrganization(), lEmployeesFiltered.get(position).getEmployeeID(), lEmployeesFiltered.get(position).getSubSubOrganizationID(), lEmployeesFiltered.get(position).getFirstName()
+                                , lEmployeesFiltered.get(position).getLastName(), lEmployeesFiltered.get(position).getGender(), lEmployeesFiltered.get(position).getEmail(), lEmployeesFiltered.get(position).getAddress(), lEmployeesFiltered.get(position).getContactNo(), lEmployeesFiltered.get(position).getSalary(), lEmployeesFiltered.get(position).getCountryName());
                         in.putExtra(getString(R.string.bundle_emp_dto), employeeDTO);
                     }
 
                     startActivity(in);
                 } else {
                     Intent in = new Intent(getActivity(), EmployeeDocumentActivity.class);
-                    if("".equals(etSearch.getText().toString().trim())){
-                        EmployeeDTO employeeDTO = new EmployeeDTO(lEmployees.get(position).getOrganization(),lEmployees.get(position).getEmployeeID(), lEmployees.get(position).getSubSubOrganizationID(), lEmployees.get(position).getFirstName()
+                    if ("".equals(etSearch.getText().toString().trim())) {
+                        EmployeeDTO employeeDTO = new EmployeeDTO(lEmployees.get(position).getOrganization(), lEmployees.get(position).getEmployeeID(), lEmployees.get(position).getSubSubOrganizationID(), lEmployees.get(position).getFirstName()
                                 , lEmployees.get(position).getLastName(), lEmployees.get(position).getGender(), lEmployees.get(position).getEmail(), lEmployees.get(position).getAddress(), lEmployees.get(position).getContactNo(), lEmployees.get(position).getSalary(), lEmployees.get(position).getCountryName());
                         in.putExtra(getString(R.string.bundle_emp_doc), employeeDTO);
-                    }else{
-                        EmployeeDTO employeeDTO = new EmployeeDTO(filteredList.get(position).getOrganization(),filteredList.get(position).getEmployeeID(), filteredList.get(position).getSubSubOrganizationID(), filteredList.get(position).getFirstName()
+                    } else {
+                        EmployeeDTO employeeDTO = new EmployeeDTO(filteredList.get(position).getOrganization(), filteredList.get(position).getEmployeeID(), filteredList.get(position).getSubSubOrganizationID(), filteredList.get(position).getFirstName()
                                 , filteredList.get(position).getLastName(), filteredList.get(position).getGender(), filteredList.get(position).getEmail(), filteredList.get(position).getAddress(), filteredList.get(position).getContactNo(), filteredList.get(position).getSalary(), filteredList.get(position).getCountryName());
                         in.putExtra(getString(R.string.bundle_emp_doc), employeeDTO);
                     }
@@ -178,6 +215,43 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
     }
 
 
+    // Update UI on Main Thread
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEventinMainThread(String compnayNmae) {
+        lEmployeesFiltered.clear();
+        etSearch.setText("");
+        InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        if (compnayNmae.startsWith("All")) {
+            compFilterApplied = false;
+            mAdapter = new ListAdapter(lEmployees, getActivity(), "");
+            lvList.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+        } else {
+            compFilterApplied = true;
+            for (int i = 0; i < lEmployees.size(); i++) {
+                if (compnayNmae.equals(lEmployees.get(i).getOrganization())) {
+                    lEmployeesFiltered.add(lEmployees.get(i));
+                }
+            }
+            mAdapter = new ListAdapter(lEmployeesFiltered, getActivity(), "");
+            lvList.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
 
 
     @Override
@@ -187,13 +261,13 @@ public class EmployeeSearchFragment extends Fragment implements MyCallBack{
             case SystemConstants.RESPONSE_EMPLOYEES:
                 EmployeeResponseDTO employeeResponseDTO = (EmployeeResponseDTO) responseDTO;
                 if (responseDTO != null) {
-                    if (null==responseDTO.getMessage()) {
+                    if (null == responseDTO.getMessage()) {
                         CommonActions.DismissesDialog();
                         lEmployees = employeeResponseDTO.getEmployeeDTO();
-                        mAdapter = new ListAdapter(lEmployees, getActivity(),"");
+                        mAdapter = new ListAdapter(lEmployees, getActivity(), "");
                         lvList.setAdapter(mAdapter);
                         BaseActivity.companisList.clear();
-                        for (int i=0;i<lEmployees.size();i++){
+                        for (int i = 0; i < lEmployees.size(); i++) {
                             if (!"".equals(lEmployees.get(i).getOrganization())) {
                                 if (!BaseActivity.companisList.contains(lEmployees.get(i).getOrganization())) {
                                     BaseActivity.companisList.add(lEmployees.get(i).getOrganization());

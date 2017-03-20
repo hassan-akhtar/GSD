@@ -108,7 +108,7 @@ public class GSDServiceImpl implements GSDService {
 
     @Override
     public void getVacancies(final com.uaeemployee.Network.RequestDTOs.VacanciesDTO organizationsDTO, final MyCallBack callback) {
-        adapter.getVacancies(organizationsDTO.getOrganizationID(),organizationsDTO.getStatusID(),organizationsDTO.getLoginEmpID(), new Callback<List<VacanciesDTO>>() {
+        adapter.getVacancies(organizationsDTO.getLoginEmpID(), new Callback<List<VacanciesDTO>>() {
             @Override
             public void success(List<VacanciesDTO> vacanciesDTO, Response response) {
                 VacanciesResponseDTO res = new VacanciesResponseDTO();

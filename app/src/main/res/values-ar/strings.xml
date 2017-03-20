@@ -79,7 +79,7 @@
     <string name="male">ذكور</string>
     <string name="nationality">الجنسية:</string>
     <string name="organization">ألشركات:</string>
-
+    <string name="txt_salary">كامل الراتب:</string>
 
     <string name="salary">المرتب:</string>
     <string name="job_type">نوع العمل:</string>

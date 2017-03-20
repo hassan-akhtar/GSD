@@ -16,7 +16,9 @@
     <string name="suborganizations">Sub Organizations</string>
     <string name="vacancies">Vacancies</string>
     <string name="logo">logo</string>
+    <string name="all_companies">All companies</string>
     <string name="txt_Org">Organization</string>
+    <string name="txt_salary">Total Salary:</string>
     <string name="txt_main_menu">Main Menu</string>
     <string name="txt_vacancies">Vacancies</string>
     <string name="txt_employee_search">Employee Search</string>
@@ -28,7 +30,7 @@
     <string name="txt_armani">Armani</string>
     <string name="txt_company">Company</string>
     <string name="txt_cancel">cancel</string>
-    <string name="txt_selected">"You selected: "</string>
+    <string name="txt_selected">"Updating list"</string>
     <string name="txt_logout">Logout</string>
     <string name="txt_logout_msg">Are you sure you want to Logout?</string>
     <string name="txt_cancle_large">CANCEL</string>

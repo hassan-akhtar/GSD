@@ -29,6 +29,8 @@ import com.uaeemployee.Interfaces.Communicator;
 import com.uaeemployee.Models.Organization;
 import com.uaeemployee.R;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -191,7 +193,7 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
             builderSingle.setIcon(R.drawable.icon_orgs);
             builderSingle.setTitle(R.string.menu_txt_title);
             final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(BaseActivity.this, android.R.layout.select_dialog_singlechoice);
-            arrayAdapter.add(getString(R.string.txt_emmar));
+            arrayAdapter.add(getString(R.string.all_companies));
             arrayAdapter.addAll(companisList);
 
             builderSingle.setNegativeButton(R.string.txt_cancel, new DialogInterface.OnClickListener() {
@@ -205,7 +207,8 @@ public class BaseActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     String strName = arrayAdapter.getItem(which);
-                    Toast.makeText(getApplicationContext(), getString(R.string.txt_selected) + strName, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.txt_selected), Toast.LENGTH_LONG).show();
+                    EventBus.getDefault().post(strName);
                 }
             });
             builderSingle.show();
