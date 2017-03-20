@@ -1,6 +1,8 @@
 package com.uaeemployee.Activites;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,9 +30,9 @@ import com.uaeemployee.Utils.SystemConstants;
 
 import java.util.List;
 
-public class EmployeeDocumentActivity extends AppCompatActivity implements MyCallBack{
+public class EmployeeDocumentActivity extends AppCompatActivity implements MyCallBack {
 
-    TextView tvEmployeeID,tvDocumentName, tvNoTextFound;
+    TextView tvEmployeeID, tvDocumentName, tvNoTextFound;
     SharedPreferencesManager sharedPreferencesManager;
     private Toolbar mToolbar;
     EmployeeDTO employeeDTO;
@@ -71,8 +73,9 @@ public class EmployeeDocumentActivity extends AppCompatActivity implements MyCal
 
     private void getEmployeeDocument() {
         CommonActions.showProgressDialog(EmployeeDocumentActivity.this);
-        GSDServiceFactory.getService(getApplicationContext()).getEmployeeDocument(new com.uaeemployee.Network.RequestDTOs.OrganizationsDTO(SystemConstants.RESPONSE_EMPLOYEES_DOC,employeeDTO.getEmployeeID()),this);
+        GSDServiceFactory.getService(getApplicationContext()).getEmployeeDocument(new com.uaeemployee.Network.RequestDTOs.OrganizationsDTO(SystemConstants.RESPONSE_EMPLOYEES_DOC, employeeDTO.getEmployeeID()), this);
     }
+
     private void initListeners() {
 
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -85,10 +88,17 @@ public class EmployeeDocumentActivity extends AppCompatActivity implements MyCal
         lvEmployee.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(),getString(R.string.txt_doc_path)+employeeDocumentList.get(position).getDocPath(),Toast.LENGTH_LONG).show();
+                employeeDocumentList.get(position).setDocPath("http://www.google.com");
+                if ("".equals(employeeDocumentList.get(position).getDocPath())) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.txt_doc_path_new), Toast.LENGTH_LONG).show();
+                } else {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(employeeDocumentList.get(position).getDocPath()));
+                    startActivity(browserIntent);
+                }
             }
         });
     }
+
     @Override
     public void onSuccess(ResponseDTO responseDTO) {
         switch (responseDTO.getCallBackId()) {
@@ -96,7 +106,7 @@ public class EmployeeDocumentActivity extends AppCompatActivity implements MyCal
             case SystemConstants.RESPONSE_EMPLOYEES_DOC:
                 EmployeeDocumentResponseDTO employeeResponseDTO = (EmployeeDocumentResponseDTO) responseDTO;
                 if (responseDTO != null) {
-                    if (null==responseDTO.getMessage()) {
+                    if (null == responseDTO.getMessage()) {
                         CommonActions.DismissesDialog();
                         employeeDocumentList = employeeResponseDTO.getEmployeeDocument();
                         setupData();
@@ -122,7 +132,7 @@ public class EmployeeDocumentActivity extends AppCompatActivity implements MyCal
     }
 
     private void setupData() {
-        if (0!=employeeDocumentList.size()) {
+        if (0 != employeeDocumentList.size()) {
             tvNoTextFound.setVisibility(View.GONE);
             employeeDocumentAdapter = new EmployeeDocumentAdapter(employeeDocumentList, getApplicationContext());
             lvEmployee.setAdapter(employeeDocumentAdapter);

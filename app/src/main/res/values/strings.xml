@@ -37,6 +37,7 @@
     <string name="txt_yes">YES</string>
     <string name="bundle_employee_doc">employee_doc_DTO_Obj</string>
     <string name="txt_doc_path">Doc Path:</string>
+    <string name="txt_doc_path_new">Document not available at the moment</string>
     <string name="txt_close">CLOSE</string>
     <string name="error_404_msg">Service is not Available please try again Later!</string>
     <string name="error_poor_con">Poor or no Internet Connection!</string>
