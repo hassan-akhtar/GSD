@@ -53,8 +53,6 @@ public class LoginActivity extends AppCompatActivity   implements MyCallBack {
         etUser = (EditText) findViewById(R.id.etUser);
         etPass = (EditText) findViewById(R.id.etPass);
         switchLanguage = (Switch) findViewById(R.id.mySwitch);
-        etPass.setText("admin");
-        etUser.setText("admin");
     }
 
     private void initObj() {

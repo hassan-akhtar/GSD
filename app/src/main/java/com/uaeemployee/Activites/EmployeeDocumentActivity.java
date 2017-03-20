@@ -88,7 +88,6 @@ public class EmployeeDocumentActivity extends AppCompatActivity implements MyCal
         lvEmployee.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                employeeDocumentList.get(position).setDocPath("http://www.google.com");
                 if ("".equals(employeeDocumentList.get(position).getDocPath())) {
                     Toast.makeText(getApplicationContext(), getString(R.string.txt_doc_path_new), Toast.LENGTH_LONG).show();
                 } else {
